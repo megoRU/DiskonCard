@@ -69,6 +69,13 @@
   box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2); /* Тень при фокусе в стиле Apple */
 }
 
+/* Dark theme adjustments for input focus */
+[data-theme="dark"] .add-card-form input[type="text"]:focus,
+[data-theme="dark"] .add-card-form input[type="file"]:focus {
+  border-color: var(--primary-color-dark-theme, #589eff); /* Более светлый синий для темной темы */
+  box-shadow: 0 0 0 2px rgba(88, 158, 255, 0.3); /* Тень под этот цвет */
+}
+
 /* Specific styles for input[type="file"] can be added if default is not good enough */
 /* .add-card-form input[type="file"] { } */
 

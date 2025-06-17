@@ -75,7 +75,7 @@ const resources = {
       },
       // AddCardPage
       addCardPage: {
-        title: "Добавление карты лояльности"
+        title: "Добавление карты"
       },
       // AddCardForm
       addCardForm: {
