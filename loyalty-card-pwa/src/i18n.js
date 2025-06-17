@@ -60,7 +60,7 @@ const resources = {
       },
       // HomePage
       homePage: {
-        title: "Мои карты",
+        title: "Ваши карты",
         noCardsMessage: "Карт пока нет. Добавьте свою первую карту!",
         confirmDeleteMessage: "Вы уверены, что хотите удалить эту карту?",
         deleteCardAriaLabel: "Удалить карту"
@@ -75,7 +75,7 @@ const resources = {
       },
       // AddCardPage
       addCardPage: {
-        title: "Добавить карту лояльности"
+        title: "Добавление карты лояльности"
       },
       // AddCardForm
       addCardForm: {
