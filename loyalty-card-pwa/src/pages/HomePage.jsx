@@ -81,7 +81,12 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
         </div>
       ) : (
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="cardsDroppableArea" direction="horizontal" isDropDisabled={!isEditMode}>
+          <Droppable
+            droppableId="cardsDroppableArea"
+            direction="vertical"
+            isDropDisabled={!isEditMode}
+            isCombineEnabled={false} // Explicitly set
+          >
             {(provided, snapshot) => (
               <div
                 className={cardsContainerClass}
