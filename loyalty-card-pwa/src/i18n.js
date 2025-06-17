@@ -33,7 +33,7 @@ const resources = {
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Store Name:",
-        storeNamePlaceholder: "e.g. Coffee Shop",
+        storeNamePlaceholder: "Name",
         cardNumberLabel: "Card Number:",
         cardNumberPlaceholder: "e.g. 123456789",
         addCardButton: "Add Card",
@@ -80,7 +80,7 @@ const resources = {
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Название магазина:",
-        storeNamePlaceholder: "например, Кофейня",
+        storeNamePlaceholder: "Название",
         cardNumberLabel: "Номер карты:",
         cardNumberPlaceholder: "например, 123456789",
         addCardButton: "Добавить карту",

@@ -1,7 +1,8 @@
 .add-card-page {
   padding: 20px; /* Больше воздуха по краям */
-  background-color: #f9f9f9; /* Очень светло-серый фон */
-  text-align: center; /* Already centered, but good to confirm for h1 */
+  background-color: var(--background-primary); /* Use theme variable */
+  color: var(--text-primary); /* Use theme variable for default text color */
+  /* text-align: center; */ /* Removed to allow child elements to align left by default */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* Internet Explorer/Edge */
