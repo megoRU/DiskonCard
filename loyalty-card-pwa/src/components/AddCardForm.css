@@ -36,6 +36,7 @@
 }
 
 .add-card-form input[type="text"],
+.add-card-form input[type="tel"], /* Added */
 .add-card-form input[type="file"] {
   width: 100%;
   padding: 12px 15px; /* Увеличенный внутренний отступ */
@@ -63,6 +64,7 @@
 */
 
 .add-card-form input[type="text"]:focus,
+.add-card-form input[type="tel"]:focus, /* Added */
 .add-card-form input[type="file"]:focus {
   outline: none;
   border-color: var(--primary-color, #007aff); /* Цвет акцента Apple */
@@ -71,9 +73,19 @@
 
 /* Dark theme adjustments for input focus */
 [data-theme="dark"] .add-card-form input[type="text"]:focus,
+[data-theme="dark"] .add-card-form input[type="tel"]:focus, /* Added */
 [data-theme="dark"] .add-card-form input[type="file"]:focus {
   border-color: var(--primary-color-dark-theme, #589eff); /* Более светлый синий для темной темы */
   box-shadow: 0 0 0 2px rgba(88, 158, 255, 0.3); /* Тень под этот цвет */
+}
+
+/* Dark theme base styles for inputs */
+[data-theme="dark"] .add-card-form input[type="text"],
+[data-theme="dark"] .add-card-form input[type="tel"],
+[data-theme="dark"] .add-card-form input[type="file"] {
+  background-color: var(--input-background); /* Uses variable from index.css */
+  color: var(--text-primary); /* Uses variable from index.css for text */
+  border-color: var(--input-border); /* Uses variable from index.css */
 }
 
 /* Specific styles for input[type="file"] can be added if default is not good enough */
