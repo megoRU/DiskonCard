@@ -6,6 +6,19 @@ import { useTranslation } from 'react-i18next';
 import Notification from './Notification'; // Import Notification component
 import './AddCardForm.css';
 
+const popularStores = [
+  "Магнит",
+  "Пятёрочка",
+  "Перекрёсток",
+  "Лента",
+  "М.Видео",
+  "Спортмастер",
+  "Л'Этуаль",
+  "DNS",
+  "Ozon",
+  "Wildberries"
+];
+
 const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
@@ -67,7 +80,14 @@ const AddCardForm = () => {
           onChange={(e) => setStoreName(e.target.value)}
           placeholder={t('addCardForm.storeNamePlaceholder', 'e.g. Coffee Shop')}
           required
+          list="store-suggestions" // Added list attribute
         />
+        {/* Added datalist */}
+        <datalist id="store-suggestions">
+          {popularStores.map((store, index) => (
+            <option key={index} value={store} />
+          ))}
+        </datalist>
       </div>
       <div className="form-group">
         <label htmlFor="cardNumber">{t('addCardForm.cardNumberLabel')}</label>

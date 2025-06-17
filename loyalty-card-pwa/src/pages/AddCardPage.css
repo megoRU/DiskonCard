@@ -1,6 +1,7 @@
 .add-card-page {
-  padding: 16px; /* Consistent padding */
-  text-align: center;
+  padding: 20px; /* Больше воздуха по краям */
+  background-color: #f9f9f9; /* Очень светло-серый фон */
+  text-align: center; /* Already centered, but good to confirm for h1 */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* Internet Explorer/Edge */
@@ -12,4 +13,5 @@
   font-weight: 700;
   margin-bottom: 24px;
   color: var(--text-primary);
+  text-align: center; /* Часто используется в Apple UI для заголовков экранов */
 }
