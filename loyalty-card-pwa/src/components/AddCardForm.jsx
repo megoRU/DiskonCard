@@ -10,9 +10,23 @@ const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
+  const [coverImageData, setCoverImageData] = useState(null); // State for cover image data URL
   // showCamera state removed
   const [notification, setNotification] = useState({ message: '', type: 'success' }); // Notification state
   const navigate = useNavigate();
+
+  const handleCoverImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImageData(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setCoverImageData(null); // Reset if file is not an image or not selected
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,10 +34,11 @@ const AddCardForm = () => {
       setNotification({ message: t('addCardForm.fillFieldsAlert'), type: 'error' });
       return;
     }
-    addCardToStorage({ cardNumber, storeName });
+    addCardToStorage({ cardNumber, storeName, coverImage: coverImageData }); // Pass coverImageData
     setNotification({ message: t('addCardForm.cardAddedSuccess'), type: 'success' });
     setCardNumber('');
     setStoreName('');
+    setCoverImageData(null); // Reset cover image data
     // navigate('/'); // Navigation might be too fast, consider delaying or allowing user to see notification
     // For now, let's keep navigation to see how it behaves with notification.
     // If notification isn't visible long enough, could navigate in onClose of Notification
@@ -64,6 +79,20 @@ const AddCardForm = () => {
           placeholder={t('addCardForm.cardNumberPlaceholder', 'e.g. 123456789')}
           required
         />
+      </div>
+      <div className="form-group">
+        <label htmlFor="coverImage">{t('addCardForm.coverImageLabel', 'Обложка карты (изображение)')}</label>
+        <input
+          type="file"
+          id="coverImage"
+          accept="image/*"
+          onChange={handleCoverImageChange}
+        />
+        {coverImageData && (
+          <div className="image-preview" style={{ marginTop: '10px' }}>
+            <img src={coverImageData} alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')} style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }} />
+          </div>
+        )}
       </div>
       <div className="form-actions">
         <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>

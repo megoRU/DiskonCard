@@ -13,7 +13,9 @@ export const addCardToStorage = (newCard) => {
   const cards = getCardsFromStorage();
   // Add a unique ID and date added
   const cardToAdd = {
-    ...newCard,
+    storeName: newCard.storeName,
+    cardNumber: newCard.cardNumber,
+    coverImage: newCard.coverImage || null, // Add coverImage, default to null
     id: Date.now().toString(), // Simple unique ID
     dateAdded: new Date().toISOString(),
   };
