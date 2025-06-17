@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addCardToStorage } from '../utils/localStorage';
-import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
+// Camera imports removed
 import { useTranslation } from 'react-i18next';
 import Notification from './Notification'; // Import Notification component
 import './AddCardForm.css';
@@ -11,7 +10,7 @@ const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
-  const [showCamera, setShowCamera] = useState(false);
+  // showCamera state removed
   const [notification, setNotification] = useState({ message: '', type: 'success' }); // Notification state
   const navigate = useNavigate();
 
@@ -32,25 +31,9 @@ const AddCardForm = () => {
     setTimeout(() => navigate('/'), 500); // Delay navigation slightly
   };
 
-  const handleTakePhoto = (dataUri) => {
-    console.log('Photo taken:', dataUri);
-    alert(t('addCardForm.photoCapturedSuccess'));
-    setShowCamera(false);
-  };
+  // handleTakePhoto function removed
 
-  if (showCamera) {
-    return (
-      <div className="camera-container">
-        <Camera
-          onTakePhotoAnimationDone={handleTakePhoto}
-          idealFacingMode="environment"
-        />
-        <button onClick={() => setShowCamera(false)} className="close-camera-btn">
-          {t('addCardForm.closeCameraButton')}
-        </button>
-      </div>
-    );
-  }
+  // Camera conditional rendering removed
 
   return (
     <>
@@ -84,13 +67,7 @@ const AddCardForm = () => {
       </div>
       <div className="form-actions">
         <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>
-        <button
-          type="button"
-          onClick={() => setShowCamera(true)}
-          className="photo-btn"
-        >
-          {t('addCardForm.addByPhotoButton')}
-        </button>
+        {/* "Add by Photo" button removed */}
       </div>
     </form>
   </>

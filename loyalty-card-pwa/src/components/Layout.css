@@ -28,7 +28,7 @@
   justify-content: space-around;
   align-items: center; /* Changed from flex-start to center */
   border-top: 0.5px solid var(--border-color); /* Thinner border like iOS */
-  padding: 5px 10px calc(1rem + env(safe-area-inset-bottom, 0px)) 10px; /* Ensure 1rem base padding + safe area */
+  padding: 5px 10px calc(0.4rem + env(safe-area-inset-bottom, 0px)) 10px; /* Ensure 0.4rem base padding + safe area */
   box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Subtle shadow */
 }
 
