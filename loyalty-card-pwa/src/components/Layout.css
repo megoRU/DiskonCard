@@ -72,6 +72,13 @@
   z-index: 1; /* Ensure it's above other nav items if overlapping */
   flex-grow: 0; /* Don't let it grow like other items */
   flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+}
+
+.add-card-button.edit-mode-active {
+  background-color: var(--error-color, #ff3b30); /* iOS red for destructive/cancel actions */
+  color: #ffffff; /* White icon for red background */
+  box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
 }
 
 .add-card-button svg {

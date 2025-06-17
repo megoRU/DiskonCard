@@ -29,6 +29,7 @@
   --input-border: #c7c7cc;
   --input-focus-border: #007aff;
   --input-focus-border-alpha: rgba(0, 122, 255, 0.2);
+  --error-color: #ff3b30; /* iOS red */
 }
 
 /* Define dark theme variables */
@@ -51,6 +52,7 @@
   --input-border: #545458;
   --input-focus-border: #0a84ff;
   --input-focus-border-alpha: rgba(10, 132, 255, 0.3); /* Adjusted for dark mode if needed */
+  --error-color: #ff453a; /* Slightly brighter red for dark mode, if needed, or same */
 }
 
 body {

@@ -8,12 +8,15 @@ const resources = {
       nav: {
         home: "Home",
         settings: "Settings",
-        addCardLabel: "Add Card" // For accessibility on the + button
+        addCardLabel: "Add Card", // For accessibility on the + button
+        cancelEditModeLabel: "Cancel Edit Mode"
       },
       // HomePage
       homePage: {
         title: "My Cards",
-        noCardsMessage: "No cards yet. Add your first card!"
+        noCardsMessage: "No cards yet. Add your first card!",
+        confirmDeleteMessage: "Are you sure you want to delete this card?",
+        deleteCardAriaLabel: "Delete card"
       },
       // SettingsPage
       settingsPage: {
@@ -52,12 +55,15 @@ const resources = {
       nav: {
         home: "Главная",
         settings: "Настройки",
-        addCardLabel: "Добавить карту" // For accessibility on the + button
+        addCardLabel: "Добавить карту", // For accessibility on the + button
+        cancelEditModeLabel: "Отменить режим редактирования"
       },
       // HomePage
       homePage: {
         title: "Мои карты",
-        noCardsMessage: "Карт пока нет. Добавьте свою первую карту!"
+        noCardsMessage: "Карт пока нет. Добавьте свою первую карту!",
+        confirmDeleteMessage: "Вы уверены, что хотите удалить эту карту?",
+        deleteCardAriaLabel: "Удалить карту"
       },
       // SettingsPage
       settingsPage: {
@@ -69,7 +75,7 @@ const resources = {
       },
       // AddCardPage
       addCardPage: {
-        title: "Добавить новую карту лояльности"
+        title: "Добавить карту лояльности"
       },
       // AddCardForm
       addCardForm: {
