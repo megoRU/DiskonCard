@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getCardsFromStorage, deleteCardFromStorage, saveCardsToStorage } from '../utils/localStorage'; // Import saveCardsToStorage
 import { useTranslation } from 'react-i18next';
-import BarcodeModal from '../components/BarcodeModal';
+import BarcodeModal from '../components/BarcodeModal.jsx'; // Updated import
 import { useLongPress } from 'use-long-press';
 import { FiTrash2 } from 'react-icons/fi';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'; // Import dnd components

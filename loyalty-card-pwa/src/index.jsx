@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './App.jsx'; // Updated import path
 import reportWebVitals from './reportWebVitals';
 import './i18n'; // Import i18n configuration
 

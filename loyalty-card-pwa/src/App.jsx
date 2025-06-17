@@ -1,10 +1,10 @@
 import React, { useState } from 'react'; // Import useState
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import Layout from './components/Layout';
-import HomePage from './pages/HomePage';
-import SettingsPage from './pages/SettingsPage';
-import AddCardPage from './pages/AddCardPage';
+import { ThemeProvider } from './context/ThemeContext.jsx'; // Updated import
+import Layout from './components/Layout.jsx';
+import HomePage from './pages/HomePage.jsx';
+import SettingsPage from './pages/SettingsPage.jsx'; // Updated import
+import AddCardPage from './pages/AddCardPage.jsx'; // Updated import
 import './App.css';
 
 function App() {

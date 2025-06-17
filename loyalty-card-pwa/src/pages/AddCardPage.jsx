@@ -1,5 +1,5 @@
 import React from 'react';
-import AddCardForm from '../components/AddCardForm';
+import AddCardForm from '../components/AddCardForm.jsx'; // Updated import
 import { useTranslation } from 'react-i18next';
 import './AddCardPage.css'; // For page-specific styling
 
