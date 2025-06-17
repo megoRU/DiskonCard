@@ -1,55 +1,50 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addCardToStorage } from '../utils/localStorage';
-import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
+// Camera imports removed
 import { useTranslation } from 'react-i18next';
+import Notification from './Notification'; // Import Notification component
 import './AddCardForm.css';
 
 const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
-  const [showCamera, setShowCamera] = useState(false);
+  // showCamera state removed
+  const [notification, setNotification] = useState({ message: '', type: 'success' }); // Notification state
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!cardNumber || !storeName) {
-      alert(t('addCardForm.fillFieldsAlert'));
+      setNotification({ message: t('addCardForm.fillFieldsAlert'), type: 'error' });
       return;
     }
     addCardToStorage({ cardNumber, storeName });
-    alert(t('addCardForm.cardAddedSuccess'));
+    setNotification({ message: t('addCardForm.cardAddedSuccess'), type: 'success' });
     setCardNumber('');
     setStoreName('');
-    navigate('/');
+    // navigate('/'); // Navigation might be too fast, consider delaying or allowing user to see notification
+    // For now, let's keep navigation to see how it behaves with notification.
+    // If notification isn't visible long enough, could navigate in onClose of Notification
+    // or after a short delay.
+    setTimeout(() => navigate('/'), 500); // Delay navigation slightly
   };
 
-  const handleTakePhoto = (dataUri) => {
-    console.log('Photo taken:', dataUri);
-    alert(t('addCardForm.photoCapturedSuccess'));
-    setShowCamera(false);
-  };
+  // handleTakePhoto function removed
 
-  if (showCamera) {
-    return (
-      <div className="camera-container">
-        <Camera
-          onTakePhotoAnimationDone={handleTakePhoto}
-          idealFacingMode="environment"
-        />
-        <button onClick={() => setShowCamera(false)} className="close-camera-btn">
-          {t('addCardForm.closeCameraButton')}
-        </button>
-      </div>
-    );
-  }
+  // Camera conditional rendering removed
 
   return (
-    <form onSubmit={handleSubmit} className="add-card-form">
-      <div className="form-group">
-        <label htmlFor="storeName">{t('addCardForm.storeNameLabel')}</label>
+    <>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: '', type: 'success' })}
+      />
+      <form onSubmit={handleSubmit} className="add-card-form">
+        <div className="form-group">
+          <label htmlFor="storeName">{t('addCardForm.storeNameLabel')}</label>
         <input
           type="text"
           id="storeName"
@@ -72,15 +67,10 @@ const AddCardForm = () => {
       </div>
       <div className="form-actions">
         <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>
-        <button
-          type="button"
-          onClick={() => setShowCamera(true)}
-          className="photo-btn"
-        >
-          {t('addCardForm.addByPhotoButton')}
-        </button>
+        {/* "Add by Photo" button removed */}
       </div>
     </form>
+  </>
   );
 };
 

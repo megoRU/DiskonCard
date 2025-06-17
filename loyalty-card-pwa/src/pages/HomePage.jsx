@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import BarcodeModal from '../components/BarcodeModal.jsx'; // Updated import
 import { useLongPress } from 'use-long-press';
 import { FiTrash2 } from 'react-icons/fi';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'; // Import dnd components
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'; // Import dnd components
 import './HomePage.css';
 
 const HomePage = ({ isEditMode, setIsEditMode }) => {
@@ -66,7 +66,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    setCards(items);
+    setCards([...items]);
     saveCardsToStorage(items);
   };
 
@@ -93,46 +93,65 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {cards.map((card, index) => (
-                  <Draggable
-                    key={card.id}
-                    draggableId={card.id}
-                    index={index}
-                    isDragDisabled={!isEditMode}
-                  >
-                    {(providedDraggable, snapshotDraggable) => (
-                      <div
-                        ref={providedDraggable.innerRef}
-                        {...providedDraggable.draggableProps}
-                        {...providedDraggable.dragHandleProps} // Apply drag handle to the whole card
-                        style={{
-                          ...providedDraggable.draggableProps.style,
-                          // Add custom styles for dragging if needed:
-                          // opacity: snapshotDraggable.isDragging ? 0.8 : 1,
-                          // boxShadow: snapshotDraggable.isDragging ? '0 0 10px rgba(0,0,0,0.3)' : '',
-                        }}
-                        className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''} ${snapshotDraggable.isDragging ? 'card-item-dragging' : ''}`}
-                        onClick={() => handleCardClick(card)}
-                        {...bind(card.id)} // Long press binding
-                        role="button"
-                        tabIndex={0}
-                        onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
-                      >
-                        {isEditMode && (
-                          <button
-                            className="delete-card-btn"
-                            onClick={(e) => handleDeleteCard(card.id, e)}
-                            aria-label={t('homePage.deleteCardAriaLabel', 'Delete card')}
-                          >
-                            <FiTrash2 />
-                          </button>
-                        )}
-                        <h3>{card.storeName}</h3>
-                        <p className="card-number">{card.cardNumber}</p>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                {isEditMode ? (
+                  cards.map((card, index) => (
+                    <Draggable
+                      key={card.id}
+                      draggableId={card.id.toString()}
+                      index={index}
+                      isDragDisabled={!isEditMode} // This will always be false here, but keep for consistency
+                    >
+                      {(providedDraggable, snapshotDraggable) => (
+                        <div
+                          ref={providedDraggable.innerRef}
+                          {...providedDraggable.draggableProps}
+                          {...providedDraggable.dragHandleProps} // Apply drag handle to the whole card
+                          style={{
+                            ...providedDraggable.draggableProps.style,
+                            // Add custom styles for dragging if needed:
+                            // opacity: snapshotDraggable.isDragging ? 0.8 : 1,
+                            // boxShadow: snapshotDraggable.isDragging ? '0 0 10px rgba(0,0,0,0.3)' : '',
+                          }}
+                          className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''} ${snapshotDraggable.isDragging ? 'card-item-dragging' : ''}`}
+                          onClick={() => handleCardClick(card)}
+                          {...bind(card.id)} // Long press binding
+                          role="button"
+                          tabIndex={0}
+                          onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
+                        >
+                          {isEditMode && (
+                            <button
+                              className="delete-card-btn"
+                              onClick={(e) => handleDeleteCard(card.id, e)}
+                              aria-label={t('homePage.deleteCardAriaLabel', 'Delete card')}
+                            >
+                              <FiTrash2 />
+                            </button>
+                          )}
+                          <h3>{card.storeName}</h3>
+                          <p className="card-number">{card.cardNumber}</p>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                ) : (
+                  cards.map((card) => ( // No index needed if not dragging
+                    <div
+                      key={card.id} // Still need a key for React list rendering
+                      className={`card-item`} // Base class, no edit-mode or dragging specific classes
+                      onClick={() => handleCardClick(card)}
+                      {...bind(card.id)} // Long press binding for entering edit mode
+                      role="button"
+                      tabIndex={0}
+                      onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
+                    >
+                      {/* No delete button when not in edit mode */}
+
+                      <h3>{card.storeName}</h3>
+                      <p className="card-number">{card.cardNumber}</p>
+                    </div>
+                  ))
+                )}
                 {provided.placeholder}
               </div>
             )}

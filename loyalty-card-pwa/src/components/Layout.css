@@ -28,7 +28,7 @@
   justify-content: space-around;
   align-items: center; /* Changed from flex-start to center */
   border-top: 0.5px solid var(--border-color); /* Thinner border like iOS */
-  padding: 5px 10px env(safe-area-inset-bottom, 0px) 10px; /* Adjust padding for safe area */
+  padding: 5px 10px calc(0.4rem + env(safe-area-inset-bottom, 0px)) 10px; /* Ensure 0.4rem base padding + safe area */
   box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Subtle shadow */
 }
 
@@ -45,6 +45,10 @@
   height: 100%; /* Fill the height of the nav bar */
   /* padding-top: 8px; Removed as align-items:center on parent and justify-content:center here should handle it */
   transition: color 0.2s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
 }
 
 .nav-item.active { /* Add active class handling in Layout.js if not already there */
