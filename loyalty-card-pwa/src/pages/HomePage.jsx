@@ -66,7 +66,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    setCards(items);
+    setCards([...items]);
     saveCardsToStorage(items);
   };
 
