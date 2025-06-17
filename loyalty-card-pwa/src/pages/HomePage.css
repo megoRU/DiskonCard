@@ -44,11 +44,17 @@
   box-shadow: var(--card-shadow);
   text-align: left;
   word-wrap: break-word;
-  transition: transform 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+.card-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12); /* Slightly elevate on hover */
 }
 
 .card-item:active { /* Subtle press effect */
   transform: scale(0.97);
+  box-shadow: var(--card-shadow); /* Revert to base shadow on active */
 }
 
 .card-item h3 {
@@ -73,6 +79,63 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Styles for Edit Mode */
+.cards-container-edit-mode {
+  /* Optional: styles for the grid when in edit mode */
+}
+
+.card-item-edit-mode {
+  border: 1px dashed var(--primary-color); /* Softened the border */
+  position: relative;
+  animation: jiggle 0.3s ease-in-out infinite alternate; /* Added jiggle animation */
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(-0.5deg) scale(1);
+  }
+  100% {
+    transform: rotate(0.5deg) scale(1.01); /* Slight scale for more dynamic feel */
+  }
+}
+
+.card-item-dragging {
+  opacity: 0.8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; /* More pronounced shadow */
+  transform: scale(1.03); /* Slightly larger when dragging */
+}
+
+.delete-card-btn {
+  position: absolute;
+  top: -5px; /* Adjust for visual preference */
+  right: -5px; /* Adjust for visual preference */
+  background-color: var(--error-color, #ff3b30);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px; /* Small button */
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Size of the icon */
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 5; /* Ensure it's above card content if overlapping */
+}
+
+.delete-card-btn:hover {
+  opacity: 0.85;
+}
+
+
+/* Keyframes for jiggle (example, can be refined) */
+/* @keyframes jiggle {
+  0% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+  100% { transform: rotate(-1deg); }
+} */
 
 /* Single column for very small screens */
 @media (max-width: 369px) {

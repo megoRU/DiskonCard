@@ -21,3 +21,10 @@ export const addCardToStorage = (newCard) => {
   saveCardsToStorage(cards);
   return cardToAdd; // Return the card with id and dateAdded
 };
+
+export const deleteCardFromStorage = (cardId) => {
+  let cards = getCardsFromStorage();
+  cards = cards.filter(card => card.id !== cardId);
+  saveCardsToStorage(cards);
+  return cards; // Return the updated list of cards, or just true/false for success
+};

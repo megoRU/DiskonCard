@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 import './SettingsPage.css';
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { t } = useTranslation();
 
   const handleThemeChange = (event) => {
     setTheme(event.target.value);
@@ -11,9 +13,9 @@ const SettingsPage = () => {
 
   return (
     <div className="settings-page">
-      <h1>Settings</h1>
+      <h1>{t('settingsPage.title')}</h1>
       <div className="theme-options">
-        <h2>Theme</h2>
+        <h2>{t('settingsPage.themeTitle')}</h2>
         <div className="theme-option">
           <input
             type="radio"
@@ -23,7 +25,7 @@ const SettingsPage = () => {
             checked={theme === 'light'}
             onChange={handleThemeChange}
           />
-          <label htmlFor="theme-light">Light</label>
+          <label htmlFor="theme-light">{t('settingsPage.themeLight')}</label>
         </div>
         <div className="theme-option">
           <input
@@ -34,7 +36,7 @@ const SettingsPage = () => {
             checked={theme === 'dark'}
             onChange={handleThemeChange}
           />
-          <label htmlFor="theme-dark">Dark</label>
+          <label htmlFor="theme-dark">{t('settingsPage.themeDark')}</label>
         </div>
         <div className="theme-option">
           <input
@@ -45,7 +47,7 @@ const SettingsPage = () => {
             checked={theme === 'system'}
             onChange={handleThemeChange}
           />
-          <label htmlFor="theme-system">As in system</label>
+          <label htmlFor="theme-system">{t('settingsPage.themeSystem')}</label>
         </div>
       </div>
     </div>

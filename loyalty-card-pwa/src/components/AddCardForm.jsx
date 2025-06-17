@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addCardToStorage } from '../utils/localStorage';
 import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css'; // Import camera CSS
+import 'react-html5-camera-photo/build/css/index.css';
+import { useTranslation } from 'react-i18next';
 import './AddCardForm.css';
 
 const AddCardForm = () => {
+  const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
   const [showCamera, setShowCamera] = useState(false);
@@ -14,22 +16,20 @@ const AddCardForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!cardNumber || !storeName) {
-      alert('Please fill in both Card Number and Store Name.');
+      alert(t('addCardForm.fillFieldsAlert'));
       return;
     }
     addCardToStorage({ cardNumber, storeName });
-    alert('Card added successfully!');
+    alert(t('addCardForm.cardAddedSuccess'));
     setCardNumber('');
     setStoreName('');
-    navigate('/'); // Redirect to Home page
+    navigate('/');
   };
 
   const handleTakePhoto = (dataUri) => {
     console.log('Photo taken:', dataUri);
-    // For now, just log the data.
-    // Later, this dataUri could be sent to a server for processing or processed client-side.
-    alert('Photo captured! Check console for data URI.');
-    setShowCamera(false); // Hide camera after photo is taken
+    alert(t('addCardForm.photoCapturedSuccess'));
+    setShowCamera(false);
   };
 
   if (showCamera) {
@@ -37,10 +37,10 @@ const AddCardForm = () => {
       <div className="camera-container">
         <Camera
           onTakePhotoAnimationDone={handleTakePhoto}
-          idealFacingMode="environment" // Prefer rear camera
+          idealFacingMode="environment"
         />
         <button onClick={() => setShowCamera(false)} className="close-camera-btn">
-          Close Camera
+          {t('addCardForm.closeCameraButton')}
         </button>
       </div>
     );
@@ -49,33 +49,35 @@ const AddCardForm = () => {
   return (
     <form onSubmit={handleSubmit} className="add-card-form">
       <div className="form-group">
-        <label htmlFor="storeName">Store Name:</label>
+        <label htmlFor="storeName">{t('addCardForm.storeNameLabel')}</label>
         <input
           type="text"
           id="storeName"
           value={storeName}
           onChange={(e) => setStoreName(e.target.value)}
+          placeholder={t('addCardForm.storeNamePlaceholder', 'e.g. Coffee Shop')}
           required
         />
       </div>
       <div className="form-group">
-        <label htmlFor="cardNumber">Card Number:</label>
+        <label htmlFor="cardNumber">{t('addCardForm.cardNumberLabel')}</label>
         <input
           type="text"
           id="cardNumber"
           value={cardNumber}
           onChange={(e) => setCardNumber(e.target.value)}
+          placeholder={t('addCardForm.cardNumberPlaceholder', 'e.g. 123456789')}
           required
         />
       </div>
       <div className="form-actions">
-        <button type="submit" className="submit-btn">Add Card</button>
+        <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>
         <button
           type="button"
           onClick={() => setShowCamera(true)}
           className="photo-btn"
         >
-          Add by Photo
+          {t('addCardForm.addByPhotoButton')}
         </button>
       </div>
     </form>

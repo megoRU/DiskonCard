@@ -26,7 +26,7 @@
   -webkit-backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-around;
-  align-items: flex-start; /* Align items to top to make space for text below icon */
+  align-items: center; /* Changed from flex-start to center */
   border-top: 0.5px solid var(--border-color); /* Thinner border like iOS */
   padding: 5px 10px env(safe-area-inset-bottom, 0px) 10px; /* Adjust padding for safe area */
   box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Subtle shadow */
@@ -43,7 +43,7 @@
   font-weight: 500;
   flex-grow: 1; /* Allow items to take equal space */
   height: 100%; /* Fill the height of the nav bar */
-  padding-top: 8px; /* Space for text */
+  /* padding-top: 8px; Removed as align-items:center on parent and justify-content:center here should handle it */
   transition: color 0.2s ease-in-out;
 }
 
@@ -72,6 +72,13 @@
   z-index: 1; /* Ensure it's above other nav items if overlapping */
   flex-grow: 0; /* Don't let it grow like other items */
   flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+}
+
+.add-card-button.edit-mode-active {
+  background-color: var(--error-color, #ff3b30); /* iOS red for destructive/cancel actions */
+  color: #ffffff; /* White icon for red background */
+  box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
 }
 
 .add-card-button svg {
