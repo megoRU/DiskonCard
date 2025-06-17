@@ -44,11 +44,17 @@
   box-shadow: var(--card-shadow);
   text-align: left;
   word-wrap: break-word;
-  transition: transform 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+.card-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12); /* Slightly elevate on hover */
 }
 
 .card-item:active { /* Subtle press effect */
   transform: scale(0.97);
+  box-shadow: var(--card-shadow); /* Revert to base shadow on active */
 }
 
 .card-item h3 {

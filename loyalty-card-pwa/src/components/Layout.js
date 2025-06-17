@@ -1,9 +1,12 @@
 import React from 'react';
-import { NavLink, Outlet, Link } from 'react-router-dom'; // Import NavLink
+import { NavLink, Outlet, Link } from 'react-router-dom';
 import { FiHome, FiSettings, FiPlusSquare } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 import './Layout.css';
 
 const Layout = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="layout">
       <main className="content">
@@ -13,21 +16,20 @@ const Layout = () => {
         <NavLink
           to="/"
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
-          end // Important for NavLink to match root path exactly
+          end
         >
           <FiHome />
-          <span>Home</span>
+          <span>{t('nav.home')}</span>
         </NavLink>
-        {/* Keep Link for add-card as it's styled as a button, not a typical nav item */}
-        <Link to="/add-card" className="nav-item add-card-button">
-          <FiPlusSquare /> {/* Removed size prop, will be controlled by CSS */}
+        <Link to="/add-card" className="nav-item add-card-button" aria-label={t('nav.addCardLabel', 'Add Card')}> {/* Added aria-label for accessibility */}
+          <FiPlusSquare />
         </Link>
         <NavLink
           to="/settings"
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
           <FiSettings />
-          <span>Settings</span>
+          <span>{t('nav.settings')}</span>
         </NavLink>
       </nav>
     </div>
