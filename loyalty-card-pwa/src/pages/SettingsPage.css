@@ -1,0 +1,56 @@
+.settings-page {
+  padding: 16px; /* Consistent padding */
+}
+
+.settings-page h1 {
+  font-size: 28px; /* iOS like large title */
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  text-align: center; /* Center title on settings page */
+}
+
+.theme-options {
+  background-color: var(--background-secondary);
+  padding: 16px; /* Slightly less padding for grouped options */
+  border-radius: 12px; /* Consistent rounded corners */
+  box-shadow: var(--card-shadow);
+  max-width: 500px; /* Consistent max-width with form */
+  margin: 0 auto; /* Center the options block */
+}
+
+.theme-options h2 {
+  font-size: 1.1em; /* ~17-18px */
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  /* border-bottom: 0.5px solid var(--border-color); */ /* Removed border for cleaner look */
+  padding-bottom: 6px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px; /* Spacing between radio options */
+  padding: 10px 0; /* Add some padding for easier touch */
+}
+
+.theme-option:last-child {
+  margin-bottom: 0;
+}
+
+.theme-option input[type="radio"] {
+  margin-right: 12px;
+  accent-color: var(--primary-color);
+  width: 20px; /* Larger radio buttons */
+  height: 20px;
+  cursor: pointer;
+}
+
+.theme-option label {
+  font-size: 1.05em; /* ~17px */
+  color: var(--text-primary); /* Use primary text for more emphasis */
+  cursor: pointer;
+  flex-grow: 1; /* Allow label to take remaining space */
+}

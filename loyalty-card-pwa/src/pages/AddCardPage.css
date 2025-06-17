@@ -1,0 +1,11 @@
+.add-card-page {
+  padding: 16px; /* Consistent padding */
+  text-align: center;
+}
+
+.add-card-page h1 {
+  font-size: 28px; /* iOS like large title */
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}

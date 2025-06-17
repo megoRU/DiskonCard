@@ -1,0 +1,127 @@
+.add-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased gap for better spacing */
+  max-width: 500px; /* Slightly wider for comfortable input */
+  margin: 20px auto;
+  padding: 24px; /* More padding */
+  background-color: var(--background-secondary);
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: var(--card-shadow);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between label and input */
+}
+
+.form-group label {
+  font-weight: 500; /* Medium weight */
+  color: var(--text-primary);
+  font-size: 0.95em; /* ~15px */
+  padding-left: 2px; /* Slight indent for label */
+}
+
+.form-group input {
+  padding: 12px 14px; /* iOS like padding */
+  border: 1px solid var(--input-border);
+  background-color: var(--input-background);
+  color: var(--text-primary);
+  border-radius: 8px; /* iOS like rounded inputs */
+  font-size: 1em; /* ~16px */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 2px var(--input-focus-border-alpha, rgba(0, 122, 255, 0.2)); /* iOS focus ring, define alpha in :root */
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically on mobile */
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.submit-btn,
+.photo-btn,
+.close-camera-btn {
+  padding: 14px 15px; /* Taller buttons */
+  border: none;
+  border-radius: 8px; /* Consistent rounded corners */
+  cursor: pointer;
+  font-size: 1.05em; /* ~17px */
+  font-weight: 600; /* Semi-bold text */
+  transition: opacity 0.2s ease;
+  color: var(--button-primary-text);
+}
+
+.submit-btn {
+  background-color: var(--button-primary-background);
+}
+
+.submit-btn:hover, .submit-btn:active {
+  opacity: 0.85;
+}
+
+.photo-btn {
+  background-color: #34c759; /* iOS Green */
+}
+
+.photo-btn:hover, .photo-btn:active {
+  opacity: 0.85;
+}
+
+.camera-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.95); /* Darker overlay for camera */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* react-html5-camera-photo specific overrides */
+.camera-container video,
+.camera-container img#photoTaken, /* ID for the captured image by the library */
+#container-circles /* ID for the shutter button by the library */
+{
+  max-width: 100% !important;
+  max-height: 70vh !important; /* Limit height */
+  height: auto !important;
+  border-radius: 12px !important; /* Rounded corners for camera view */
+}
+
+.close-camera-btn {
+  margin-top: 20px;
+  background-color: #ff3b30; /* iOS Red */
+  width: 80%;
+  max-width: 200px; /* Max width for close button */
+  align-self: center;
+}
+
+.close-camera-btn:hover, .close-camera-btn:active {
+  opacity: 0.85;
+}
+
+/* Media query for wider screens to place buttons side-by-side */
+@media (min-width: 480px) {
+  .form-actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .submit-btn,
+  .photo-btn {
+    flex-grow: 1; /* Allow them to take available space */
+  }
+}
