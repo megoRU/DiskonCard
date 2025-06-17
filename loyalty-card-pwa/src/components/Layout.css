@@ -45,6 +45,10 @@
   height: 100%; /* Fill the height of the nav bar */
   /* padding-top: 8px; Removed as align-items:center on parent and justify-content:center here should handle it */
   transition: color 0.2s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
 }
 
 .nav-item.active { /* Add active class handling in Layout.js if not already there */
