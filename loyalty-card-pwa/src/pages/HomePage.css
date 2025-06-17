@@ -46,6 +46,7 @@
   word-wrap: break-word;
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   cursor: pointer; /* Indicate it's clickable */
+  min-height: 100px; /* Ensure placeholder has a minimum height */
 }
 
 .card-item:hover {

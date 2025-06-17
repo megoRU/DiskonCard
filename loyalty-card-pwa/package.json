@@ -20,7 +20,7 @@
     "@hello-pangea/dnd": "^16.6.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
