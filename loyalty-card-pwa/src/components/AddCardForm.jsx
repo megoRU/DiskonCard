@@ -8,8 +8,7 @@ import './AddCardForm.css';
 
 const popularStores = [
   "Магнит",
-  "Пятёрочка",
-  "Перекрёсток",
+  "X5",
   "Дикси",
   "Окей",
   "Лента",
