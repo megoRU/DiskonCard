@@ -24,7 +24,10 @@ const resources = {
         themeTitle: "Theme",
         themeLight: "Light",
         themeDark: "Dark",
-        themeSystem: "As in system"
+        themeSystem: "As in system",
+        appVersion: "App Version: {{version}}",
+        whatsNew: "What's new",
+        contactDeveloper: "Contact Developer"
       },
       // AddCardPage
       addCardPage: {
@@ -68,10 +71,13 @@ const resources = {
       // SettingsPage
       settingsPage: {
         title: "Настройки",
-        themeTitle: "Тема",
+        themeTitle: "Тема оформления",
         themeLight: "Светлая",
         themeDark: "Темная",
-        themeSystem: "Как в системе"
+        themeSystem: "Как в системе",
+        appVersion: "Версия приложения: {{version}}",
+        whatsNew: "Что нового",
+        contactDeveloper: "Связь с разработчиком"
       },
       // AddCardPage
       addCardPage: {
