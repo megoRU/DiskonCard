@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.2.3'; // обнови версию при каждом изменении
+const CACHE_NAME = 'loyalty-card-cache-v1.3.0';
 const urlsToCache = [
     '/index.html',
     '/static/js/bundle.js',
@@ -11,74 +11,78 @@ const urlsToCache = [
     '/card-logos/default.png',
 ];
 
-// Установка и предварительное кэширование
 self.addEventListener('install', event => {
-    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            console.log('Opened cache:', CACHE_NAME);
-            return Promise.all(
-                urlsToCache.map(request =>
-                    cache.add(request).catch(err =>
-                        console.error('Failed to cache:', request, err)
-                    )
-                )
-            );
+            return cache.addAll(urlsToCache);
         })
     );
 });
 
-// Обработка fetch-запросов
-self.addEventListener('fetch', event => {
-    if (event.request.method !== 'GET') return;
-
-    const req = event.request;
-
-    event.respondWith(
-        caches.match(req).then(cachedResponse => {
-            if (cachedResponse) return cachedResponse;
-
-            return fetch(req).then(networkResponse => {
-                if (
-                    !networkResponse ||
-                    networkResponse.status !== 200 ||
-                    (networkResponse.type !== 'basic' && networkResponse.type !== 'cors')
-                ) {
-                    return networkResponse;
-                }
-
-                const isImage = req.destination === 'image' ||
-                    req.url.match(/\.(png|jpg|jpeg|webp|svg|gif)$/);
-
-                if (isImage || req.url.includes('/static/')) {
-                    const responseToCache = networkResponse.clone();
-                    caches.open(CACHE_NAME).then(cache => {
-                        cache.put(req, responseToCache);
-                    });
-                }
-
-                return networkResponse;
-            }).catch(error => {
-                console.warn('Fetch failed:', req.url, error);
-                return undefined;
-            });
-        })
-    );
+self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
 
-// Очистка старых кэшей при активации
+// Активация и удаление старых кэшей
 self.addEventListener('activate', event => {
     const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
         caches.keys().then(cacheNames =>
             Promise.all(
-                cacheNames.map(cacheName => {
-                    if (!cacheWhitelist.includes(cacheName)) {
-                        console.log('Deleting old cache:', cacheName);
-                        return caches.delete(cacheName);
+                cacheNames.map(name => {
+                    if (!cacheWhitelist.includes(name)) {
+                        return caches.delete(name);
                     }
                 })
             )
         ).then(() => self.clients.claim())
     );
+});
+
+// Fetch с Network First для index.html и навигации
+self.addEventListener('fetch', event => {
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    // Обновляем кеш index.html при успешном ответе
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put('/index.html', responseClone);
+                    });
+                    return response;
+                })
+                .catch(() =>
+                    caches.match('/index.html')
+                )
+        );
+        return;
+    }
+
+    // Для других запросов: сначала ищем в кеше, потом сеть
+    if (event.request.method === 'GET') {
+        event.respondWith(
+            caches.match(event.request).then(cachedResp => {
+                if (cachedResp) return cachedResp;
+                return fetch(event.request).then(networkResp => {
+                    if (
+                        !networkResp ||
+                        networkResp.status !== 200 ||
+                        (networkResp.type !== 'basic' && networkResp.type !== 'cors')
+                    ) {
+                        return networkResp;
+                    }
+                    const responseClone = networkResp.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseClone);
+                    });
+                    return networkResp;
+                });
+            }).catch(() => {
+                // fallback если нужно, например для картинок
+            })
+        );
+    }
 });
