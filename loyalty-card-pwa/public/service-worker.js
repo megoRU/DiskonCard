@@ -1,7 +1,7 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.1.3';
+const CACHE_NAME = 'loyalty-card-cache-v1.1.4'; // обнови версию при каждом изменении
 const urlsToCache = [
-    new Request('/', { cache: 'reload' }),
-    new Request('/index.html', { cache: 'reload' }),
+    new Request('/', {cache: 'reload'}),
+    new Request('/index.html', {cache: 'reload'}),
     '/static/js/bundle.js',
     '/static/js/main.chunk.js',
     '/static/js/0.chunk.js',
@@ -9,9 +9,10 @@ const urlsToCache = [
     '/favicon.ico',
     '/logo192.png',
     '/logo512.png',
-    // Картинки: кешировать on-demand — так надёжнее на iOS
+    // Картинки — кэшируются on-demand
 ];
 
+// Установка и предварительное кэширование
 self.addEventListener('install', event => {
     self.skipWaiting();
     event.waitUntil(
@@ -28,38 +29,45 @@ self.addEventListener('install', event => {
     );
 });
 
+// Обработка fetch-запросов
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
 
+    const req = event.request;
+
     event.respondWith(
-        caches.match(event.request).then(response => {
-            if (response) return response;
+        caches.match(req).then(cachedResponse => {
+            if (cachedResponse) return cachedResponse;
 
-            return fetch(event.request)
-                .then(networkResponse => {
-                    if (
-                        !networkResponse ||
-                        networkResponse.status !== 200 ||
-                        networkResponse.type !== 'basic'
-                    ) {
-                        return networkResponse;
-                    }
+            return fetch(req).then(networkResponse => {
+                if (
+                    !networkResponse ||
+                    networkResponse.status !== 200 ||
+                    (networkResponse.type !== 'basic' && networkResponse.type !== 'cors')
+                ) {
+                    return networkResponse;
+                }
 
+                const isImage = req.destination === 'image' ||
+                    req.url.match(/\.(png|jpg|jpeg|webp|svg|gif)$/);
+
+                if (isImage || req.url.includes('/static/')) {
                     const responseToCache = networkResponse.clone();
                     caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, responseToCache);
+                        cache.put(req, responseToCache);
                     });
+                }
 
-                    return networkResponse;
-                })
-                .catch(error => {
-                    console.warn('Fetch failed:', error);
-                    return undefined;
-                });
+                return networkResponse;
+            }).catch(error => {
+                console.warn('Fetch failed:', req.url, error);
+                return undefined;
+            });
         })
     );
 });
 
+// Очистка старых кэшей при активации
 self.addEventListener('activate', event => {
     const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
