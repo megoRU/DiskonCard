@@ -6,6 +6,10 @@ import { useTranslation } from 'react-i18next';
 import Notification from './Notification';
 import './AddCardForm.css';
 
+// Ideally, this should be the actual base64 of /public/card-logos/default.png
+// For now, using a generic 1x1 transparent PNG as a placeholder.
+const HARCODED_DEFAULT_LOGO_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 const popularStores = [
   "Магнит",
   "X5",
@@ -88,8 +92,8 @@ const AddCardForm = () => {
             console.log(`Successfully fetched and set fallback logo from ${urlToFetch} to data URL`);
           };
           reader.onerror = (error) => {
-            console.error(`Error converting fallback logo from ${urlToFetch} to data URL:`, error);
-            setSelectedLogoDataUrl(null); // Or a hardcoded base64 default if available
+            console.error(`Error converting fallback logo from ${urlToFetch} to data URL. Using hardcoded default.`, error);
+            setSelectedLogoDataUrl(HARCODED_DEFAULT_LOGO_BASE64);
           };
           reader.readAsDataURL(blob);
           return; // Exit after processing fallback
@@ -109,7 +113,8 @@ const AddCardForm = () => {
         if (urlToFetch !== fallbackImageUrl) {
           fetchAndSetLogoDataUrl(fallbackImageUrl, fallbackImageUrl); // Try fallback, making it its own fallback
         } else {
-          setSelectedLogoDataUrl(null); // Or a hardcoded base64 default
+          console.error(`Error converting primary logo from ${urlToFetch} (which was also the fallback) to data URL. Using hardcoded default.`, error);
+          setSelectedLogoDataUrl(HARCODED_DEFAULT_LOGO_BASE64);
         }
       };
       reader.readAsDataURL(blob);
@@ -121,8 +126,8 @@ const AddCardForm = () => {
         fetchAndSetLogoDataUrl(fallbackImageUrl, fallbackImageUrl); // Fallback is its own fallback here
       } else {
         // If fallback itself fails
-        setSelectedLogoDataUrl(null); // Or a hardcoded base64 for a very basic default
-        console.error(`Failed to fetch even the fallback logo: ${fallbackImageUrl}`);
+        setSelectedLogoDataUrl(HARCODED_DEFAULT_LOGO_BASE64);
+        console.error(`Failed to fetch even the fallback logo: ${fallbackImageUrl}. Using hardcoded default.`);
       }
     }
   };
@@ -211,8 +216,9 @@ const AddCardForm = () => {
   // Camera conditional rendering removed
 
   // Update determinedPreviewSrc to use selectedLogoDataUrl
-  // It should always have a value (default logo's base64 if nothing else)
-  const determinedPreviewSrc = selectedLogoDataUrl || '/card-logos/default.png'; // Fallback to static path if base64 somehow null
+  // selectedLogoDataUrl is now expected to always be a valid base64 string
+  // (either a fetched logo, user upload, or the hardcoded default).
+  const determinedPreviewSrc = selectedLogoDataUrl;
 
   return (
     <>
