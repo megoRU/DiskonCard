@@ -88,6 +88,62 @@
   border-color: var(--input-border); /* Uses variable from index.css */
 }
 
+/* --- Placeholder Styles --- */
+/* Light Theme Placeholder Styles */
+.add-card-form input[type="text"]::placeholder,
+.add-card-form input[type="tel"]::placeholder {
+  color: var(--text-primary, #333); /* Uses :root --text-primary which is black for light theme */
+  opacity: 1; /* Ensure full opacity as requested */
+}
+.add-card-form input[type="text"]::-webkit-input-placeholder,
+.add-card-form input[type="tel"]::-webkit-input-placeholder {
+  color: var(--text-primary, #333);
+  opacity: 1;
+}
+.add-card-form input[type="text"]::-moz-placeholder,
+.add-card-form input[type="tel"]::-moz-placeholder {
+  color: var(--text-primary, #333);
+  opacity: 1;
+}
+.add-card-form input[type="text"]:-ms-input-placeholder,
+.add-card-form input[type="tel"]:-ms-input-placeholder {
+  color: var(--text-primary, #333);
+  opacity: 1;
+}
+.add-card-form input[type="text"]::-ms-input-placeholder,
+.add-card-form input[type="tel"]::-ms-input-placeholder {
+  color: var(--text-primary, #333);
+  opacity: 1;
+}
+
+/* Dark Theme Placeholder Styles */
+[data-theme="dark"] .add-card-form input[type="text"]::placeholder,
+[data-theme="dark"] .add-card-form input[type="tel"]::placeholder {
+  color: var(--text-primary); /* Uses [data-theme="dark"] --text-primary which is white */
+  opacity: 1;
+}
+[data-theme="dark"] .add-card-form input[type="text"]::-webkit-input-placeholder,
+[data-theme="dark"] .add-card-form input[type="tel"]::-webkit-input-placeholder {
+  color: var(--text-primary);
+  opacity: 1;
+}
+[data-theme="dark"] .add-card-form input[type="text"]::-moz-placeholder,
+[data-theme="dark"] .add-card-form input[type="tel"]::-moz-placeholder {
+  color: var(--text-primary);
+  opacity: 1;
+}
+[data-theme="dark"] .add-card-form input[type="text"]:-ms-input-placeholder,
+[data-theme="dark"] .add-card-form input[type="tel"]:-ms-input-placeholder {
+  color: var(--text-primary);
+  opacity: 1;
+}
+[data-theme="dark"] .add-card-form input[type="text"]::-ms-input-placeholder,
+[data-theme="dark"] .add-card-form input[type="tel"]::-ms-input-placeholder {
+  color: var(--text-primary);
+  opacity: 1;
+}
+/* --- End Placeholder Styles --- */
+
 /* Specific styles for input[type="file"] can be added if default is not good enough */
 /* .add-card-form input[type="file"] { } */
 
