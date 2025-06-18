@@ -1,7 +1,6 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.2.1'; // обнови версию при каждом изменении
+const CACHE_NAME = 'loyalty-card-cache-v1.2.2'; // обнови версию при каждом изменении
 const urlsToCache = [
-    new Request('/', {cache: 'reload'}),
-    new Request('/index.html', {cache: 'reload'}),
+    '/index.html',
     '/static/js/bundle.js',
     '/static/js/main.chunk.js',
     '/static/js/0.chunk.js',
@@ -9,8 +8,7 @@ const urlsToCache = [
     '/favicon.ico',
     '/logo192.png',
     '/logo512.png',
-    '/card-logos/default.png', // Added default logo
-    // Картинки — кэшируются on-demand
+    '/card-logos/default.png',
 ];
 
 // Установка и предварительное кэширование
