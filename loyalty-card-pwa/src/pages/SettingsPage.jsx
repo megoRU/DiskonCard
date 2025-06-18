@@ -1,12 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 // Removed: import { version } from '../../../package.json'; // No longer needed, use import.meta.env.APP_VERSION
 import './SettingsPage.css';
+import WhatsNewPopup from '../components/WhatsNewPopup';
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { t } = useTranslation();
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
 
   // Updated handleThemeChange
   const handleThemeChange = (newTheme) => {
@@ -56,9 +61,9 @@ const SettingsPage = () => {
         <p className="app-version">
           {t('settingsPage.appVersion', { version: import.meta.env.APP_VERSION || 'N/A' })}
         </p>
-        <a href="#" className="whats-new-link">
+        <button onClick={openPopup} className="whats-new-link">
           {t('settingsPage.whatsNew')}
-        </a>
+        </button>
         <p className="contact-developer-container">
           {t('settingsPage.contactDeveloper')}:{' '}
           <a href="https://t.me/mego_RU" target="_blank" rel="noopener noreferrer" className="contact-link">
@@ -66,6 +71,7 @@ const SettingsPage = () => {
           </a>
         </p>
       </div>
+      {isPopupOpen && <WhatsNewPopup onClose={closePopup} />}
     </div>
   );
 };

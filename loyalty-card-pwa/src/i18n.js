@@ -31,6 +31,11 @@ const resources = {
         whatsNew: "What's new", // Added back
         contactDeveloper: "Contact Developer" // Added back
       },
+      "whatsNewPopup": {
+        "title": "What's New",
+        "version": "App Version: {{version}}",
+        "releaseDate": "Release Date: {{date}}"
+      },
       // AddCardPage
       addCardPage: {
         title: "Add New Loyalty Card"
@@ -83,6 +88,11 @@ const resources = {
         appVersion: "Версия приложения: {{version}}", // Added back
         whatsNew: "Что нового", // Added back
         contactDeveloper: "Связь с разработчиком" // Added back
+      },
+      "whatsNewPopup": {
+        "title": "Что нового",
+        "version": "Версия приложения: {{version}}",
+        "releaseDate": "Дата релиза: {{date}}"
       },
       // AddCardPage
       addCardPage: {
