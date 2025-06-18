@@ -75,6 +75,48 @@
   text-align: center;
 }
 
+/* Data Management Section Styles */
+.data-management-section {
+  background-color: var(--background-secondary);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  max-width: 500px;
+  margin: 24px auto; /* Adjusted margin for spacing */
+  text-align: center;
+}
+
+.data-management-section h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.data-management-buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Space between buttons */
+}
+
+.data-button {
+  background-color: var(--button-secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px; /* Slightly more padding for better touch target */
+  cursor: pointer;
+  font-size: 1em;
+  color: var(--text-primary); /* Use primary text color for better readability */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.data-button:hover {
+  background-color: var(--button-secondary-hover-bg);
+  border-color: var(--primary-color);
+}
+
+
 /* Restored App Info Section Styles */
 .app-info-section {
   background-color: var(--background-secondary);

@@ -29,7 +29,17 @@ const resources = {
         themeSystem: "As in system",
         appVersion: "App Version: {{version}}", // Added back
         whatsNew: "What's new", // Added back
-        contactDeveloper: "Contact Developer" // Added back
+        contactDeveloper: "Contact Developer", // Added back
+        // Data Management
+        dataManagementTitle: "Data Management",
+        exportCards: "Export Cards",
+        importCards: "Import Cards",
+        noCardsToExport: "No cards to export.",
+        exportError: "Error exporting cards.",
+        importErrorInvalidFile: "Import Error: Invalid file type. Please select a .json file.",
+        importErrorInvalidFormat: "Import Error: Invalid data format in file.",
+        importErrorReadFile: "Import Error: Could not read the file.",
+        importSuccess: "Import successful. Added: {{addedCount}} card(s). Skipped (duplicates): {{skippedCount}} card(s)."
       },
       "whatsNewPopup": {
         "title": "What's New",
@@ -87,7 +97,17 @@ const resources = {
         themeSystem: "Как в системе",
         appVersion: "Версия приложения: {{version}}", // Added back
         whatsNew: "Что нового", // Added back
-        contactDeveloper: "Связь с разработчиком" // Added back
+        contactDeveloper: "Связь с разработчиком", // Added back
+        // Data Management
+        dataManagementTitle: "Управление данными",
+        exportCards: "Экспорт карт",
+        importCards: "Импорт карт",
+        noCardsToExport: "Нет карт для экспорта.",
+        exportError: "Ошибка экспорта карт.",
+        importErrorInvalidFile: "Ошибка импорта: Неверный тип файла. Пожалуйста, выберите .json файл.",
+        importErrorInvalidFormat: "Ошибка импорта: Неверный формат данных в файле.",
+        importErrorReadFile: "Ошибка импорта: Не удалось прочитать файл.",
+        importSuccess: "Импорт успешно завершен. Добавлено карт: {{addedCount}}. Пропущено карт (дубликаты): {{skippedCount}}."
       },
       "whatsNewPopup": {
         "title": "Что нового",
