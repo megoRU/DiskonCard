@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyalty-card-cache-v2';
+const CACHE_NAME = 'loyalty-card-cache-v1.1.0';
 const urlsToCache = [
     '/',
     '/index.html',
