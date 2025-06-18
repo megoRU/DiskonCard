@@ -16,7 +16,9 @@ const resources = {
         title: "My Cards",
         noCardsMessage: "No cards yet. Add your first card!",
         confirmDeleteMessage: "Are you sure you want to delete this card?",
-        deleteCardAriaLabel: "Delete card"
+        deleteCardAriaLabel: "Delete card",
+        cardLogoAlt: "Logo of {{storeName}}",
+        defaultCardName: "Card"
       },
       // SettingsPage
       settingsPage: {
@@ -24,10 +26,7 @@ const resources = {
         themeTitle: "Theme",
         themeLight: "Light",
         themeDark: "Dark",
-        themeSystem: "As in system",
-        appVersion: "App Version: {{version}}",
-        whatsNew: "What's new",
-        contactDeveloper: "Contact Developer"
+        themeSystem: "As in system"
       },
       // AddCardPage
       addCardPage: {
@@ -36,7 +35,7 @@ const resources = {
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Store Name:",
-        storeNamePlaceholder: "Name",
+        storeNamePlaceholder: "e.g., My Store", // Updated
         cardNumberLabel: "Card Number:",
         cardNumberPlaceholder: "123456789",
         addCardButton: "Add Card",
@@ -44,7 +43,8 @@ const resources = {
         closeCameraButton: "Close Camera",
         fillFieldsAlert: "Please fill in both Card Number and Store Name.",
         cardAddedSuccess: "Card added successfully!",
-        photoCapturedSuccess: "Photo captured! Check console for data URI."
+        photoCapturedSuccess: "Photo captured! Check console for data URI.",
+        storeLogoAlt: "Store logo preview for {{storeName}}" // Added
       },
       // BarcodeModal
       barcodeModal: {
@@ -66,18 +66,17 @@ const resources = {
         title: "Ваши карты",
         noCardsMessage: "Карт пока нет. Добавьте свою первую карту!",
         confirmDeleteMessage: "Вы уверены, что хотите удалить эту карту?",
-        deleteCardAriaLabel: "Удалить карту"
+        deleteCardAriaLabel: "Удалить карту",
+        cardLogoAlt: "Логотип {{storeName}}",
+        defaultCardName: "Карты"
       },
       // SettingsPage
       settingsPage: {
         title: "Настройки",
-        themeTitle: "Тема оформления",
+        themeTitle: "Тема",
         themeLight: "Светлая",
         themeDark: "Темная",
-        themeSystem: "Как в системе",
-        appVersion: "Версия приложения: {{version}}",
-        whatsNew: "Что нового",
-        contactDeveloper: "Связь с разработчиком"
+        themeSystem: "Как в системе"
       },
       // AddCardPage
       addCardPage: {
@@ -86,7 +85,7 @@ const resources = {
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Название магазина:",
-        storeNamePlaceholder: "Название",
+        storeNamePlaceholder: "например, Пятерочка", // Updated
         cardNumberLabel: "Номер карты:",
         cardNumberPlaceholder: "123456789",
         addCardButton: "Добавить карту",
@@ -94,7 +93,8 @@ const resources = {
         closeCameraButton: "Закрыть камеру",
         fillFieldsAlert: "Пожалуйста, заполните поля \"Номер карты\" и \"Название магазина\".",
         cardAddedSuccess: "Карта успешно добавлена!",
-        photoCapturedSuccess: "Фото сделано! Проверьте URI данных в консоли."
+        photoCapturedSuccess: "Фото сделано! Проверьте URI данных в консоли.",
+        storeLogoAlt: "Предпросмотр логотипа для {{storeName}}" // Added
       },
       // BarcodeModal
       barcodeModal: {

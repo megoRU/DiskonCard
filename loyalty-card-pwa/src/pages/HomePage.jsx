@@ -108,11 +108,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           {...providedDraggable.dragHandleProps} // Apply drag handle to the whole card
                           style={{
                             ...providedDraggable.draggableProps.style,
-                            backgroundImage: card.coverImage
-                                             ? `url(${card.coverImage})`
-                                             : (card.storeLogoUrl
-                                                ? `url(${card.storeLogoUrl})`
-                                                : 'none'),
+                            backgroundImage: card.coverImage ? `url(${card.coverImage})` : '',
                           }}
                           className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''} ${snapshotDraggable.isDragging ? 'card-item-dragging' : ''}`}
                           onClick={() => handleCardClick(card)}
@@ -121,6 +117,12 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           tabIndex={0}
                           onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
                         >
+                          <img
+                            src={card.logoUrl || '/card-logos/default.png'}
+                            alt={t('homePage.cardLogoAlt', { storeName: card.storeName || t('homePage.defaultCardName', 'Card') })}
+                            className="card-logo"
+                            onError={(e) => { e.target.src = '/card-logos/default.png'; }}
+                          />
                           {isEditMode && (
                             <button
                               className="delete-card-btn"
@@ -141,11 +143,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                       key={card.id} // Still need a key for React list rendering
                       className={`card-item`} // Base class, no edit-mode or dragging specific classes
                       style={{
-                        backgroundImage: card.coverImage
-                                         ? `url(${card.coverImage})`
-                                         : (card.storeLogoUrl
-                                            ? `url(${card.storeLogoUrl})`
-                                            : 'none'),
+                        backgroundImage: card.coverImage ? `url(${card.coverImage})` : '',
                       }}
                       onClick={() => handleCardClick(card)}
                       {...bind(card.id)} // Long press binding for entering edit mode
@@ -153,8 +151,13 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                       tabIndex={0}
                       onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
                     >
+                      <img
+                        src={card.logoUrl || '/card-logos/default.png'}
+                        alt={t('homePage.cardLogoAlt', { storeName: card.storeName || t('homePage.defaultCardName', 'Card') })}
+                        className="card-logo"
+                        onError={(e) => { e.target.src = '/card-logos/default.png'; }}
+                      />
                       {/* No delete button when not in edit mode */}
-                      {/* Text content removed to show background image */}
                     </div>
                   ))
                 )}

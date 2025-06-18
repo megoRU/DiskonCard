@@ -102,6 +102,18 @@
   border: 1px solid #eee;
 }
 
+/* Styles for the store logo preview image */
+.store-logo-preview img {
+  max-width: 100px;
+  max-height: 50px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  /* The parent .store-logo-preview div has:
+     style={{ marginTop: '5px', marginBottom: '15px', textAlign: 'left' }}
+     These can also be moved to CSS if desired, but are fine as inline for now. */
+}
+
 .form-actions {
   display: flex;
   flex-direction: column; /* Stack buttons vertically on mobile */
