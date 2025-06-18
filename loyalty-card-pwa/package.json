@@ -1,6 +1,6 @@
 {
   "name": "loyalty-card-pwa",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@hello-pangea/dnd": "^16.6.0",
