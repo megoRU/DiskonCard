@@ -57,6 +57,7 @@ const AddCardForm = () => {
   const [logoUrl, setLogoUrl] = useState('/card-logos/default.png'); // New state for logoUrl
   const [coverImageData, setCoverImageData] = useState(null);
   const [notification, setNotification] = useState({ message: '', type: 'success' });
+  const [isPreviewLogoValid, setIsPreviewLogoValid] = useState(true); // New state for logo preview validity
   const navigate = useNavigate();
 
   // Task Step 2: Updated useEffect for logoUrl
@@ -65,6 +66,7 @@ const AddCardForm = () => {
       setLogoUrl('/card-logos/default.png');
       // Task 2: Log inside useEffect for logoUrl (added a specific log for this case)
       console.log("AddCardForm - useEffect for logoUrl: storeName is empty, set to default.png");
+      setIsPreviewLogoValid(true); // Reset for default
       return;
     }
     const asciiName = getAsciiStoreName(storeName);
@@ -72,6 +74,7 @@ const AddCardForm = () => {
     // Task 2: Log inside useEffect for logoUrl
     console.log("AddCardForm - useEffect for logoUrl: storeName=", storeName, ", asciiName=", asciiName, ", newLogoUrl=", newLogoUrl);
     setLogoUrl(newLogoUrl);
+    setIsPreviewLogoValid(true); // Assume valid for new logoUrl
   }, [storeName]);
 
   const handleCoverImageChange = (event) => {
@@ -180,30 +183,20 @@ const AddCardForm = () => {
           onChange={handleCoverImageChange}
         />
         {
-          (coverImageData || (logoUrl && logoUrl !== '/card-logos/default.png')) && (
+          (coverImageData || (logoUrl && logoUrl !== '/card-logos/default.png' && isPreviewLogoValid)) && (
             <div className="image-preview" style={{ marginTop: '10px' }}>
               <img
                 src={coverImageData || logoUrl}
                 alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')}
                 style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }}
                 onError={(e) => {
-                  // Fallback if the primary src (coverImageData or logoUrl) fails.
-                  // This could happen if logoUrl was somehow invalid despite checks.
-                  // We might want to hide the img or show a generic placeholder.
-                  // For now, let's ensure it doesn't show a broken image icon.
-                  // One option is to set to default.png, or hide.
-                  // Given the context, if logoUrl itself is problematic, a general default might be best.
-                  // However, the primary logic implies logoUrl should be valid if used.
-                  // Let's assume if logoUrl is used, it's valid or will be caught by its own onError elsewhere.
-                  // If coverImageData fails, it's a user file, less critical to replace with default.
-                  // The main onError for the logo itself is on the <img src={logoUrl} ... /> higher up.
-                  // This preview is for *cover*. If we're showing logoUrl here, it's because it's acting as cover.
-                  // So, if it fails here, it's an issue.
-                  // A simple approach: if src was logoUrl and it failed, it implies the logo is missing.
-                  // If src was coverImageData and it failed, it's a broken user upload.
-                  // We can add a more specific alt text or a fallback.
-                  // For now, the existing onError on the main logoUrl display should handle missing logos.
-                  // This preview will just show what it's given.
+                  // Only invalidate if the error source was the logoUrl, not a user-uploaded coverImage
+                  if (!coverImageData && e.target.src.includes(logoUrl)) {
+                    setIsPreviewLogoValid(false);
+                  }
+                  // If coverImageData itself fails to load, we don't hide the preview for now,
+                  // user might want to see the broken icon to know their upload failed.
+                  // Or, we could add another state for coverImageData validity if needed.
                 }}
               />
             </div>

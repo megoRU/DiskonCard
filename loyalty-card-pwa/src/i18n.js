@@ -90,8 +90,8 @@ const resources = {
       },
       // AddCardForm
       addCardForm: {
-        storeNameLabel: "Название:",
-        storeNamePlaceholder: "например, Пятерочка", // Updated
+        storeNameLabel: "Название магазина:", // Changed back
+        storeNamePlaceholder: "Название", // Changed
         cardNumberLabel: "Номер карты:",
         cardNumberPlaceholder: "123456789",
         addCardButton: "Добавить карту",
