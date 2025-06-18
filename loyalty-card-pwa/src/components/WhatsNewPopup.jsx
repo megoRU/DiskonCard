@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ThemeContext } from '../context/ThemeContext'; // Import ThemeContext
 import './WhatsNewPopup.css';
 
 const WhatsNewPopup = ({ onClose }) => {
   const { t, i18n } = useTranslation();
+  const { theme } = useContext(ThemeContext); // Consume ThemeContext
   const appVersion = '1.0.0';
 
   // Determine locale for date formatting based on current language
@@ -11,9 +13,11 @@ const WhatsNewPopup = ({ onClose }) => {
   const dateLocale = currentLanguage === 'ru' ? 'ru-RU' : 'en-US';
   const currentDate = new Date().toLocaleDateString(dateLocale);
 
+  const popupClassName = `whats-new-popup ${theme === 'dark' ? 'dark' : ''}`;
+
   return (
     <div className="whats-new-popup-overlay">
-      <div className="whats-new-popup">
+      <div className={popupClassName}>
         <button className="whats-new-popup-close-button" onClick={onClose}>
           &times;
         </button>

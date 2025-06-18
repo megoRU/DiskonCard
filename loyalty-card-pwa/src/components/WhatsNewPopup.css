@@ -12,24 +12,66 @@
 }
 
 .whats-new-popup {
-  background-color: white;
+  background-color: var(--background-elevated, white); /* Use CSS var with fallback */
+  color: var(--text-primary, black); /* Use CSS var with fallback */
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* Slightly more rounded */
+  box-shadow: var(--card-shadow, 0 4px 12px rgba(0, 0, 0, 0.15)); /* Enhanced shadow */
   text-align: center;
   position: relative;
+  width: 90%;
+  max-width: 400px; /* Max width for larger screens */
+  border: 1px solid var(--border-color, #e0e0e0); /* Subtle border */
 }
 
 .whats-new-popup-close-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
+  background: transparent; /* Ensure no background */
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Slightly larger */
+  color: var(--text-secondary, #555); /* Use CSS var */
   cursor: pointer;
+  padding: 5px; /* Easier to click */
+  line-height: 1; /* Ensure consistent alignment */
+}
+
+.whats-new-popup-close-button:hover {
+  color: var(--text-primary, black); /* Darken on hover */
 }
 
 .whats-new-popup h2 {
   margin-top: 0;
+  margin-bottom: 16px; /* Add some space below title */
+  color: var(--text-primary, black);
+}
+
+.whats-new-popup p {
+  margin-bottom: 10px; /* Space out paragraphs */
+  color: var(--text-secondary, #333);
+  font-size: 0.95em;
+}
+
+/* Dark theme specific styles */
+.whats-new-popup.dark {
+  background-color: var(--background-elevated-dark, #2c2c2e); /* Darker background for popup */
+  color: var(--text-primary-dark, white);
+  border-color: var(--border-color-dark, #444);
+}
+
+.whats-new-popup.dark .whats-new-popup-close-button {
+  color: var(--text-secondary-dark, #aaa);
+}
+
+.whats-new-popup.dark .whats-new-popup-close-button:hover {
+  color: var(--text-primary-dark, white);
+}
+
+.whats-new-popup.dark h2 {
+  color: var(--text-primary-dark, white);
+}
+
+.whats-new-popup.dark p {
+  color: var(--text-secondary-dark, #ccc);
 }
