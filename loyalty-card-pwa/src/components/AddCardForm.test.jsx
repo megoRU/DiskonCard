@@ -139,7 +139,8 @@ describe('AddCardForm Component', () => {
 
       // Wait for FileReader to process the file and update state
       // We can check if the preview image appears with the base64 data
-      await screen.findByAltText(/Предпросмотр обложки/i);
+      const previewImage = await screen.findByAltText(/Предпросмотр обложки/i);
+      expect(previewImage.src).toMatch(/^data:image\/(png|jpeg|gif);base64,/);
 
       fireEvent.click(screen.getByRole('button', { name: /Добавить карту/i }));
 
@@ -153,7 +154,7 @@ describe('AddCardForm Component', () => {
       });
     });
 
-    test('TC3: coverImage is null if no custom image and logoUrl is default', async () => {
+    test('TC3: coverImage is default.png if no custom image and logoUrl is default', async () => {
       render(
         <Router>
           <I18nextProvider i18n={i18n}>
@@ -172,9 +173,76 @@ describe('AddCardForm Component', () => {
           storeName: '',
           cardNumber: '11223',
           logoUrl: '/card-logos/default.png', // Default logoUrl
-          coverImage: null // CoverImage should be null
+          coverImage: '/card-logos/default.png' // CoverImage should now be default.png
         }));
       });
+    });
+  });
+
+  describe('Cover Image Preview Logic', () => {
+    const getPreviewImageSrc = () => {
+      // The alt text is "Предпросмотр обложки" from i18n addCardForm.coverPreviewAlt
+      // For some reason, during tests, the default value "Предпросмотр обложки" might be used if i18n keys are not fully resolved for alt tags.
+      // Let's try a more general regex or the direct key if possible.
+      // The key is 'addCardForm.coverPreviewAlt'
+      // Using a general alt text query first.
+      const previewImg = screen.getByAltText(/Предпросмотр обложки/i); // More robust to slight i18n variations
+      return previewImg ? previewImg.src : null;
+    };
+
+    test('shows default.png in preview initially', () => {
+      render(
+        <Router>
+          <I18nextProvider i18n={i18n}>
+            <AddCardForm />
+          </I18nextProvider>
+        </Router>
+      );
+      expect(getPreviewImageSrc()).toContain('/card-logos/default.png');
+    });
+
+    test('preview shows specific store logo after store name input', async () => {
+      render(
+        <Router>
+          <I18nextProvider i18n={i18n}>
+            <AddCardForm />
+          </I18nextProvider>
+        </Router>
+      );
+      fireEvent.change(screen.getByLabelText(/Название магазина:/i), { target: { value: 'Магнит' } });
+      await waitFor(() => expect(getPreviewImageSrc()).toContain('/card-logos/magnit.png'));
+    });
+
+    test('preview shows uploaded image data', async () => {
+      render(
+        <Router>
+          <I18nextProvider i18n={i18n}>
+            <AddCardForm />
+          </I18nextProvider>
+        </Router>
+      );
+      const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
+      const coverImageInput = screen.getByLabelText(/Обложка карты/i);
+      fireEvent.change(coverImageInput, { target: { files: [file] } });
+
+      await waitFor(() => expect(getPreviewImageSrc()).toMatch(/^data:image\/png;base64,/));
+    });
+
+    test('preview falls back to default.png if a non-default logoUrl is then cleared by empty store name', async () => {
+      render(
+        <Router>
+          <I18nextProvider i18n={i18n}>
+            <AddCardForm />
+          </I18nextProvider>
+        </Router>
+      );
+      // Set a specific store first
+      fireEvent.change(screen.getByLabelText(/Название магазина:/i), { target: { value: 'Магнит' } });
+      await waitFor(() => expect(getPreviewImageSrc()).toContain('/card-logos/magnit.png'));
+
+      // Clear store name, which should make logoUrl default and thus preview default
+      fireEvent.change(screen.getByLabelText(/Название магазина:/i), { target: { value: '' } });
+      await waitFor(() => expect(getPreviewImageSrc()).toContain('/card-logos/default.png'));
     });
   });
 });

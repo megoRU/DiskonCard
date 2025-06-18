@@ -97,10 +97,15 @@ const AddCardForm = () => {
       return;
     }
 
-    let finalCoverImage = coverImageData;
-    if (!finalCoverImage && logoUrl && logoUrl !== '/card-logos/default.png') {
-      finalCoverImage = logoUrl;
+    let finalCoverImage = '/card-logos/default.png'; // Default to default.png
+
+    if (coverImageData) {
+      finalCoverImage = coverImageData; // User-uploaded image takes highest priority
+    } else if (logoUrl && logoUrl !== '/card-logos/default.png') {
+      finalCoverImage = logoUrl; // Specific store logo takes priority over default.png
     }
+    // If neither coverImageData nor a specific logoUrl is available,
+    // finalCoverImage remains '/card-logos/default.png'.
 
     // Task 3: Log in handleSubmit
     console.log("AddCardForm - handleSubmit: storeName=", storeName, ", logoUrl=", logoUrl, ", coverImage=", finalCoverImage);
@@ -122,6 +127,15 @@ const AddCardForm = () => {
   // handleTakePhoto function removed
 
   // Camera conditional rendering removed
+
+  let determinedPreviewSrc;
+  if (coverImageData) {
+    determinedPreviewSrc = coverImageData;
+  } else if (logoUrl && logoUrl !== '/card-logos/default.png' && isPreviewLogoValid) {
+    determinedPreviewSrc = logoUrl;
+  } else {
+    determinedPreviewSrc = '/card-logos/default.png';
+  }
 
   return (
     <>
@@ -182,26 +196,24 @@ const AddCardForm = () => {
           accept="image/*"
           onChange={handleCoverImageChange}
         />
-        {
-          (coverImageData || (logoUrl && logoUrl !== '/card-logos/default.png' && isPreviewLogoValid)) && (
-            <div className="image-preview" style={{ marginTop: '10px' }}>
-              <img
-                src={coverImageData || logoUrl}
-                alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')}
-                style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }}
-                onError={(e) => {
-                  // Only invalidate if the error source was the logoUrl, not a user-uploaded coverImage
-                  if (!coverImageData && e.target.src.includes(logoUrl)) {
-                    setIsPreviewLogoValid(false);
-                  }
-                  // If coverImageData itself fails to load, we don't hide the preview for now,
-                  // user might want to see the broken icon to know their upload failed.
-                  // Or, we could add another state for coverImageData validity if needed.
-                }}
-              />
-            </div>
-          )
-        }
+        <div className="image-preview" style={{ marginTop: '10px' }}>
+          <img
+            src={determinedPreviewSrc}
+            alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')}
+            style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }}
+            onError={(e) => {
+              // If the source that failed was a specific logoUrl (not a user file or the default.png itself)
+              if (!coverImageData && determinedPreviewSrc === logoUrl && logoUrl !== '/card-logos/default.png') {
+                setIsPreviewLogoValid(false);
+                // This will cause determinedPreviewSrc to become default.png on next render,
+                // and that new src ('default.png') should ideally not trigger this same onError again
+                // if default.png is missing (though it should always be present).
+              }
+              // If coverImageData fails, browser shows broken icon.
+              // If default.png fails (highly unlikely), browser shows broken icon.
+            }}
+          />
+        </div>
       </div>
       <div className="form-actions">
         <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>

@@ -124,6 +124,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           tabIndex={0}
                           onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
                         >
+                          {/* Corner logo removed
                           {card.coverImage && (
                             <img
                               src={card.logoUrl || '/card-logos/default.png'}
@@ -132,6 +133,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                               onError={(e) => { e.target.src = '/card-logos/default.png'; }}
                             />
                           )}
+                          */}
                           {isEditMode && (
                             <button
                               className="delete-card-btn"
@@ -168,6 +170,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                       tabIndex={0}
                       onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
                     >
+                      {/* Corner logo removed
                       {card.coverImage && (
                         <img
                           src={card.logoUrl || '/card-logos/default.png'}
@@ -176,6 +179,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           onError={(e) => { e.target.src = '/card-logos/default.png'; }}
                         />
                       )}
+                      */}
                       {/* No delete button when not in edit mode */}
                     </div>
                   );
