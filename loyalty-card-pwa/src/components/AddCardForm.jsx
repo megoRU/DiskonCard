@@ -11,18 +11,24 @@ const popularStores = [
   "Пятёрочка",
   "Перекрёсток",
   "Дикси",
-  "Окей"
+  "Окей",
+  "Лента",
+  "Fix Price",
+  "METRO"
 ];
 
 // Task Step 1: Transliteration function and map
 const storeNameMap = {
-  'пятёрочка': 'pyaterochka',
-  'пятерочка': 'pyaterochka',
-  'перекресток': 'perekrestok',
-  'перекрёсток': 'perekrestok',
+  'пятёрочка': 'x5',
+  'пятерочка': 'x5',
+  'перекресток': 'x5',
+  'перекрёсток': 'x5',
   'окей': 'okey',
   'дикси': 'dixy',
   'магнит': 'magnit',
+  'лента': 'lenta',
+  'fix price': 'fixprice',
+  'METRO': 'metro'
 };
 
 function getAsciiStoreName(name) {
@@ -200,7 +206,7 @@ const AddCardForm = () => {
           <img
             src={determinedPreviewSrc}
             alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')}
-            style={{ maxWidth: '200px', maxHeight: '116px', display: 'block' }}
+            style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }}
             onError={(e) => {
               // If the source that failed was a specific logoUrl (not a user file or the default.png itself)
               if (!coverImageData && determinedPreviewSrc === logoUrl && logoUrl !== '/card-logos/default.png') {
