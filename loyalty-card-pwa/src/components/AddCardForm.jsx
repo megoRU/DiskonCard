@@ -16,7 +16,7 @@ const popularStores = [
   "Дикси",
   "Окей",
   "Лента",
-  "Fix Price",
+  "FixPrice",
   "METRO"
 ];
 
@@ -31,7 +31,7 @@ const storeNameMap = {
   'магнит': 'magnit',
   'лента': 'lenta',
   'fixprice': 'fixprice',
-  'Fix Price': 'fixprice',
+  'FixPrice': 'fixprice',
   'METRO': 'metro'
 };
 
