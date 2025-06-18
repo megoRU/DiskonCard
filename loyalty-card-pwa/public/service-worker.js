@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.1.7'; // обнови версию при каждом изменении
+const CACHE_NAME = 'loyalty-card-cache-v1.2.0'; // обнови версию при каждом изменении
 const urlsToCache = [
     new Request('/', {cache: 'reload'}),
     new Request('/index.html', {cache: 'reload'}),
@@ -9,6 +9,7 @@ const urlsToCache = [
     '/favicon.ico',
     '/logo192.png',
     '/logo512.png',
+    '/card-logos/default.png', // Added default logo
     // Картинки — кэшируются on-demand
 ];
 
