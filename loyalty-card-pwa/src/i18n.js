@@ -107,12 +107,12 @@ const resources = {
         importErrorInvalidFile: "Ошибка импорта: Неверный тип файла. Пожалуйста, выберите .json файл.",
         importErrorInvalidFormat: "Ошибка импорта: Неверный формат данных в файле.",
         importErrorReadFile: "Ошибка импорта: Не удалось прочитать файл.",
-        importSuccess: "Импорт успешно завершен. Добавлено карт: {{addedCount}}. Пропущено карт (дубликаты): {{skippedCount}}."
+        importSuccess: "Импорт успешно завершен."
       },
       "whatsNewPopup": {
         "title": "Что нового",
         "version": "Версия приложения: {{version}}",
-        "releaseDate": "Дата релиза: {{date}}"
+        "releaseDate": "1.2.0 — Исправили подгрузку картинок"
       },
       // AddCardPage
       addCardPage: {
