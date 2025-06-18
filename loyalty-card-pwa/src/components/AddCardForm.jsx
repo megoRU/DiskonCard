@@ -11,18 +11,24 @@ const popularStores = [
   "Пятёрочка",
   "Перекрёсток",
   "Дикси",
-  "Окей"
+  "Окей",
+  "Лента",
+  "Fix Price",
+  "METRO"
 ];
 
 // Task Step 1: Transliteration function and map
 const storeNameMap = {
-  'пятёрочка': 'pyaterochka',
-  'пятерочка': 'pyaterochka',
-  'перекресток': 'perekrestok',
-  'перекрёсток': 'perekrestok',
+  'пятёрочка': 'x5',
+  'пятерочка': 'x5',
+  'перекресток': 'x5',
+  'перекрёсток': 'x5',
   'окей': 'okey',
   'дикси': 'dixy',
   'магнит': 'magnit',
+  'лента': 'lenta',
+  'fix price': 'fixprice',
+  'METRO': 'metro'
 };
 
 function getAsciiStoreName(name) {
