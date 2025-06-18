@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Diskoncard: Ваши карты лояльности всегда под рукой!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Build and Push Docker Image](https://github.com/MEGORU/diskoncard/actions/workflows/main.yml/badge.svg)](https://github.com/MEGORU/diskoncard/actions/workflows/main.yml) [![Docker Pulls](https://img.shields.io/docker/pulls/megoru/diskoncard.svg)](https://hub.docker.com/r/megoru/diskoncard)
 
-## Available Scripts
+**Diskoncard** — это удобное веб-приложение (Progressive Web App), которое позволяет вам хранить все ваши карты лояльности в одном месте — прямо в вашем телефоне или браузере! Забудьте о толстом кошельке, полном пластиковых карт. С Diskoncard любимые скидки и бонусы всегда с вами.
 
-In the project directory, you can run:
+## Зачем нужен Diskoncard?
 
-### `npm start`
+*   **Все карты в одном месте:** Больше не нужно искать нужную карту на кассе. Откройте Diskoncard, выберите карту, и покажите штрих-код кассиру.
+*   **Экономия места:** Освободите свой кошелек от десятков пластиковых карт.
+*   **Удобство:** Добавляйте новые карты легко и быстро, просто сфотографировав штрих-код или введя его номер.
+*   **Доступность:** Работает на любом устройстве с веб-браузером — телефоне, планшете, компьютере. Установите как приложение на телефон для еще более быстрого доступа!
+*   **Простота:** Интуитивно понятный интерфейс, с которым разберется каждый.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Основные функции
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*   Добавление карт лояльности (по номеру или сканируя штрих-код камерой).
+*   Отображение штрих-кода карты для сканирования на кассе.
+*   Возможность присвоить карте название и выбрать логотип магазина.
+*   Простой и чистый интерфейс.
+*   Работает оффлайн после первой загрузки (как PWA).
+*   Сортировка карт.
+*   Темная и светлая темы оформления.
 
-### `npm test`
+## Как пользоваться?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  **Откройте приложение:** Перейдите по [ссылке на приложение](https://diskoncard.megoru.space) (если оно развернуто) или запустите локально (см. ниже).
+2.  **Добавьте карту:** Нажмите кнопку "+" или "Добавить карту". Вы можете ввести номер карты вручную или отсканировать штрих-код с помощью камеры вашего устройства.
+3.  **Используйте на кассе:** При оплате покупок откройте Diskoncard, выберите нужную карту, и покажите появившийся штрих-код кассиру для сканирования.
 
-### `npm run build`
+## Как запустить с помощью Docker (для продвинутых пользователей)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Вы можете легко запустить Diskoncard на своем компьютере или сервере с помощью Docker.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Установите Docker и Docker Compose:** Если у вас их еще нет, следуйте инструкциям на официальных сайтах:
+    *   [Docker](https://docs.docker.com/get-docker/)
+    *   [Docker Compose](https://docs.docker.com/compose/install/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  **Создайте файл `docker-compose.yml`** со следующим содержимым:
 
-### `npm run eject`
+    ```yaml
+    version: '3.8'
+    services:
+      diskoncard:
+        image: megoru/diskoncard:latest
+        container_name: diskoncard_app
+        ports:
+          - "8080:80" # Приложение будет доступно по адресу http://localhost:8080
+        restart: unless-stopped
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3.  **Запустите приложение:** В терминале, в той же папке, где вы создали `docker-compose.yml`, выполните команду:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    docker-compose up -d
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4.  **Откройте в браузere:** Перейдите по адресу `http://localhost:8080`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Для разработчиков
 
-## Learn More
+Этот проект создан с использованием React, Vite и других современных веб-технологий.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Локальный запуск для разработки
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1.  Клонируйте репозиторий:
+    ```bash
+    git clone https://github.com/MEGORU/diskoncard.git
+    cd diskoncard/loyalty-card-pwa
+    ```
+2.  Установите зависимости:
+    ```bash
+    npm install
+    ```
+3.  Запустите сервер разработки:
+    ```bash
+    npm run dev
+    ```
+    Приложение будет доступно по адресу, указанному в консоли (обычно `http://localhost:5173`).
 
-### Code Splitting
+### Доступные скрипты
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+*   `npm run dev` или `npm start`: запуск в режиме разработки.
+*   `npm run build`: сборка приложения для продакшена в папку `dist`.
+*   `npm run preview`: локальный просмотр продакшн-сборки.
+*   `npm test`: запуск тестов с помощью Vitest.
 
-### Analyzing the Bundle Size
+## Обратная связь и предложения
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Если у вас есть идеи по улучшению приложения или вы столкнулись с проблемой, пожалуйста, создайте [Issue](https://github.com/MEGORU/diskoncard/issues) в этом репозитории.
