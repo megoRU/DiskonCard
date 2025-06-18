@@ -51,7 +51,8 @@
   background-size: cover; /* Cover the area with the image */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-color: #e0e0e0; /* Default background if no image or image fails to load */
+  background-color: var(--card-default-bg, #e0e0e0); /* Default background if no image or image fails to load */
+  position: relative; /* For positioning child elements like the logo */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* Internet Explorer/Edge */
@@ -139,6 +140,18 @@
   opacity: 0.85;
 }
 
+.card-item .card-logo {
+  max-height: 40px;
+  max-width: 80px;
+  object-fit: contain;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
+  border-radius: 4px;
+  padding: 2px;
+  z-index: 1; /* Above card background, below delete button potentially */
+}
 
 /* Keyframes for jiggle (example, can be refined) */
 /* @keyframes jiggle {

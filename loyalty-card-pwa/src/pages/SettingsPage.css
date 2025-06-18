@@ -10,47 +10,112 @@
   text-align: center; /* Center title on settings page */
 }
 
-.theme-options {
+/* New Theme Button Styles */
+.settings-page .theme-selector {
   background-color: var(--background-secondary);
-  padding: 16px; /* Slightly less padding for grouped options */
-  border-radius: 12px; /* Consistent rounded corners */
+  padding: 16px;
+  border-radius: 12px;
   box-shadow: var(--card-shadow);
-  max-width: 500px; /* Consistent max-width with form */
-  margin: 0 auto; /* Center the options block */
+  max-width: 500px;
+  margin: 0 auto 24px auto; /* Added bottom margin */
+  text-align: center;
 }
 
-.theme-options h2 {
-  font-size: 1.1em; /* ~17-18px */
+.settings-page .theme-selector h2 {
+  font-size: 1.1em;
   font-weight: 600;
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 16px; /* Increased bottom margin */
   color: var(--text-primary);
-  /* border-bottom: 0.5px solid var(--border-color); */ /* Removed border for cleaner look */
-  padding-bottom: 6px;
 }
 
-.theme-option {
+.theme-buttons-container {
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  margin-bottom: 12px; /* Spacing between radio options */
-  padding: 10px 0; /* Add some padding for easier touch */
+  gap: 10px;
 }
 
-.theme-option:last-child {
-  margin-bottom: 0;
-}
-
-.theme-option input[type="radio"] {
-  margin-right: 12px;
-  accent-color: var(--primary-color);
-  width: 20px; /* Larger radio buttons */
-  height: 20px;
+.theme-button {
+  background-color: var(--button-secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  color: var(--text-secondary);
 }
 
-.theme-option label {
-  font-size: 1.05em; /* ~17px */
-  color: var(--text-primary); /* Use primary text for more emphasis */
-  cursor: pointer;
-  flex-grow: 1; /* Allow label to take remaining space */
+.theme-button:hover {
+  background-color: var(--button-secondary-hover-bg);
+  border-color: var(--primary-color);
+}
+
+.theme-button.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--button-primary-text-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.theme-button .theme-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.theme-button .theme-label {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Restored App Info Section Styles */
+.app-info-section {
+  background-color: var(--background-secondary);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  max-width: 500px;
+  margin: 24px auto 0;
+  text-align: center;
+}
+
+.app-version {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+}
+
+.whats-new-link {
+  font-size: 1em;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: block; /* Make it block to take up full width for centering if parent is text-align: center */
+  margin-bottom: 8px; /* Space it out from contact link */
+}
+
+.whats-new-link:hover {
+  text-decoration: underline;
+}
+
+.contact-developer-container {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.contact-link {
+  font-size: 1em; /* Relative to parent, so effectively 0.9em of root */
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
 }
