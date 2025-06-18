@@ -58,12 +58,28 @@ const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
+  const [debouncedStoreName, setDebouncedStoreName] = useState('');
   const [imageOnErrorRecoveryFlag, setImageOnErrorRecoveryFlag] = useState(0);
 
   // Task 1: Log raw storeName
   useEffect(() => {
     console.log("StoreName updated (raw):", storeName);
   }, [storeName]);
+
+  // Effect to update debouncedStoreName
+  useEffect(() => {
+    // console.log("Effect: storeName changed to:", storeName); // Optional: for debugging raw storeName
+    const handler = setTimeout(() => {
+      // console.log("Effect: Setting debouncedStoreName to:", storeName); // Optional: for debugging debouncedStoreName update
+      setDebouncedStoreName(storeName);
+    }, 500); // 500ms delay, adjust as needed
+
+    // Cleanup function to clear the timeout if storeName changes again before 500ms
+    return () => {
+      // console.log("Effect: Clearing timeout for storeName:", storeName); // Optional: for debugging cleanup
+      clearTimeout(handler);
+    };
+  }, [storeName]); // This effect runs when storeName changes
 
   const [logoUrl, setLogoUrl] = useState('/card-logos/default.png'); // New state for logoUrl
   const [selectedLogoDataUrl, setSelectedLogoDataUrl] = useState(null); // Stores the base64 data URL of the logo to be saved
@@ -139,21 +155,21 @@ const AddCardForm = () => {
     fetchAndSetLogoDataUrl('/card-logos/default.png', '/card-logos/default.png');
   }, [imageOnErrorRecoveryFlag]); // Runs on mount and when imageOnErrorRecoveryFlag changes
 
-  // Updated useEffect for logoUrl based on storeName
+  // Updated useEffect for logoUrl based on debouncedStoreName
   useEffect(() => {
-    // setIsPreviewLogoValid(true); // Removed
-    if (!storeName.trim()) {
-      setLogoUrl('/card-logos/default.png');
+    console.log("Effect: debouncedStoreName changed to:", debouncedStoreName, ". Fetching logo.");
+    if (!debouncedStoreName.trim()) {
+      setLogoUrl('/card-logos/default.png'); // Keep original logoUrl state for now
       fetchAndSetLogoDataUrl('/card-logos/default.png', '/card-logos/default.png');
-      console.log("AddCardForm - useEffect for storeName: storeName is empty, set to default.png and fetched its base64");
+      console.log("AddCardForm - useEffect for debouncedStoreName: debouncedStoreName is empty, set to default.png and fetched its base64");
       return;
     }
-    const asciiName = getAsciiStoreName(storeName);
+    const asciiName = getAsciiStoreName(debouncedStoreName);
     const newLogoUrl = asciiName ? `/card-logos/${asciiName}.png` : '/card-logos/default.png';
-    setLogoUrl(newLogoUrl); // Still set this for display or legacy reasons if any
+    setLogoUrl(newLogoUrl); // Keep original logoUrl state for now
     fetchAndSetLogoDataUrl(newLogoUrl, '/card-logos/default.png');
-    console.log("AddCardForm - useEffect for storeName: storeName=", storeName, ", asciiName=", asciiName, ", newLogoUrl=", newLogoUrl, " - fetching its base64.");
-  }, [storeName]);
+    console.log("AddCardForm - useEffect for debouncedStoreName: storeName=", debouncedStoreName, ", asciiName=", asciiName, ", newLogoUrl=", newLogoUrl, " - fetching its base64.");
+  }, [debouncedStoreName]); // Now depends on debouncedStoreName
 
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
@@ -168,9 +184,9 @@ const AddCardForm = () => {
     } else {
       setCoverImageData(null); // Reset if file is not an image or not selected
       // If image is deselected, revert selectedLogoDataUrl to current store's logo or default
-      console.log("User cleared image input. Reverting selectedLogoDataUrl based on storeName.");
-      const asciiName = getAsciiStoreName(storeName); // Recalculate current store logo path
-      const currentStoreLogoUrl = storeName.trim() && asciiName ? `/card-logos/${asciiName}.png` : '/card-logos/default.png';
+      console.log("User cleared image input. Reverting selectedLogoDataUrl based on debouncedStoreName.");
+      const asciiName = getAsciiStoreName(debouncedStoreName); // Use debouncedStoreName
+      const currentStoreLogoUrl = debouncedStoreName.trim() && asciiName ? `/card-logos/${asciiName}.png` : '/card-logos/default.png';
       fetchAndSetLogoDataUrl(currentStoreLogoUrl, '/card-logos/default.png');
     }
   };
