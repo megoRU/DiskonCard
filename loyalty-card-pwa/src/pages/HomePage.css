@@ -96,6 +96,14 @@
   /* Optional: styles for the grid when in edit mode */
 }
 
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
 .card-item-edit-mode {
   border: 1px dashed var(--primary-color); /* Softened the border */
   position: relative;

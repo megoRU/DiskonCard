@@ -64,14 +64,11 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
 
   const renderCardContent = (card, index, isDraggable) => {
     const bgImage = card.coverImage || (card.logoUrl !== '/card-logos/default.png' ? card.logoUrl : null);
-    const cardStyle = {
-      backgroundImage: bgImage ? `url(${bgImage})` : 'none',
-    };
+    const fallbackImage = '/card-logos/default.png';
 
     const cardInner = (
         <div
             className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''}`}
-            style={cardStyle}
             onClick={() => handleCardClick(card)}
             {...bind(card.id)}
             role="button"
@@ -82,8 +79,8 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
               <img
                   src={bgImage}
                   alt=""
-                  style={{ display: 'none' }}
-                  onError={(e) => { e.target.src = '/card-logos/default.png'; }}
+                  className="card-image"
+                  onError={(e) => { e.target.src = fallbackImage; }}
               />
           )}
           {isEditMode && (
