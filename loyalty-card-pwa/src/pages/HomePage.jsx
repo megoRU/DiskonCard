@@ -63,8 +63,11 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
   };
 
   const renderCardContent = (card, index, isDraggable) => {
-    const bgImage = card.coverImage || (card.logoUrl !== '/card-logos/default.png' ? card.logoUrl : null);
-    const fallbackImage = '/card-logos/default.png';
+    // card.coverImage is now expected to always be a base64 data URL.
+    // It's populated during card creation (AddCardForm) from either a fetched predefined logo
+    // or a user-uploaded file, with a fallback to a default logo's base64.
+    const bgImage = card.coverImage;
+    const fallbackImage = '/card-logos/default.png'; // Fallback for the hidden img's onError
 
     const cardInner = (
         <div
