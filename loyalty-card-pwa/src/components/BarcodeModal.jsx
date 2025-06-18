@@ -1,34 +1,35 @@
 import React, { useEffect, useRef } from 'react';
 import JsBarcode from 'jsbarcode';
-import { FiX } from 'react-icons/fi'; // Using FiX for a close icon
-import { useTranslation } from 'react-i18next'; // For potential future text in modal
+import { QRCodeSVG } from 'qrcode.react'; // Import QRCodeSVG
+import { FiX } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 import './BarcodeModal.css';
 
 const BarcodeModal = ({ cardData, onClose }) => {
-  const { t } = useTranslation(); // For any text, like close button aria-label
+  const { t } = useTranslation();
   const barcodeRef = useRef(null);
+  const isQrCode = cardData && cardData.cardNumber && cardData.cardNumber.startsWith('E'); // Simple check for QR
 
   useEffect(() => {
-    if (cardData && cardData.cardNumber && barcodeRef.current) {
+    if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) { // Only run JsBarcode if not QR
       try {
         JsBarcode(barcodeRef.current, cardData.cardNumber, {
-          format: "CODE128", // Common format, can be changed
-          lineColor: "var(--barcode-color, #000000)", // Default to black, can be themed
-          background: "var(--barcode-background, #ffffff)", // Default to white
+          format: "CODE128",
+          lineColor: "var(--barcode-color, #000000)",
+          background: "var(--barcode-background, #ffffff)",
           width: 2,
           height: 100,
-          displayValue: true, // Display the card number below the barcode
+          displayValue: false, // Set to false, we'll display value manually for consistency
           margin: 10,
           fontOptions: "bold",
-          font: "Inter, sans-serif", // Match app font
+          font: "Inter, sans-serif",
           fontSize: 16,
         });
       } catch (e) {
         console.error("JsBarcode error:", e);
-        // Optionally, display an error message in the modal if barcode generation fails
       }
     }
-  }, [cardData]);
+  }, [cardData, isQrCode]); // Add isQrCode to dependency array
 
   if (!cardData) {
     return null;
@@ -40,14 +41,28 @@ const BarcodeModal = ({ cardData, onClose }) => {
         <button
           className="barcode-modal-close-btn"
           onClick={onClose}
-          aria-label={t('barcodeModal.closeLabel', 'Close barcode view')} // For accessibility
+          aria-label={t('barcodeModal.closeLabel', 'Close barcode view')}
         >
           <FiX />
         </button>
         <h2 className="barcode-modal-store-name">{cardData.storeName}</h2>
-        {/* Card number is displayed by JsBarcode if displayValue: true */}
-        {/* <p className="barcode-modal-card-number">{cardData.cardNumber}</p> */}
-        <svg ref={barcodeRef} className="barcode-svg"></svg>
+        <div className="barcode-graphic-container"> {/* Added a container for centering */}
+          {isQrCode ? (
+            <QRCodeSVG
+              value={cardData.cardNumber}
+              size={180} // Adjusted size
+              bgColor={"#ffffff"}
+              fgColor={"#000000"}
+              level={"L"} // Error correction level
+              includeMargin={false}
+              className="qr-code-svg" // Added class for potential styling
+            />
+          ) : (
+            <svg ref={barcodeRef} className="barcode-svg"></svg>
+          )}
+        </div>
+        {/* Manually display card number for both QR and Barcode for consistency */}
+        <p className="barcode-modal-card-number-display">{cardData.cardNumber}</p>
       </div>
     </div>
   );
