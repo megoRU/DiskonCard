@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.1.5'; // обнови версию при каждом изменении
+const CACHE_NAME = 'loyalty-card-cache-v1.1.6'; // обнови версию при каждом изменении
 const urlsToCache = [
     new Request('/', {cache: 'reload'}),
     new Request('/index.html', {cache: 'reload'}),
