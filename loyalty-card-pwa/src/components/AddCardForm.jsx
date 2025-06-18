@@ -26,7 +26,7 @@ const storeNameMap = {
   'дикси': 'dixy',
   'магнит': 'magnit',
   'лента': 'lenta',
-  'fixprice': 'Fix Price',
+  'fixprice': 'fixprice',
   'Fix Price': 'fixprice',
   'METRO': 'metro'
 };
