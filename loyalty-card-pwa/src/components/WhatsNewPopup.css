@@ -55,9 +55,9 @@
 
 /* Dark theme specific styles */
 .whats-new-popup.dark {
-  background-color: var(--background-elevated-dark, #2c2c2e); /* Darker background for popup */
+  background-color: #000000; /* Changed to pure black */
   color: var(--text-primary-dark, white);
-  border-color: var(--border-color-dark, #444);
+  border-color: var(--border-color-dark, #444); /* Keep other dark theme styles */
 }
 
 .whats-new-popup.dark .whats-new-popup-close-button {
