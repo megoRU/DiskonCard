@@ -108,10 +108,11 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           {...providedDraggable.dragHandleProps} // Apply drag handle to the whole card
                           style={{
                             ...providedDraggable.draggableProps.style,
-                            backgroundImage: card.coverImage ? `url(${card.coverImage})` : 'var(--card-default-bg, #eee)',
-                            // backgroundSize: 'cover', // These will be handled in CSS for better separation
-                            // backgroundPosition: 'center',
-                            // backgroundRepeat: 'no-repeat',
+                            backgroundImage: card.coverImage
+                                             ? `url(${card.coverImage})`
+                                             : (card.storeLogoUrl
+                                                ? `url(${card.storeLogoUrl})`
+                                                : 'none'),
                           }}
                           className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''} ${snapshotDraggable.isDragging ? 'card-item-dragging' : ''}`}
                           onClick={() => handleCardClick(card)}
@@ -140,10 +141,11 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                       key={card.id} // Still need a key for React list rendering
                       className={`card-item`} // Base class, no edit-mode or dragging specific classes
                       style={{
-                        backgroundImage: card.coverImage ? `url(${card.coverImage})` : 'var(--card-default-bg, #eee)',
-                        // backgroundSize: 'cover',
-                        // backgroundPosition: 'center',
-                        // backgroundRepeat: 'no-repeat',
+                        backgroundImage: card.coverImage
+                                         ? `url(${card.coverImage})`
+                                         : (card.storeLogoUrl
+                                            ? `url(${card.storeLogoUrl})`
+                                            : 'none'),
                       }}
                       onClick={() => handleCardClick(card)}
                       {...bind(card.id)} // Long press binding for entering edit mode

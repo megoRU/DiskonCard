@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Added useEffect
 import { useNavigate } from 'react-router-dom';
 import { addCardToStorage } from '../utils/localStorage';
+import { getStoreLogoUrl } from '../utils/storeLogos.js'; // Import getStoreLogoUrl
 // Camera imports removed
 import { useTranslation } from 'react-i18next';
 import Notification from './Notification'; // Import Notification component
@@ -24,9 +25,19 @@ const AddCardForm = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
   const [coverImageData, setCoverImageData] = useState(null); // State for cover image data URL
+  const [selectedStoreLogoUrl, setSelectedStoreLogoUrl] = useState(null); // State for store logo URL
   // showCamera state removed
   const [notification, setNotification] = useState({ message: '', type: 'success' }); // Notification state
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (storeName) {
+      const logoUrl = getStoreLogoUrl(storeName);
+      setSelectedStoreLogoUrl(logoUrl);
+    } else {
+      setSelectedStoreLogoUrl(null); // Reset logo if storeName is empty
+    }
+  }, [storeName]); // Run effect when storeName changes
 
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
@@ -47,11 +58,17 @@ const AddCardForm = () => {
       setNotification({ message: t('addCardForm.fillFieldsAlert'), type: 'error' });
       return;
     }
-    addCardToStorage({ cardNumber, storeName, coverImage: coverImageData }); // Pass coverImageData
+    addCardToStorage({
+      cardNumber,
+      storeName,
+      coverImage: coverImageData,
+      storeLogoUrl: selectedStoreLogoUrl // Pass selectedStoreLogoUrl
+    });
     setNotification({ message: t('addCardForm.cardAddedSuccess'), type: 'success' });
     setCardNumber('');
     setStoreName('');
     setCoverImageData(null); // Reset cover image data
+    setSelectedStoreLogoUrl(null); // Reset store logo URL
     // navigate('/'); // Navigation might be too fast, consider delaying or allowing user to see notification
     // For now, let's keep navigation to see how it behaves with notification.
     // If notification isn't visible long enough, could navigate in onClose of Notification
@@ -88,6 +105,11 @@ const AddCardForm = () => {
             <option key={index} value={store} />
           ))}
         </datalist>
+        {selectedStoreLogoUrl && (
+          <div className="store-logo-preview" style={{ marginTop: '5px', marginBottom: '15px', textAlign: 'left' }}>
+            <img src={selectedStoreLogoUrl} alt={t('addCardForm.storeLogoAlt', `${storeName} Logo`)} style={{ maxHeight: '40px', maxWidth: '150px', display: 'inline-block', verticalAlign: 'middle' }} />
+          </div>
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="cardNumber">{t('addCardForm.cardNumberLabel')}</label>
