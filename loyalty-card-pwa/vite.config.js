@@ -1,21 +1,32 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  define: {
-    'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version || 'default'),
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/setupTests.js', // Assuming this file exists for test setup
-  },
-  // Optional: Define a server port if needed, e.g., 3000
-  // server: {
-  //   port: 3000,
-  // },
-  // Optional: Define the public directory if it's not 'public'
-  // publicDir: 'public',
-});
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate', // автообновление сервис-воркера
+      manifest: {
+        name: 'DiskonCard',
+        short_name: 'PWA',
+        start_url: '/',
+        display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: '#3f51b5',
+        icons: [
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      }
+    })
+  ]
+})
