@@ -74,13 +74,24 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
             role="button"
             tabIndex={0}
             onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
+            style={{
+              backgroundImage: bgImage ? `url(${bgImage})` : undefined,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
         >
           {bgImage && (
               <img
                   src={bgImage}
                   alt=""
-                  className="card-image"
                   onError={(e) => { e.target.src = fallbackImage; }}
+                  style={{
+                    opacity: 0,
+                    width: 1,
+                    height: 1,
+                    position: 'absolute',
+                    pointerEvents: 'none',
+                  }}
               />
           )}
           {isEditMode && (
