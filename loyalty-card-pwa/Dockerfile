@@ -1,51 +1,27 @@
-# Этап 1: Сборка React-приложения
+# Этап 1: Сборка приложения
 FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Копируем package.json и package-lock.json (или yarn.lock)
-COPY package.json ./
-COPY package-lock.json ./
-
-# Устанавливаем зависимости
+COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
-# Копируем остальные файлы проекта
 COPY . .
-
-# Собираем приложение
 RUN npm run build
 
-# Этап 2: Сервировка приложения с помощью Nginx
-FROM nginx:1.25-alpine AS production
+# Этап 2: Запуск с помощью serve
+FROM node:18-alpine
 
-# Устанавливаем nginx.conf
-COPY <<EOF /etc/nginx/conf.d/default.conf
-server {
-    listen 80;
-    server_name localhost;
+WORKDIR /app
 
-    location / {
-        root /usr/share/nginx/html;
-        index index.html;
-        try_files $uri $uri/ /index.html;
-    }
+# Копируем собранный dist
+COPY --from=build /app/dist ./dist
 
-    # Дополнительно: сжатие для ускорения загрузки
-    gzip on;
-    gzip_vary on;
-    gzip_proxied any;
-    gzip_comp_level 6;
-    gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-}
-EOF
+# Устанавливаем serve
+RUN npm install -g serve
 
-# Копируем собранные статические файлы из этапа сборки
-# Предполагаем, что Vite собирает в папку 'dist'. Если это не так, нужно будет изменить на 'build'.
-COPY --from=build /app/dist /usr/share/nginx/html
+# Открываем порт
+EXPOSE 3000
 
-# Открываем порт 80
-EXPOSE 80
-
-# Команда для запуска Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Запуск SPA-режима (все пути ведут на index.html)
+CMD ["serve", "-s", "dist", "-l", "3000"]
