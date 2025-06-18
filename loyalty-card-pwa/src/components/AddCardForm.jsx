@@ -11,7 +11,12 @@ const popularStores = [
   "Пятёрочка",
   "Перекрёсток",
   "Лента",
-  "дикси"
+  "М.Видео",
+  "Спортмастер",
+  "Л'Этуаль",
+  "DNS",
+  "Ozon",
+  "Wildberries"
 ];
 
 // Task Step 1: Transliteration function and map
@@ -48,6 +53,12 @@ const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
+
+  // Task 1: Log raw storeName
+  useEffect(() => {
+    console.log("StoreName updated (raw):", storeName);
+  }, [storeName]);
+
   const [logoUrl, setLogoUrl] = useState('/card-logos/default.png'); // New state for logoUrl
   const [coverImageData, setCoverImageData] = useState(null);
   const [notification, setNotification] = useState({ message: '', type: 'success' });
@@ -57,10 +68,14 @@ const AddCardForm = () => {
   useEffect(() => {
     if (!storeName.trim()) {
       setLogoUrl('/card-logos/default.png');
+      // Task 2: Log inside useEffect for logoUrl (added a specific log for this case)
+      console.log("AddCardForm - useEffect for logoUrl: storeName is empty, set to default.png");
       return;
     }
     const asciiName = getAsciiStoreName(storeName);
     const newLogoUrl = asciiName ? `/card-logos/${asciiName}.png` : '/card-logos/default.png';
+    // Task 2: Log inside useEffect for logoUrl
+    console.log("AddCardForm - useEffect for logoUrl: storeName=", storeName, ", asciiName=", asciiName, ", newLogoUrl=", newLogoUrl);
     setLogoUrl(newLogoUrl);
   }, [storeName]);
 
@@ -83,6 +98,8 @@ const AddCardForm = () => {
       setNotification({ message: t('addCardForm.fillFieldsAlert'), type: 'error' });
       return;
     }
+    // Task 3: Log in handleSubmit
+    console.log("AddCardForm - handleSubmit: storeName=", storeName, ", logoUrl=", logoUrl);
     addCardToStorage({
       cardNumber,
       storeName,
