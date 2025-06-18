@@ -59,7 +59,7 @@ const SettingsPage = () => {
       {/* Restored App Info Section */}
       <div className="app-info-section">
         <p className="app-version">
-          {t('settingsPage.appVersion', { version: import.meta.env.APP_VERSION || 'N/A' })}
+          {t('settingsPage.appVersion', { version: import.meta.env.VERSION || 'N/A' })}
         </p>
         <button onClick={openPopup} className="whats-new-link">
           {t('settingsPage.whatsNew')}

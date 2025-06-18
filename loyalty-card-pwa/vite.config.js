@@ -1,12 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { version } from './package.json'
 
 export default defineConfig({
+  define: {
+    'import.meta.env.VERSION': JSON.stringify(version)
+  },
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate', // автообновление сервис-воркера
+      registerType: 'autoUpdate',
       manifest: {
         name: 'DiskonCard',
         short_name: 'PWA',
