@@ -23,7 +23,6 @@ const WhatsNewPopup = ({ onClose }) => {
         </button>
         <h2>{t('whatsNewPopup.title')}</h2>
         <p>{t('whatsNewPopup.releaseDate', { date: currentDate })}</p>
-        <p>{t('whatsNewPopup.version', { version: appVersion })}</p>
       </div>
     </div>
   );

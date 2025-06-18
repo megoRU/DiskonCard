@@ -12,7 +12,7 @@
 }
 
 .whats-new-popup {
-  background-color: var(--background-elevated, white); /* Use CSS var with fallback */
+  background-color: var(--background-secondary); /* Use theme variable */
   color: var(--text-primary, black); /* Use CSS var with fallback */
   padding: 20px;
   border-radius: 12px; /* Slightly more rounded */
