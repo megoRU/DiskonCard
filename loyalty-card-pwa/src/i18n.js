@@ -90,7 +90,7 @@ const resources = {
       },
       // AddCardForm
       addCardForm: {
-        storeNameLabel: "Название магазина:",
+        storeNameLabel: "Название:",
         storeNamePlaceholder: "например, Пятерочка", // Updated
         cardNumberLabel: "Номер карты:",
         cardNumberPlaceholder: "123456789",

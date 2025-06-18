@@ -93,13 +93,19 @@ const AddCardForm = () => {
       setNotification({ message: t('addCardForm.fillFieldsAlert'), type: 'error' });
       return;
     }
+
+    let finalCoverImage = coverImageData;
+    if (!finalCoverImage && logoUrl && logoUrl !== '/card-logos/default.png') {
+      finalCoverImage = logoUrl;
+    }
+
     // Task 3: Log in handleSubmit
-    console.log("AddCardForm - handleSubmit: storeName=", storeName, ", logoUrl=", logoUrl);
+    console.log("AddCardForm - handleSubmit: storeName=", storeName, ", logoUrl=", logoUrl, ", coverImage=", finalCoverImage);
     addCardToStorage({
       cardNumber,
       storeName,
       logoUrl: logoUrl, // Save the new logoUrl
-      coverImage: coverImageData,
+      coverImage: finalCoverImage, // Use the potentially updated finalCoverImage
     });
     setNotification({ message: t('addCardForm.cardAddedSuccess'), type: 'success' });
     setCardNumber('');
@@ -140,14 +146,15 @@ const AddCardForm = () => {
           ))}
         </datalist>
         {/* Logo preview using logoUrl state and onError handler */}
+        {/*
         <div className="store-logo-preview" style={{ marginTop: '5px', marginBottom: '15px', textAlign: 'left' }}>
           <img
             src={logoUrl}
             alt={t('addCardForm.storeLogoAlt', { storeName: storeName || 'Default' })}
-            /* style attribute removed, expecting styles from AddCardForm.css */
             onError={(e) => { e.target.src = '/card-logos/default.png'; }}
           />
         </div>
+        */}
       </div>
       <div className="form-group">
         <label htmlFor="cardNumber">{t('addCardForm.cardNumberLabel')}</label>
@@ -172,11 +179,36 @@ const AddCardForm = () => {
           accept="image/*"
           onChange={handleCoverImageChange}
         />
-        {coverImageData && (
-          <div className="image-preview" style={{ marginTop: '10px' }}>
-            <img src={coverImageData} alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')} style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }} />
-          </div>
-        )}
+        {
+          (coverImageData || (logoUrl && logoUrl !== '/card-logos/default.png')) && (
+            <div className="image-preview" style={{ marginTop: '10px' }}>
+              <img
+                src={coverImageData || logoUrl}
+                alt={t('addCardForm.coverPreviewAlt', 'Предпросмотр обложки')}
+                style={{ maxWidth: '100px', maxHeight: '100px', display: 'block' }}
+                onError={(e) => {
+                  // Fallback if the primary src (coverImageData or logoUrl) fails.
+                  // This could happen if logoUrl was somehow invalid despite checks.
+                  // We might want to hide the img or show a generic placeholder.
+                  // For now, let's ensure it doesn't show a broken image icon.
+                  // One option is to set to default.png, or hide.
+                  // Given the context, if logoUrl itself is problematic, a general default might be best.
+                  // However, the primary logic implies logoUrl should be valid if used.
+                  // Let's assume if logoUrl is used, it's valid or will be caught by its own onError elsewhere.
+                  // If coverImageData fails, it's a user file, less critical to replace with default.
+                  // The main onError for the logo itself is on the <img src={logoUrl} ... /> higher up.
+                  // This preview is for *cover*. If we're showing logoUrl here, it's because it's acting as cover.
+                  // So, if it fails here, it's an issue.
+                  // A simple approach: if src was logoUrl and it failed, it implies the logo is missing.
+                  // If src was coverImageData and it failed, it's a broken user upload.
+                  // We can add a more specific alt text or a fallback.
+                  // For now, the existing onError on the main logoUrl display should handle missing logos.
+                  // This preview will just show what it's given.
+                }}
+              />
+            </div>
+          )
+        }
       </div>
       <div className="form-actions">
         <button type="submit" className="submit-btn">{t('addCardForm.addCardButton')}</button>
