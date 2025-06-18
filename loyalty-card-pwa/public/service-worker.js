@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyalty-card-cache-v1.2.2'; // обнови версию при каждом изменении
+const CACHE_NAME = 'loyalty-card-cache-v1.2.3'; // обнови версию при каждом изменении
 const urlsToCache = [
     '/index.html',
     '/static/js/bundle.js',
