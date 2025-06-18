@@ -182,13 +182,11 @@ const AddCardForm = () => {
       <div className="form-group">
         <label htmlFor="cardNumber">{t('addCardForm.cardNumberLabel')}</label>
         <input
-          type="tel" // Changed type to "tel"
-          inputMode="numeric" // Added inputMode="numeric"
+          type="text" // Changed type to "text"
           id="cardNumber"
           value={cardNumber}
           onChange={(e) => {
-            const numericValue = e.target.value.replace(/\D/g, ''); // Remove non-digits
-            setCardNumber(numericValue);
+            setCardNumber(e.target.value);
           }}
           placeholder={t('addCardForm.cardNumberPlaceholder', 'e.g. 123456789')}
           required

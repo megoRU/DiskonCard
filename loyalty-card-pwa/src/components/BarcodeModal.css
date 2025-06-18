@@ -83,3 +83,28 @@
   font-size: 16px !important; /* Match JsBarcode options */
   font-weight: bold !important; /* Match JsBarcode options */
 }
+
+.barcode-graphic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px; /* Space before the card number text */
+}
+
+.qr-code-svg {
+  /* Add any specific styling for QR code SVG if needed */
+  /* For example, if it needs explicit sizing not handled by props */
+}
+
+.barcode-svg {
+ /* Ensure JsBarcode SVG is also behaving as expected within the container */
+}
+
+.barcode-modal-card-number-display {
+  text-align: center;
+  font-family: 'Inter', sans-serif; /* Match JsBarcode font if possible */
+  font-weight: bold;
+  font-size: 16px; /* Match JsBarcode font size */
+  margin-top: 5px; /* Consistent margin */
+  word-break: break-all; /* Ensure long card numbers wrap */
+}
