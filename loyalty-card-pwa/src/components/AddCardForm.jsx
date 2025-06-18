@@ -10,13 +10,8 @@ const popularStores = [
   "Магнит",
   "Пятёрочка",
   "Перекрёсток",
-  "Лента",
-  "М.Видео",
-  "Спортмастер",
-  "Л'Этуаль",
-  "DNS",
-  "Ozon",
-  "Wildberries"
+  "Дикси",
+  "Окей"
 ];
 
 // Task Step 1: Transliteration function and map

@@ -48,21 +48,6 @@
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-/* Remove old generic .form-group input styles if they conflict or are redundant */
-/* For now, assuming the new specific selectors will take precedence or apply appropriately. */
-/* Original .form-group input styles: */
-/*
-.form-group input {
-  padding: 12px 14px;
-  border: 1px solid var(--input-border);
-  background-color: var(--input-background); // Will be overridden by #fff for text/file inputs
-  color: var(--text-primary); // Will be overridden by text/file inputs
-  border-radius: 8px;
-  font-size: 1em;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-*/
-
 .add-card-form input[type="text"]:focus,
 .add-card-form input[type="tel"]:focus, /* Added */
 .add-card-form input[type="file"]:focus {
@@ -138,41 +123,6 @@
   background-color: var(--primary-color-dark, #005bb5); /* Затемненный цвет при наведении */
 }
 
-/* Old .submit-btn and .photo-btn rules might need removal or adjustment */
-/*
-.submit-btn,
-.photo-btn,
-.close-camera-btn {
-  padding: 14px 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.05em;
-  font-weight: 600;
-  transition: opacity 0.2s ease;
-  color: var(--button-primary-text);
-}
-
-.submit-btn {
-  background-color: var(--button-primary-background);
-}
-
-.submit-btn:hover, .submit-btn:active {
-  opacity: 0.85;
-}
-*/
-/* .photo-btn is removed, so its styles can be removed too */
-/*
-.photo-btn {
-  background-color: #34c759;
-}
-
-.photo-btn:hover, .photo-btn:active {
-  opacity: 0.85;
-}
-*/
-/* .camera-container and related styles can be removed as camera feature is gone */
-/*
 .camera-container {
   position: fixed;
   top: 0;
