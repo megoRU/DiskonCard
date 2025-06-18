@@ -58,6 +58,7 @@ const AddCardForm = () => {
   const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState('');
   const [storeName, setStoreName] = useState('');
+  const [imageOnErrorRecoveryFlag, setImageOnErrorRecoveryFlag] = useState(0);
 
   // Task 1: Log raw storeName
   useEffect(() => {
@@ -134,8 +135,9 @@ const AddCardForm = () => {
 
   // Effect to load default logo on mount
   useEffect(() => {
+    console.log("Effect: Initial or recovery fetch for default logo, recovery flag:", imageOnErrorRecoveryFlag);
     fetchAndSetLogoDataUrl('/card-logos/default.png', '/card-logos/default.png');
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, [imageOnErrorRecoveryFlag]); // Runs on mount and when imageOnErrorRecoveryFlag changes
 
   // Updated useEffect for logoUrl based on storeName
   useEffect(() => {
@@ -283,9 +285,8 @@ const AddCardForm = () => {
                    // You could try to set e.target.src to a very minimal, embedded SVG or hide the image.
                 } else if (determinedPreviewSrc === selectedLogoDataUrl) {
                   // This means the base64 string itself is somehow corrupted or not renderable by the browser.
-                  console.error("Failed to render image from selectedLogoDataUrl (base64). It might be corrupted.");
-                  // Potentially try to reload the default logo's base64 as a last resort.
-                  // fetchAndSetLogoDataUrl('/card-logos/default.png', '/card-logos/default.png');
+                  console.error("Failed to render image from selectedLogoDataUrl (base64). It might be corrupted. Attempting recovery.", determinedPreviewSrc ? determinedPreviewSrc.substring(0,100) + "..." : "null");
+                  setImageOnErrorRecoveryFlag(prev => prev + 1); // Trigger recovery
                 }
                  // The old logic for setIsPreviewLogoValid might not be directly applicable
                  // as determinedPreviewSrc is primarily driven by selectedLogoDataUrl.
