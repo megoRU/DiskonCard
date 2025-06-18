@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
-import { version } from '../../../package.json';
+// import { version } from '../../../package.json'; // Removed this line
 import './SettingsPage.css';
 
 const SettingsPage = () => {
@@ -49,7 +49,7 @@ const SettingsPage = () => {
       </div>
 
       <div className="app-info-section">
-        <p className="app-version">{t('settingsPage.appVersion', { version })}</p>
+        <p className="app-version">{t('settingsPage.appVersion', { version: import.meta.env.APP_VERSION })}</p>
         <a href="#" className="whats-new-link">
           {t('settingsPage.whatsNew')}
         </a>
