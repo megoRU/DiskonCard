@@ -1,10 +1,15 @@
 .add-card-page {
-  padding: 16px; /* Consistent padding */
-  text-align: center;
+  padding: 20px; /* Больше воздуха по краям */
+  background-color: var(--background-primary); /* Use theme variable */
+  color: var(--text-primary); /* Use theme variable for default text color */
+  /* text-align: center; */ /* Removed to allow child elements to align left by default */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* Internet Explorer/Edge */
   user-select: none;         /* Standard */
+  overflow: hidden; /* Запрещаем прокрутку для этого элемента */
+  height: 100vh;   /* Растягиваем на всю высоту видимой области экрана */
+  box-sizing: border-box; /* Чтобы padding учитывался внутри height */
 }
 
 .add-card-page h1 {
@@ -12,4 +17,5 @@
   font-weight: 700;
   margin-bottom: 24px;
   color: var(--text-primary);
+  text-align: center; /* Часто используется в Apple UI для заголовков экранов */
 }

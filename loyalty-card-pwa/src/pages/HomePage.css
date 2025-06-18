@@ -37,16 +37,21 @@
 }
 
 .card-item {
-  background-color: var(--card-background);
+  /* background-color: var(--card-background); */ /* Replaced by more specific default below */
   border: 0.5px solid var(--card-border); /* Thinner border */
   border-radius: 12px; /* More rounded corners */
-  padding: 16px;
+  /* padding: 16px; */ /* Padding removed as text content is gone */
   box-shadow: var(--card-shadow);
-  text-align: left;
-  word-wrap: break-word;
+  /* text-align: left; */ /* Not needed for background image */
+  /* word-wrap: break-word; */ /* Not needed for background image */
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   cursor: pointer; /* Indicate it's clickable */
-  min-height: 100px; /* Ensure placeholder has a minimum height */
+  /* min-height: 100px; */ /* Replaced by aspect-ratio */
+  aspect-ratio: 16 / 10; /* Maintain aspect ratio */
+  background-size: cover; /* Cover the area with the image */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-color: #e0e0e0; /* Default background if no image or image fails to load */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* Internet Explorer/Edge */

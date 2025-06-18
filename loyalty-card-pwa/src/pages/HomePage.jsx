@@ -108,9 +108,11 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                           {...providedDraggable.dragHandleProps} // Apply drag handle to the whole card
                           style={{
                             ...providedDraggable.draggableProps.style,
-                            // Add custom styles for dragging if needed:
-                            // opacity: snapshotDraggable.isDragging ? 0.8 : 1,
-                            // boxShadow: snapshotDraggable.isDragging ? '0 0 10px rgba(0,0,0,0.3)' : '',
+                            backgroundImage: card.coverImage
+                                             ? `url(${card.coverImage})`
+                                             : (card.storeLogoUrl
+                                                ? `url(${card.storeLogoUrl})`
+                                                : 'none'),
                           }}
                           className={`card-item ${isEditMode ? 'card-item-edit-mode' : ''} ${snapshotDraggable.isDragging ? 'card-item-dragging' : ''}`}
                           onClick={() => handleCardClick(card)}
@@ -128,8 +130,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                               <FiTrash2 />
                             </button>
                           )}
-                          <h3>{card.storeName}</h3>
-                          <p className="card-number">{card.cardNumber}</p>
+                          {/* Text content removed to show background image */}
                         </div>
                       )}
                     </Draggable>
@@ -139,6 +140,13 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                     <div
                       key={card.id} // Still need a key for React list rendering
                       className={`card-item`} // Base class, no edit-mode or dragging specific classes
+                      style={{
+                        backgroundImage: card.coverImage
+                                         ? `url(${card.coverImage})`
+                                         : (card.storeLogoUrl
+                                            ? `url(${card.storeLogoUrl})`
+                                            : 'none'),
+                      }}
                       onClick={() => handleCardClick(card)}
                       {...bind(card.id)} // Long press binding for entering edit mode
                       role="button"
@@ -146,9 +154,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
                       onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && handleCardClick(card)}
                     >
                       {/* No delete button when not in edit mode */}
-
-                      <h3>{card.storeName}</h3>
-                      <p className="card-number">{card.cardNumber}</p>
+                      {/* Text content removed to show background image */}
                     </div>
                   ))
                 )}

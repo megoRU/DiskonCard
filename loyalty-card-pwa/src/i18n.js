@@ -33,9 +33,9 @@ const resources = {
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Store Name:",
-        storeNamePlaceholder: "e.g. Coffee Shop",
+        storeNamePlaceholder: "Name",
         cardNumberLabel: "Card Number:",
-        cardNumberPlaceholder: "e.g. 123456789",
+        cardNumberPlaceholder: "123456789",
         addCardButton: "Add Card",
         addByPhotoButton: "Add by Photo",
         closeCameraButton: "Close Camera",
@@ -75,14 +75,14 @@ const resources = {
       },
       // AddCardPage
       addCardPage: {
-        title: "Добавление карты лояльности"
+        title: "Добавление карты"
       },
       // AddCardForm
       addCardForm: {
         storeNameLabel: "Название магазина:",
-        storeNamePlaceholder: "например, Кофейня",
+        storeNamePlaceholder: "Название",
         cardNumberLabel: "Номер карты:",
-        cardNumberPlaceholder: "например, 123456789",
+        cardNumberPlaceholder: "123456789",
         addCardButton: "Добавить карту",
         addByPhotoButton: "Добавить по фото",
         closeCameraButton: "Закрыть камеру",
