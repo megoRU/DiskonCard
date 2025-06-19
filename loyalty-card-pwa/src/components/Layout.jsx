@@ -4,9 +4,8 @@ import {
   FiHome,
   FiSettings,
   FiPlusSquare,
-  FiTrash2,
   FiX,
-} from "react-icons/fi"; // Added FiTrash2, FiX
+} from "react-icons/fi";
 import "./Layout.css";
 
 // Accept isEditMode and setIsEditMode as props

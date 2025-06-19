@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import "./Notification.css";
 
 const Notification = ({
@@ -9,7 +9,7 @@ const Notification = ({
 }) => {
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (message) {
       setVisible(true);
       const timer = setTimeout(() => {

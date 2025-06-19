@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useLayoutEffect, useRef} from "react";
 import JsBarcode from "jsbarcode";
 import { QRCodeSVG } from "qrcode.react"; // Import QRCodeSVG
 import { FiX } from "react-icons/fi";
@@ -9,7 +9,7 @@ const BarcodeModal = ({ cardData, onClose }) => {
   const isQrCode =
     cardData && cardData.cardNumber && cardData.cardNumber.startsWith("E"); // Simple check for QR
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) {
       // Only run JsBarcode if not QR
       try {

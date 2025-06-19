@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { addCardToStorage } from "../utils/localStorage";
 import Notification from "./Notification";
@@ -88,7 +88,7 @@ const AddCardForm = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handler = setTimeout(() => setDebouncedStoreName(storeName), 500);
     return () => clearTimeout(handler);
   }, [storeName]);
@@ -118,7 +118,7 @@ const AddCardForm = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!debouncedStoreName.trim()) {
       fetchAndSetLogoDataUrl("/card-logos/default.png", "/card-logos/default.png");
       return;

@@ -14,12 +14,6 @@
   z-index: 10; /* Чтобы заголовок был выше других элементов при прокрутке */
   padding-top: 8px; /* Небольшой отступ сверху внутри "липкого" элемента */
   padding-bottom: 8px; /* Небольшой отступ снизу внутри "липкого" элемента */
-  /* Уменьшим margin-bottom немного, так как добавили padding-bottom, чтобы общий отступ не стал слишком большим */
-  /* margin-bottom: 16px; /* Изначально было 24px. 24 - 8 = 16px */
-  /* Однако, основной padding уже есть у .home-page (16px). Посмотрим, как будет без доп. padding. */
-  /* Если заголовок слишком "тесно" сидит, можно добавить padding-top/bottom здесь */
-  /* или увеличить padding-top у .cards-grid, чтобы первая карточка не заезжала под заголовок */
-  /* margin-bottom все еще 24px, padding-bottom: 8px добавит к "занимаемому" пространству, но не к отступу до следующего элемента */
 }
 
 .no-cards-message {
@@ -45,27 +39,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
   gap: 16px;
-  margin-top: 20px; /* Можно увеличить, если заголовок будет перекрывать */
-  /* padding-top: 16px; /* Добавляем отступ сверху, чтобы компенсировать "липкий" заголовок */
-                     /* Размер отступа должен быть примерно равен высоте заголовка + его отступы */
+  margin-top: 20px;
 }
 
 .card-item {
-  /* background-color: var(--card-background); */ /* Replaced by more specific default below */
-  border: 0.5px solid var(--card-border); /* Thinner border */
   border-radius: 12px; /* More rounded corners */
-  /* padding: 16px; */ /* Padding removed as text content is gone */
   box-shadow: var(--card-shadow);
-  /* text-align: left; */ /* Not needed for background image */
-  /* word-wrap: break-word; */ /* Not needed for background image */
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   cursor: pointer; /* Indicate it's clickable */
-  /* min-height: 100px; */ /* Replaced by aspect-ratio */
   aspect-ratio: 16 / 10; /* Maintain aspect ratio */
   background-size: cover; /* Cover the area with the image */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-color: var(--card-default-bg, #e0e0e0); /* Default background if no image or image fails to load */
   position: relative; /* For positioning child elements like the logo */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none;    /* Firefox */
@@ -77,26 +62,21 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.12); /* Slightly elevate on hover */
 }
 
-.card-item:active { /* Subtle press effect */
+.card-item:active {
   transform: scale(0.97);
-  box-shadow: var(--card-shadow); /* Revert to base shadow on active */
+  box-shadow: var(--card-shadow);
 }
 
-/* Удалены селекторы .card-item h3 и .card-item .card-number */
 
-/* Ensure 2 cards per line for typical mobile widths, then adjust with auto-fill */
 @media (min-width: 370px) and (max-width: 599px) {
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Styles for Edit Mode */
 .cards-container-edit-mode {
-  /* Optional: styles for the grid when in edit mode */
-}
 
-/* Удален селектор .card-image */
+}
 
 .card-item-edit-mode {
   border: 1px dashed var(--primary-color); /* Softened the border */
@@ -141,15 +121,6 @@
 .delete-card-btn:hover {
   opacity: 0.85;
 }
-
-/* Удален селектор .card-item .card-logo */
-
-/* Keyframes for jiggle (example, can be refined) */
-/* @keyframes jiggle {
-  0% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
-  100% { transform: rotate(-1deg); }
-} */
 
 /* Single column for very small screens */
 @media (max-width: 369px) {
