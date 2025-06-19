@@ -6,8 +6,20 @@
 .home-page h1 {
   font-size: 28px; /* iOS like large title */
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: 24px; /* Оставляем существующий margin-bottom */
   color: var(--text-primary);
+  position: sticky;
+  top: 0;
+  background-color: var(--background-primary); /* Фон, чтобы текст не был прозрачным */
+  z-index: 10; /* Чтобы заголовок был выше других элементов при прокрутке */
+  padding-top: 8px; /* Небольшой отступ сверху внутри "липкого" элемента */
+  padding-bottom: 8px; /* Небольшой отступ снизу внутри "липкого" элемента */
+  /* Уменьшим margin-bottom немного, так как добавили padding-bottom, чтобы общий отступ не стал слишком большим */
+  /* margin-bottom: 16px; /* Изначально было 24px. 24 - 8 = 16px */
+  /* Однако, основной padding уже есть у .home-page (16px). Посмотрим, как будет без доп. padding. */
+  /* Если заголовок слишком "тесно" сидит, можно добавить padding-top/bottom здесь */
+  /* или увеличить padding-top у .cards-grid, чтобы первая карточка не заезжала под заголовок */
+  /* margin-bottom все еще 24px, padding-bottom: 8px добавит к "занимаемому" пространству, но не к отступу до следующего элемента */
 }
 
 .no-cards-message {
@@ -33,7 +45,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 20px; /* Можно увеличить, если заголовок будет перекрывать */
+  /* padding-top: 16px; /* Добавляем отступ сверху, чтобы компенсировать "липкий" заголовок */
+                     /* Размер отступа должен быть примерно равен высоте заголовка + его отступы */
 }
 
 .card-item {
@@ -68,21 +82,7 @@
   box-shadow: var(--card-shadow); /* Revert to base shadow on active */
 }
 
-.card-item h3 {
-  margin-top: 0;
-  margin-bottom: 6px;
-  font-size: 1.1em; /* 17-18px */
-  font-weight: 600; /* Semi-bold */
-  color: var(--text-primary);
-  line-height: 1.3;
-}
-
-.card-item .card-number {
-  font-size: 0.9em; /* 14-15px */
-  color: var(--text-secondary);
-  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace; /* Monospaced for numbers */
-  letter-spacing: 0.5px;
-}
+/* Удалены селекторы .card-item h3 и .card-item .card-number */
 
 /* Ensure 2 cards per line for typical mobile widths, then adjust with auto-fill */
 @media (min-width: 370px) and (max-width: 599px) {
@@ -96,13 +96,7 @@
   /* Optional: styles for the grid when in edit mode */
 }
 
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  display: block;
-}
+/* Удален селектор .card-image */
 
 .card-item-edit-mode {
   border: 1px dashed var(--primary-color); /* Softened the border */
@@ -148,18 +142,7 @@
   opacity: 0.85;
 }
 
-.card-item .card-logo {
-  max-height: 40px;
-  max-width: 80px;
-  object-fit: contain;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
-  border-radius: 4px;
-  padding: 2px;
-  z-index: 1; /* Above card background, below delete button potentially */
-}
+/* Удален селектор .card-item .card-logo */
 
 /* Keyframes for jiggle (example, can be refined) */
 /* @keyframes jiggle {

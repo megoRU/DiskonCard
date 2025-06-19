@@ -87,17 +87,7 @@
   border: 1px solid #eee;
 }
 
-/* Styles for the store logo preview image */
-.store-logo-preview img {
-  max-width: 100px;
-  max-height: 50px;
-  object-fit: contain;
-  display: inline-block;
-  vertical-align: middle;
-  /* The parent .store-logo-preview div has:
-     style={{ marginTop: '5px', marginBottom: '15px', textAlign: 'left' }}
-     These can also be moved to CSS if desired, but are fine as inline for now. */
-}
+/* Удалены стили для .store-logo-preview и .store-logo-preview img */
 
 .form-actions {
   display: flex;
@@ -123,43 +113,7 @@
   background-color: var(--primary-color-dark, #005bb5); /* Затемненный цвет при наведении */
 }
 
-.camera-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.95); /* Darker overlay for camera */
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-/* react-html5-camera-photo specific overrides */
-.camera-container video,
-.camera-container img#photoTaken, /* ID for the captured image by the library */
-#container-circles /* ID for the shutter button by the library */
-{
-  max-width: 100% !important;
-  max-height: 70vh !important; /* Limit height */
-  height: auto !important;
-  border-radius: 12px !important; /* Rounded corners for camera view */
-}
-
-.close-camera-btn {
-  margin-top: 20px;
-  background-color: #ff3b30; /* iOS Red */
-  width: 80%;
-  max-width: 200px; /* Max width for close button */
-  align-self: center;
-}
-
-.close-camera-btn:hover, .close-camera-btn:active {
-  opacity: 0.85;
-}
+/* Удалены стили для .camera-container и его дочерних элементов, #container-circles, .close-camera-btn, так как функционал камеры удален */
 
 /* Media query for wider screens to place buttons side-by-side */
 @media (min-width: 480px) {
@@ -168,8 +122,7 @@
     justify-content: space-between;
   }
 
-  .submit-btn,
-  .photo-btn {
+  .submit-btn { /* .photo-btn удален из этого правила */
     flex-grow: 1; /* Allow them to take available space */
   }
 }

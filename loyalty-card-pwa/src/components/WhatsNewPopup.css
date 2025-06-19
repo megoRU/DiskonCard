@@ -53,25 +53,4 @@
   font-size: 0.95em;
 }
 
-/* Dark theme specific styles */
-.whats-new-popup.dark {
-  background-color: #000000; /* Changed to pure black */
-  color: var(--text-primary-dark, white);
-  border-color: var(--border-color-dark, #444); /* Keep other dark theme styles */
-}
-
-.whats-new-popup.dark .whats-new-popup-close-button {
-  color: var(--text-secondary-dark, #aaa);
-}
-
-.whats-new-popup.dark .whats-new-popup-close-button:hover {
-  color: var(--text-primary-dark, white);
-}
-
-.whats-new-popup.dark h2 {
-  color: var(--text-primary-dark, white);
-}
-
-.whats-new-popup.dark p {
-  color: var(--text-secondary-dark, #ccc);
-}
+/* Удалены специфичные для .dark классов стили, так как темизация управляется через [data-theme="dark"] и CSS переменные */

@@ -1,5 +1,5 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 const resources = {
   en: {
@@ -9,7 +9,7 @@ const resources = {
         home: "Home",
         settings: "Settings",
         addCardLabel: "Add Card", // For accessibility on the + button
-        cancelEditModeLabel: "Cancel Edit Mode"
+        cancelEditModeLabel: "Cancel Edit Mode",
       },
       // HomePage
       homePage: {
@@ -18,7 +18,7 @@ const resources = {
         confirmDeleteMessage: "Are you sure you want to delete this card?",
         deleteCardAriaLabel: "Delete card",
         cardLogoAlt: "Logo of {{storeName}}",
-        defaultCardName: "Card"
+        defaultCardName: "Card",
       },
       // SettingsPage
       settingsPage: {
@@ -36,19 +36,21 @@ const resources = {
         importCards: "Import Cards",
         noCardsToExport: "No cards to export.",
         exportError: "Error exporting cards.",
-        importErrorInvalidFile: "Import Error: Invalid file type. Please select a .json file.",
+        importErrorInvalidFile:
+          "Import Error: Invalid file type. Please select a .json file.",
         importErrorInvalidFormat: "Import Error: Invalid data format in file.",
         importErrorReadFile: "Import Error: Could not read the file.",
-        importSuccess: "Import successful. Added: {{addedCount}} card(s). Skipped (duplicates): {{skippedCount}} card(s)."
+        importSuccess:
+          "Import successful. Added: {{addedCount}} card(s). Skipped (duplicates): {{skippedCount}} card(s).",
       },
-      "whatsNewPopup": {
-        "title": "What's New",
-        "version": "App Version: {{version}}",
-        "releaseDate": "Release Date: {{date}}"
+      whatsNewPopup: {
+        title: "What's New",
+        version: "App Version: {{version}}",
+        releaseDate: "Release Date: {{date}}",
       },
       // AddCardPage
       addCardPage: {
-        title: "Add New Loyalty Card"
+        title: "Add New Loyalty Card",
       },
       // AddCardForm
       addCardForm: {
@@ -62,13 +64,21 @@ const resources = {
         fillFieldsAlert: "Please fill in both Card Number and Store Name.",
         cardAddedSuccess: "Card added successfully!",
         photoCapturedSuccess: "Photo captured! Check console for data URI.",
-        storeLogoAlt: "Store logo preview for {{storeName}}" // Added
+        storeLogoAlt: "Store logo preview for {{storeName}}", // Added
       },
       // BarcodeModal
       barcodeModal: {
-        closeLabel: "Close barcode view"
-      }
-    }
+        closeLabel: "Close barcode view",
+      },
+      // IOSInstallInstruction
+      iosInstallInstruction: {
+        title: "How to Add to Home Screen",
+        step1: "Open this application in Safari browser.",
+        step2: "Tap the 'Share' icon (usually a square with an arrow pointing up) at the bottom of the screen.",
+        step3: "In the menu that appears, scroll down and select 'Add to Home Screen'.",
+        step4: "Tap 'Add' in the top right corner.",
+      },
+    },
   },
   ru: {
     translation: {
@@ -77,7 +87,7 @@ const resources = {
         home: "Главная",
         settings: "Настройки",
         addCardLabel: "Добавить карту", // For accessibility on the + button
-        cancelEditModeLabel: "Отменить режим редактирования"
+        cancelEditModeLabel: "Отменить режим редактирования",
       },
       // HomePage
       homePage: {
@@ -86,7 +96,7 @@ const resources = {
         confirmDeleteMessage: "Вы уверены, что хотите удалить эту карту?",
         deleteCardAriaLabel: "Удалить карту",
         cardLogoAlt: "Логотип {{storeName}}",
-        defaultCardName: "Карты"
+        defaultCardName: "Карты",
       },
       // SettingsPage
       settingsPage: {
@@ -104,19 +114,21 @@ const resources = {
         importCards: "Импорт карт",
         noCardsToExport: "Нет карт для экспорта.",
         exportError: "Ошибка экспорта карт.",
-        importErrorInvalidFile: "Ошибка импорта: Неверный тип файла. Пожалуйста, выберите .json файл.",
-        importErrorInvalidFormat: "Ошибка импорта: Неверный формат данных в файле.",
+        importErrorInvalidFile:
+          "Ошибка импорта: Неверный тип файла. Пожалуйста, выберите .json файл.",
+        importErrorInvalidFormat:
+          "Ошибка импорта: Неверный формат данных в файле.",
         importErrorReadFile: "Ошибка импорта: Не удалось прочитать файл.",
-        importSuccess: "Импорт успешно завершен."
+        importSuccess: "Импорт успешно завершен.",
       },
-      "whatsNewPopup": {
-        "title": "Что нового",
-        "version": "Версия приложения: {{version}}",
-        "releaseDate": "1.2.0 — Исправили подгрузку картинок"
+      whatsNewPopup: {
+        title: "Что нового",
+        version: "Версия приложения: {{version}}",
+        releaseDate: "1.2.0 — Исправили подгрузку картинок",
       },
       // AddCardPage
       addCardPage: {
-        title: "Добавление карты"
+        title: "Добавление карты",
       },
       // AddCardForm
       addCardForm: {
@@ -127,27 +139,36 @@ const resources = {
         addCardButton: "Добавить карту",
         addByPhotoButton: "Добавить по фото",
         closeCameraButton: "Закрыть камеру",
-        fillFieldsAlert: "Пожалуйста, заполните поля \"Номер карты\" и \"Название магазина\".",
+        fillFieldsAlert:
+          'Пожалуйста, заполните поля "Номер карты" и "Название магазина".',
         cardAddedSuccess: "Карта успешно добавлена!",
         photoCapturedSuccess: "Фото сделано! Проверьте URI данных в консоли.",
-        storeLogoAlt: "Предпросмотр логотипа для {{storeName}}" // Added
+        storeLogoAlt: "Предпросмотр логотипа для {{storeName}}", // Added
       },
       // BarcodeModal
       barcodeModal: {
-        closeLabel: "Закрыть просмотр штрих-кода"
-      }
-    }
-  }
+        closeLabel: "Закрыть просмотр штрих-кода",
+      },
+      // IOSInstallInstruction
+      iosInstallInstruction: {
+        title: "Как добавить на экран \"Домой\"",
+        step1: "Откройте это приложение в браузере Safari.",
+        step2: "Нажмите на иконку \"Поделиться\" (квадрат со стрелкой вверх) в нижней части экрана.",
+        step3: "В появившемся меню пролистайте вниз и выберите \"На экран \"Домой\"\".",
+        step4: "Нажмите \"Добавить\" в правом верхнем углу.",
+      },
+    },
+  },
 };
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'ru', // default language
-    fallbackLng: 'en',
+    lng: "ru", // default language
+    fallbackLng: "en",
     interpolation: {
-      escapeValue: false // react already safes from xss
+      escapeValue: false, // react already safes from xss
     },
     // debug: true, // Uncomment to see logs
   });

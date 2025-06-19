@@ -1,8 +1,14 @@
-import React from 'react';
-import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom'; // Import useNavigate
-import { FiHome, FiSettings, FiPlusSquare, FiTrash2, FiX } from 'react-icons/fi'; // Added FiTrash2, FiX
-import { useTranslation } from 'react-i18next';
-import './Layout.css';
+import React from "react";
+import { NavLink, Outlet, Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import {
+  FiHome,
+  FiSettings,
+  FiPlusSquare,
+  FiTrash2,
+  FiX,
+} from "react-icons/fi"; // Added FiTrash2, FiX
+import { useTranslation } from "react-i18next";
+import "./Layout.css";
 
 // Accept isEditMode and setIsEditMode as props
 const Layout = ({ isEditMode, setIsEditMode }) => {
@@ -18,7 +24,7 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
       console.log("Exited edit mode via central button");
     } else {
       // Normal mode: navigate to add card page
-      navigate('/add-card');
+      navigate("/add-card");
     }
   };
 
@@ -30,27 +36,35 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
       <nav className="bottom-nav">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
           end
         >
           <FiHome />
-          <span>{t('nav.home')}</span>
+          <span>{t("nav.home")}</span>
         </NavLink>
 
         <button // Changed from Link to button for more control
           onClick={handleCentralButtonClick}
-          className={`nav-item add-card-button ${isEditMode ? 'edit-mode-active' : ''}`}
-          aria-label={isEditMode ? t('nav.cancelEditModeLabel', 'Cancel Edit Mode') : t('nav.addCardLabel', 'Add Card')}
+          className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
+          aria-label={
+            isEditMode
+              ? t("nav.cancelEditModeLabel", "Cancel Edit Mode")
+              : t("nav.addCardLabel", "Add Card")
+          }
         >
           {isEditMode ? <FiX /> : <FiPlusSquare />}
         </button>
 
         <NavLink
           to="/settings"
-          className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
         >
           <FiSettings />
-          <span>{t('nav.settings')}</span>
+          <span>{t("nav.settings")}</span>
         </NavLink>
       </nav>
     </div>

@@ -1,0 +1,39 @@
+.instructionContainer {
+  padding: 15px;
+  background-color: var(--background-secondary, #f9f9f9);
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: var(--card-shadow, 0 2px 4px rgba(0,0,0,0.1));
+  color: var(--text-primary, #000);
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.stepsList {
+  list-style-type: decimal; /* Нумерованный список */
+  padding-left: 20px; /* Отступ для нумерации */
+  margin: 0;
+}
+
+.step {
+  font-size: 0.95em;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+/* Стили для иконок, если они будут добавлены как span или i */
+.stepIcon {
+  display: inline-block;
+  margin: 0 2px;
+  font-weight: bold; /* Чтобы юникод символы были заметнее */
+}
