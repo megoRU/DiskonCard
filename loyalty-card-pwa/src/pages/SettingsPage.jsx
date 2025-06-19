@@ -222,9 +222,7 @@ const SettingsPage = () => {
         {/* Секция для инструкции по установке на iOS */}
         {showIOSInstruction && (
             <div className="ios-instruction-section app-info-section"> {/* Используем схожий стиль секции */}
-              {/* Можно добавить заголовок секции, если он нужен, например:
-          <h2>Установка на iOS</h2>
-          */}
+              <h4>Установка на iOS</h4>
               <IOSInstallInstruction/>
             </div>
         )}

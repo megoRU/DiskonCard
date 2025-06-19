@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  getCardsFromStorage,
-  deleteCardFromStorage,
-  saveCardsToStorage,
-} from "../utils/localStorage";
+import React, {useCallback, useEffect, useState} from "react";
+import {deleteCardFromStorage, getCardsFromStorage, saveCardsToStorage,} from "../utils/localStorage";
 import BarcodeModal from "../components/BarcodeModal.jsx";
-import { useLongPress } from "use-long-press";
-import { FiTrash2 } from "react-icons/fi";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import {useLongPress} from "use-long-press";
+import {FiTrash2} from "react-icons/fi";
+import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
 import "./HomePage.css";
 
-const HomePage = ({ isEditMode, setIsEditMode }) => {
+const HomePage = ({isEditMode, setIsEditMode}) => {
   const [cards, setCards] = useState([]);
   const [selectedCardForBarcode, setSelectedCardForBarcode] = useState(null);
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
@@ -25,18 +21,18 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
   }, [fetchCards]);
 
   const handleLongPress = useCallback(
-    (event, { context: cardId }) => {
-      if (!isEditMode) {
-        setIsEditMode(true);
-      }
-    },
-    [isEditMode, setIsEditMode],
+      (event, {context: cardId}) => {
+        if (!isEditMode) {
+          setIsEditMode(true);
+        }
+      },
+      [isEditMode, setIsEditMode],
   );
 
-  const longPressOptions = { threshold: 500 };
+  const longPressOptions = {threshold: 500};
   const bind = useLongPress(
-    isEditMode ? null : handleLongPress,
-    longPressOptions,
+      isEditMode ? null : handleLongPress,
+      longPressOptions,
   );
 
   const handleCardClick = (card) => {
@@ -48,7 +44,8 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
 
   const handleDeleteCard = (cardId, event) => {
     event.stopPropagation();
-    if (window.confirm("Вы уверены, что хотите удалить эту карту?")) {
+    const cardToDelete = cards.find((card) => card.id === cardId);
+    if (window.confirm("Удалить " + (cardToDelete?.storeName || "") + " карту?")) {
       deleteCardFromStorage(cardId);
       const updatedCards = cards.filter((card) => card.id !== cardId);
       setCards(updatedCards);
@@ -78,47 +75,47 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
     // const fallbackImage = "/card-logos/default.png"; // Удалено, так как связанный img удален
 
     const cardInner = (
-      <div
-        className={`card-item ${isEditMode ? "card-item-edit-mode" : ""}`}
-        onClick={() => handleCardClick(card)}
-        {...bind(card.id)}
-        role="button"
-        tabIndex={0}
-        onKeyPress={(e) =>
-          (e.key === "Enter" || e.key === " ") && handleCardClick(card)
-        }
-        style={{
-          backgroundImage: bgImage ? `url(${bgImage})` : undefined,
-        }}
-      >
-        {/* Скрытый тег img для обработки onError удален, так как он был избыточен.
+        <div
+            className={`card-item ${isEditMode ? "card-item-edit-mode" : ""}`}
+            onClick={() => handleCardClick(card)}
+            {...bind(card.id)}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) =>
+                (e.key === "Enter" || e.key === " ") && handleCardClick(card)
+            }
+            style={{
+              backgroundImage: bgImage ? `url(${bgImage})` : undefined,
+            }}
+        >
+          {/* Скрытый тег img для обработки onError удален, так как он был избыточен.
             Fallback для backgroundImage обеспечивается CSS свойством background-color. */}
-        {isEditMode && (
-          <button
-            className="delete-card-btn"
-            onClick={(e) => handleDeleteCard(card.id, e)}
-            aria-label="Удалить карту"
-          >
-            <FiTrash2 />
-          </button>
-        )}
-      </div>
+          {isEditMode && (
+              <button
+                  className="delete-card-btn"
+                  onClick={(e) => handleDeleteCard(card.id, e)}
+                  aria-label="Удалить карту"
+              >
+                <FiTrash2/>
+              </button>
+          )}
+        </div>
     );
 
     if (isDraggable) {
       return (
-        <Draggable key={card.id} draggableId={card.id.toString()} index={index}>
-          {(provided) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              style={provided.draggableProps.style}
-            >
-              {cardInner}
-            </div>
-          )}
-        </Draggable>
+          <Draggable key={card.id} draggableId={card.id.toString()} index={index}>
+            {(provided) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={provided.draggableProps.style}
+                >
+                  {cardInner}
+                </div>
+            )}
+          </Draggable>
       );
     }
 
@@ -126,46 +123,46 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
   };
 
   const cardsContainerClass = isEditMode
-    ? "cards-grid cards-container-edit-mode"
-    : "cards-grid";
+      ? "cards-grid cards-container-edit-mode"
+      : "cards-grid";
 
   return (
-    <div className="home-page">
-      <h1>Ваши карты</h1>
-      {cards.length === 0 && !isEditMode ? (
-        <div className="no-cards-message">
-          <p>Карт пока нет. Добавьте свою первую карту!</p>
-        </div>
-      ) : (
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable
-            droppableId="cardsDroppableArea"
-            direction="vertical"
-            isDropDisabled={!isEditMode}
-            isCombineEnabled={false}
-          >
-            {(provided) => (
-              <div
-                className={cardsContainerClass}
-                {...provided.droppableProps}
-                ref={provided.innerRef}
+      <div className="home-page">
+        <h1>Ваши карты</h1>
+        {cards.length === 0 && !isEditMode ? (
+            <div className="no-cards-message">
+              <p>Карт пока нет. Добавьте свою первую карту!</p>
+            </div>
+        ) : (
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable
+                  droppableId="cardsDroppableArea"
+                  direction="vertical"
+                  isDropDisabled={!isEditMode}
+                  isCombineEnabled={false}
               >
-                {cards.map((card, index) =>
-                  renderCardContent(card, index, isEditMode),
+                {(provided) => (
+                    <div
+                        className={cardsContainerClass}
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                    >
+                      {cards.map((card, index) =>
+                          renderCardContent(card, index, isEditMode),
+                      )}
+                      {provided.placeholder}
+                    </div>
                 )}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      )}
-      {isBarcodeModalOpen && selectedCardForBarcode && (
-        <BarcodeModal
-          cardData={selectedCardForBarcode}
-          onClose={handleCloseModal}
-        />
-      )}
-    </div>
+              </Droppable>
+            </DragDropContext>
+        )}
+        {isBarcodeModalOpen && selectedCardForBarcode && (
+            <BarcodeModal
+                cardData={selectedCardForBarcode}
+                onClose={handleCloseModal}
+            />
+        )}
+      </div>
   );
 };
 
