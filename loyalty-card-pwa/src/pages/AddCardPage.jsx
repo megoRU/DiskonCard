@@ -200,7 +200,7 @@ const AddCardPage = () => {
                     </div>
                 )}
 
-                <button type="submit" className="submit-btn" disabled={!isStoreSelected}>
+                <button type="submit" className="submit-btn">
                     Добавить карту
                 </button>
             </form>

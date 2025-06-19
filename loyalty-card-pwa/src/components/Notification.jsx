@@ -4,7 +4,7 @@ import "./Notification.css";
 const Notification = ({
   message,
   type = "success",
-  duration = 3000,
+  duration = 5000,
   onClose,
 }) => {
   const [visible, setVisible] = useState(false);
