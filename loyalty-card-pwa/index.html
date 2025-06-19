@@ -8,9 +8,17 @@
   <meta name="description" content="DiskonCard Progressive Web App" />
   <link rel="apple-touch-icon" href="/logo192.png" />
   <link rel="manifest" href="/manifest.json" />
+  <meta charset="utf-8" />
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <base href="/" />
+
+  <style>
+    body {
+      background-color: #000000; /* для тёмной темы по умолчанию */
+    }
+  </style>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -25,6 +33,16 @@
     }
   </script>
   <title>DiskonCard</title>
+  <script>
+    (function() {
+      const pref = localStorage.getItem('themePreference') || 'system';
+      const isDark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        meta.setAttribute('content', isDark ? '#000000' : '#f9f9f9');
+      }
+    })();
+  </script>
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

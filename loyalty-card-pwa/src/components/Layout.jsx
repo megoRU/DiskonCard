@@ -10,7 +10,7 @@ import {
 import "./Layout.css";
 
 // Accept isEditMode and setIsEditMode as props
-const Layout = ({ isEditMode, setIsEditMode }) => {
+const Layout = ({isEditMode, setIsEditMode}) => {
   const navigate = useNavigate();
 
   const handleCentralButtonClick = () => {
@@ -27,45 +27,45 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
   };
 
   return (
-    <div className="layout">
-      <main className="content">
-        <Outlet />
-      </main>
-      <nav className="bottom-nav">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-          end
-        >
-          <FiHome />
-          <span>Главная</span>
-        </NavLink>
+      <div className="layout">
+        <main className="content">
+          <Outlet/>
+        </main>
+        <nav className="bottom-nav">
+          <NavLink
+              to="/"
+              className={({isActive}) =>
+                  isActive ? "nav-item active" : "nav-item"
+              }
+              end
+          >
+            <FiHome/>
+            <span>Главная</span>
+          </NavLink>
 
-        <button // Changed from Link to button for more control
-          onClick={handleCentralButtonClick}
-          className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
-          aria-label={
-            isEditMode
-              ? "Отменить режим редактирования"
-              : "Добавить карту"
-          }
-        >
-          {isEditMode ? <FiX /> : <FiPlusSquare />}
-        </button>
+          <button // Changed from Link to button for more control
+              onClick={handleCentralButtonClick}
+              className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
+              aria-label={
+                isEditMode
+                    ? "Отменить режим редактирования"
+                    : "Добавить карту"
+              }
+          >
+            {isEditMode ? <FiX/> : <FiPlusSquare/>}
+          </button>
 
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-        >
-          <FiSettings />
-          <span>Настройки</span>
-        </NavLink>
-      </nav>
-    </div>
+          <NavLink
+              to="/settings"
+              className={({isActive}) =>
+                  isActive ? "nav-item active" : "nav-item"
+              }
+          >
+            <FiSettings/>
+            <span>Настройки</span>
+          </NavLink>
+        </nav>
+      </div>
   );
 };
 
