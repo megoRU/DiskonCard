@@ -6,8 +6,20 @@
 .home-page h1 {
   font-size: 28px; /* iOS like large title */
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: 24px; /* Оставляем существующий margin-bottom */
   color: var(--text-primary);
+  position: sticky;
+  top: 0;
+  background-color: var(--background-primary); /* Фон, чтобы текст не был прозрачным */
+  z-index: 10; /* Чтобы заголовок был выше других элементов при прокрутке */
+  padding-top: 8px; /* Небольшой отступ сверху внутри "липкого" элемента */
+  padding-bottom: 8px; /* Небольшой отступ снизу внутри "липкого" элемента */
+  /* Уменьшим margin-bottom немного, так как добавили padding-bottom, чтобы общий отступ не стал слишком большим */
+  /* margin-bottom: 16px; /* Изначально было 24px. 24 - 8 = 16px */
+  /* Однако, основной padding уже есть у .home-page (16px). Посмотрим, как будет без доп. padding. */
+  /* Если заголовок слишком "тесно" сидит, можно добавить padding-top/bottom здесь */
+  /* или увеличить padding-top у .cards-grid, чтобы первая карточка не заезжала под заголовок */
+  /* margin-bottom все еще 24px, padding-bottom: 8px добавит к "занимаемому" пространству, но не к отступу до следующего элемента */
 }
 
 .no-cards-message {
@@ -33,7 +45,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 20px; /* Можно увеличить, если заголовок будет перекрывать */
+  /* padding-top: 16px; /* Добавляем отступ сверху, чтобы компенсировать "липкий" заголовок */
+                     /* Размер отступа должен быть примерно равен высоте заголовка + его отступы */
 }
 
 .card-item {
