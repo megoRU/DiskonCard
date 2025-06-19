@@ -24,21 +24,14 @@
 
   <script>
     (function() {
-      const theme = localStorage.getItem('themePreference') || 'dark';
-      document.documentElement.classList.add(theme);
+      const pref = localStorage.getItem('themePreference') || 'system';
+      const isDark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        meta.setAttribute('content', isDark ? '#000000' : '#f9f9f9');
+      }
     })();
   </script>
-
-<!--  <script>-->
-<!--    (function() {-->
-<!--      const pref = localStorage.getItem('themePreference') || 'system';-->
-<!--      const isDark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);-->
-<!--      const meta = document.querySelector('meta[name="theme-color"]');-->
-<!--      if (meta) {-->
-<!--        meta.setAttribute('content', isDark ? '#000000' : '#f9f9f9');-->
-<!--      }-->
-<!--    })();-->
-<!--  </script>-->
 
   <script>
     if ('serviceWorker' in navigator) {
