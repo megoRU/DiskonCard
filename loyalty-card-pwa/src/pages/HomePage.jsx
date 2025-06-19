@@ -77,7 +77,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
     // It's populated during card creation (AddCardForm) from either a fetched predefined logo
     // or a user-uploaded file, with a fallback to a default logo's base64.
     const bgImage = card.coverImage;
-    const fallbackImage = "/card-logos/default.png"; // Fallback for the hidden img's onError
+    // const fallbackImage = "/card-logos/default.png"; // Удалено, так как связанный img удален
 
     const cardInner = (
       <div
@@ -93,16 +93,8 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
           backgroundImage: bgImage ? `url(${bgImage})` : undefined,
         }}
       >
-        {bgImage && (
-          <img
-            src={bgImage}
-            alt=""
-            onError={(e) => {
-              e.target.src = fallbackImage;
-            }}
-            className="hidden-image-for-onerror"
-          />
-        )}
+        {/* Скрытый тег img для обработки onError удален, так как он был избыточен.
+            Fallback для backgroundImage обеспечивается CSS свойством background-color. */}
         {isEditMode && (
           <button
             className="delete-card-btn"
