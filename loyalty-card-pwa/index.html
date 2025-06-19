@@ -10,24 +10,32 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#000000">
+  <script>
+    (function() {
+      let preferredTheme = localStorage.getItem('themePreference'); // Can be 'light', 'dark', or 'system'
+      let effectiveTheme;
+
+      if (preferredTheme === 'light' || preferredTheme === 'dark') {
+        effectiveTheme = preferredTheme;
+      } else { // Covers 'system' or null (no preference set yet)
+        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', effectiveTheme);
+
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        // Assuming --background-primary holds the main background for each theme
+        // These specific color values are from the :root and [data-theme="dark"] in index.css
+        metaThemeColor.setAttribute('content', effectiveTheme === 'dark' ? '#000000' : '#f9f9f9');
+      }
+    })();
+  </script>
   <meta name="description" content="DiskonCard Progressive Web App">
   <link rel="apple-touch-icon" href="/icon.png">
   <link rel="manifest" href="/manifest.json">
   <meta charset="utf-8">
   <base href="/">
-
-  <style>
-    body {
-      background-color: #000000; color: #000000;
-    }
-  </style>
-
-  <script>
-    (function() {
-      const theme = localStorage.getItem('themePreference') || 'dark';
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
 
 <!--  <script>-->
 <!--    (function() {-->
