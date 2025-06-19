@@ -90,18 +90,11 @@ a {
   text-decoration: none;
 }
 
-/* No underline for links by default, common in iOS */
 a:hover {
   text-decoration: none;
 }
 
-/* Global focus style for accessibility, can be refined per component */
 *:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
-
-/* Hide scrollbars for a cleaner look, if desired and tested for usability */
-/* ::-webkit-scrollbar {
-  display: none;
-} */
