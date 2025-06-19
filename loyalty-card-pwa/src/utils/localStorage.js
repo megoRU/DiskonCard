@@ -1,4 +1,4 @@
-const CARDS_STORAGE_KEY = 'loyaltyCards';
+const CARDS_STORAGE_KEY = "loyaltyCards";
 
 export const getCardsFromStorage = () => {
   const cardsJson = localStorage.getItem(CARDS_STORAGE_KEY);
@@ -27,7 +27,7 @@ export const addCardToStorage = (newCard) => {
 
 export const deleteCardFromStorage = (cardId) => {
   let cards = getCardsFromStorage();
-  cards = cards.filter(card => card.id !== cardId);
+  cards = cards.filter((card) => card.id !== cardId);
   saveCardsToStorage(cards);
   return cards; // Return the updated list of cards, or just true/false for success
 };

@@ -1,17 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import JsBarcode from 'jsbarcode';
-import { QRCodeSVG } from 'qrcode.react'; // Import QRCodeSVG
-import { FiX } from 'react-icons/fi';
-import { useTranslation } from 'react-i18next';
-import './BarcodeModal.css';
+import React, { useEffect, useRef } from "react";
+import JsBarcode from "jsbarcode";
+import { QRCodeSVG } from "qrcode.react"; // Import QRCodeSVG
+import { FiX } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
+import "./BarcodeModal.css";
 
 const BarcodeModal = ({ cardData, onClose }) => {
   const { t } = useTranslation();
   const barcodeRef = useRef(null);
-  const isQrCode = cardData && cardData.cardNumber && cardData.cardNumber.startsWith('E'); // Simple check for QR
+  const isQrCode =
+    cardData && cardData.cardNumber && cardData.cardNumber.startsWith("E"); // Simple check for QR
 
   useEffect(() => {
-    if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) { // Only run JsBarcode if not QR
+    if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) {
+      // Only run JsBarcode if not QR
       try {
         JsBarcode(barcodeRef.current, cardData.cardNumber, {
           format: "CODE128",
@@ -37,16 +39,21 @@ const BarcodeModal = ({ cardData, onClose }) => {
 
   return (
     <div className="barcode-modal-backdrop" onClick={onClose}>
-      <div className="barcode-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="barcode-modal-content"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           className="barcode-modal-close-btn"
           onClick={onClose}
-          aria-label={t('barcodeModal.closeLabel', 'Close barcode view')}
+          aria-label={t("barcodeModal.closeLabel", "Close barcode view")}
         >
           <FiX />
         </button>
         <h2 className="barcode-modal-store-name">{cardData.storeName}</h2>
-        <div className="barcode-graphic-container"> {/* Added a container for centering */}
+        <div className="barcode-graphic-container">
+          {" "}
+          {/* Added a container for centering */}
           {isQrCode ? (
             <QRCodeSVG
               value={cardData.cardNumber}
@@ -62,7 +69,9 @@ const BarcodeModal = ({ cardData, onClose }) => {
           )}
         </div>
         {/* Manually display card number for both QR and Barcode for consistency */}
-        <p className="barcode-modal-card-number-display">{cardData.cardNumber}</p>
+        <p className="barcode-modal-card-number-display">
+          {cardData.cardNumber}
+        </p>
       </div>
     </div>
   );

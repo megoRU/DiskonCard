@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import './Notification.css';
+import React, { useEffect, useState } from "react";
+import "./Notification.css";
 
-const Notification = ({ message, type = 'success', duration = 3000, onClose }) => {
+const Notification = ({
+  message,
+  type = "success",
+  duration = 3000,
+  onClose,
+}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,7 +29,9 @@ const Notification = ({ message, type = 'success', duration = 3000, onClose }) =
   }
 
   return (
-    <div className={`notification notification-${type} ${visible ? 'notification-visible' : ''}`}>
+    <div
+      className={`notification notification-${type} ${visible ? "notification-visible" : ""}`}
+    >
       {message}
     </div>
   );
