@@ -6,41 +6,41 @@ import HomePage from "./HomePage";
 import { getCardsFromStorage } from "../utils/localStorage";
 
 // Mock the localStorage utility
-jest.mock("../utils/localStorage", () => ({
-  getCardsFromStorage: jest.fn(),
-  saveCardsToStorage: jest.fn(), // Mock saveCardsToStorage as it might be called during drag-n-drop
-  deleteCardFromStorage: jest.fn(), // Mock deleteCardFromStorage for completeness
+vi.mock("../utils/localStorage", () => ({
+  getCardsFromStorage: vi.fn(),
+  saveCardsToStorage: vi.fn(), // Mock saveCardsToStorage as it might be called during drag-n-drop
+  deleteCardFromStorage: vi.fn(), // Mock deleteCardFromStorage for completeness
 }));
 
 // Mock react-router-dom
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => jest.fn(), // Mock useNavigate if used internally or by sub-components
+vi.mock("react-router-dom", () => ({
+  ...vi.importActual("react-router-dom"),
+  useNavigate: () => vi.fn(), // Mock useNavigate if used internally or by sub-components
   Link: ({ children, to }) => <a href={to}>{children}</a>,
 }));
 
 // Mock use-long-press
-jest.mock("use-long-press", () => ({
-  useLongPress: jest.fn(() => jest.fn()), // Returns a dummy bind function
+vi.mock("use-long-press", () => ({
+  useLongPress: vi.fn(() => vi.fn()), // Returns a dummy bind function
 }));
 
 // Mock @hello-pangea/dnd
-jest.mock("@hello-pangea/dnd", () => ({
+vi.mock("@hello-pangea/dnd", () => ({
   DragDropContext: ({ children }) => <div>{children}</div>,
   Droppable: ({ children }) =>
     children(
-      { innerRef: jest.fn(), droppableProps: {}, placeholder: null },
+      { innerRef: vi.fn(), droppableProps: {}, placeholder: null }, // Changed jest.fn() to vi.fn()
       {},
     ),
   Draggable: ({ children }) =>
     children(
-      { innerRef: jest.fn(), draggableProps: {}, dragHandleProps: {} },
+      { innerRef: vi.fn(), draggableProps: {}, dragHandleProps: {} }, // Changed jest.fn() to vi.fn()
       {},
     ),
 }));
 
 // Mocking FiTrash2 icon
-jest.mock("react-icons/fi", () => ({
+vi.mock("react-icons/fi", () => ({
   FiTrash2: () => <svg data-testid="trash-icon" />,
 }));
 

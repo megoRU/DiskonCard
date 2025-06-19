@@ -7,32 +7,56 @@ import AddCardForm from "./AddCardForm";
 import { addCardToStorage } from "../utils/localStorage"; // Import directly for mock clarity
 
 // Mock react-router-dom's useNavigate specifically
-const mockedNavigate = jest.fn();
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"), // Import and retain default exports
-  useNavigate: () => mockedNavigate, // Mock useNavigate
-}));
+const mockedNavigate = vi.fn();
+vi.mock("react-router-dom", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockedNavigate,
+    // Ensure BrowserRouter (aliased as Router in test) and other components are explicitly returned if used
+    // In this test, <Router> is used directly from "react-router-dom", which means BrowserRouter.
+    // So, the mock should provide it.
+    // However, the test file also imports `BrowserRouter as Router` separately.
+    // The issue might be that the test file itself does:
+    // import { BrowserRouter as Router } from "react-router-dom";
+    // And then uses <Router>. If the mock doesn't explicitly provide BrowserRouter, it fails.
+    // Let's ensure the mock provides the necessary components.
+    // It seems vi.importActual() should bring them in. The error message is confusing.
+    // Let's try to be more explicit by re-exporting what might be directly used.
+    // The error "No "BrowserRouter" export is defined" is key.
+    // This means `actual.BrowserRouter` might be undefined or not correctly picked up.
+    // A common pattern is:
+    // const actual = await vi.importActual("react-router-dom");
+    // return { ...actual, useNavigate: () => mockedNavigate };
+    // This should work. The error might stem from how <Router> is used in the test.
+    // The test file uses: import { BrowserRouter as Router } from "react-router-dom";
+    // This means the mock MUST provide BrowserRouter.
+    BrowserRouter: ({ children }) => <div>{children}</div>, // Simplified mock for testing
+    // Add other exports if they are directly imported and used by the test file.
+    // For now, focusing on BrowserRouter as per the error.
+  };
+});
 
 // Mock localStorage utilities used by the form
-jest.mock("../utils/localStorage", () => ({
-  addCardToStorage: jest.fn(),
+vi.mock("../utils/localStorage", () => ({
+  addCardToStorage: vi.fn(),
 }));
 
 // Mock react-html5-camera-photo
-jest.mock("react-html5-camera-photo", () => () => "Mock Camera Component");
+vi.mock("react-html5-camera-photo", () => () => "Mock Camera Component");
 
 describe("AddCardForm Component", () => {
   beforeEach(() => {
     // Clear mocks before each test
     mockedNavigate.mockClear();
-    // jest.clearAllMocks() will clear addCardToStorage, which is fine.
+    // vi.clearAllMocks() will clear addCardToStorage, which is fine.
     addCardToStorage.mockClear();
     mockedNavigate.mockClear();
-    // No need to clear react-router-dom mock here as it's handled by jest.mock
-    // jest.clearAllMocks(); // This was too broad, cleared the module mock itself.
+    // No need to clear react-router-dom mock here as it's handled by vi.mock
+    // vi.clearAllMocks(); // This was too broad, cleared the module mock itself.
   });
 
-  // No afterEach needed for jest.mock
+  // No afterEach needed for vi.mock
 
   test("renders input fields and buttons", () => {
     render(

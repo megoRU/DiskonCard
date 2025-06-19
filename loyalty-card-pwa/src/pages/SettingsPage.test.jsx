@@ -11,33 +11,40 @@ vi.mock("import.meta.env", () => ({
 }));
 
 // Mock react-i18next
-jest.mock("react-i18next", () => ({
-  ...jest.requireActual("react-i18next"),
-  useTranslation: () => ({
-    t: (key, options) => {
-      if (key === "settingsPage.title") return "Settings";
-      if (key === "settingsPage.themeTitle") return "Appearance";
-      if (key === "settingsPage.themeLight") return "Light";
-      if (key === "settingsPage.themeDark") return "Dark";
-      if (key === "settingsPage.themeSystem") return "As in system";
-      if (key === "settingsPage.appVersion")
-        return `App Version: ${options?.version || import.meta.env.APP_VERSION}`;
-      if (key === "settingsPage.whatsNew") return "What's new";
-      if (key === "settingsPage.contactDeveloper") return "Contact Developer";
-      // For WhatsNewPopup content (simplified for this test scope)
-      if (key === "whatsNewPopup.title") return "Popup Title";
-      if (key === "whatsNewPopup.version")
-        return `Popup Version: ${options?.version}`;
-      if (key === "whatsNewPopup.releaseDate")
-        return `Popup Date: ${options?.date}`;
-      return key;
-    },
-    i18n: {
-      language: "en",
-      changeLanguage: jest.fn(),
-    },
-  }),
-}));
+vi.mock("react-i18next", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual, // Import and retain default exports like I18nextProvider and initReactI18next
+    useTranslation: () => ({
+      t: (key, options) => {
+        if (key === "settingsPage.title") return "Settings";
+        if (key === "settingsPage.themeTitle") return "Appearance";
+        if (key === "settingsPage.themeLight") return "Light";
+        if (key === "settingsPage.themeDark") return "Dark";
+        if (key === "settingsPage.themeSystem") return "As in system";
+        if (key === "settingsPage.appVersion")
+          return `App Version: ${options?.version || import.meta.env.APP_VERSION}`;
+        if (key === "settingsPage.whatsNew") return "What's new";
+        if (key === "settingsPage.contactDeveloper") return "Contact Developer";
+        // For WhatsNewPopup content (simplified for this test scope)
+        if (key === "whatsNewPopup.title") return "Popup Title";
+        if (key === "whatsNewPopup.version")
+          return `Popup Version: ${options?.version}`;
+        if (key === "whatsNewPopup.releaseDate")
+          return `Popup Date: ${options?.date}`;
+        return key;
+      },
+      i18n: {
+        language: "en",
+        changeLanguage: vi.fn(),
+      },
+    }),
+    // initReactI18next: actual.initReactI18next, // Ensure it's passed through if not automatically
+    // It seems by spreading ...actual, initReactI18next should be included if it's an export.
+    // The error suggests it's not found, so explicitly adding it might be redundant if ...actual works,
+    // but can be a safeguard. Let's rely on ...actual first.
+  };
+});
 
 const renderWithProviders = (ui, { themeProviderProps, ...renderOptions }) => {
   return render(
@@ -52,16 +59,16 @@ describe("SettingsPage Component", () => {
   let mockSetTheme;
 
   beforeEach(() => {
-    mockSetTheme = jest.fn();
-    Storage.prototype.getItem = jest.fn(() => "system");
-    Storage.prototype.setItem = jest.fn();
+    mockSetTheme = vi.fn();
+    Storage.prototype.getItem = vi.fn(() => "system"); // Replaced jest.fn with vi.fn
+    Storage.prototype.setItem = vi.fn(); // Replaced jest.fn with vi.fn
 
     // Ensure i18n is ready if it's loaded asynchronously or needs specific setup for tests
     // For this example, assuming i18n instance is directly usable
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks(); // Replaced jest.clearAllMocks with vi.clearAllMocks
   });
 
   const defaultThemeProviderProps = {

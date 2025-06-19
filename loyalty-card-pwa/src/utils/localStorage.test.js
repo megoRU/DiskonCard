@@ -9,18 +9,18 @@ const mockStoreInstance = {}; // Use a single object instance
 
 Object.defineProperty(window, "localStorage", {
   value: {
-    getItem: jest.fn((key) => {
+    getItem: vi.fn((key) => { // Replaced jest.fn with vi.fn
       // console.log(`MOCK LS GET: key='${key}', value='${mockStoreInstance[key]}' (type: ${typeof mockStoreInstance[key]})`);
       // Ensure that if a key truly doesn't exist, it returns null, not undefined.
       return mockStoreInstance.hasOwnProperty(key)
         ? mockStoreInstance[key]
         : null;
     }),
-    setItem: jest.fn((key, value) => {
+    setItem: vi.fn((key, value) => { // Replaced jest.fn with vi.fn
       // console.log(`MOCK LS SET: key='${key}', value='${value}' (type: ${typeof value})`);
       mockStoreInstance[key] = value; // Value must be a string
     }),
-    clear: jest.fn(() => {
+    clear: vi.fn(() => { // Replaced jest.fn with vi.fn
       // console.log('MOCK LS CLEAR: store was', JSON.stringify(mockStoreInstance));
       // Clear properties of the existing object, don't reassign the top-level variable
       for (const key in mockStoreInstance) {
@@ -30,7 +30,7 @@ Object.defineProperty(window, "localStorage", {
       }
       // console.log('MOCK LS CLEAR: store is now', JSON.stringify(mockStoreInstance));
     }),
-    removeItem: jest.fn((key) => {
+    removeItem: vi.fn((key) => { // Replaced jest.fn with vi.fn
       // console.log(`MOCK LS REMOVE: key='${key}'`);
       delete mockStoreInstance[key];
     }),
@@ -41,7 +41,8 @@ describe("localStorage Utils", () => {
   beforeEach(() => {
     localStorage.clear(); // This will now empty the properties of mockStoreInstance
     Object.values(window.localStorage).forEach((mockFn) => {
-      if (jest.isMockFunction(mockFn) && mockFn.mockClear) {
+      // vi.isMockFunction doesn't exist directly, use mockFn.mock?.calls for checking if it's a Vitest mock
+      if (mockFn.mock?.calls && mockFn.mockClear) { // Updated check for Vitest mock
         mockFn.mockClear();
       }
     });
