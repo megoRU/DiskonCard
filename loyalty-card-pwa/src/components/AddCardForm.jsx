@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addCardToStorage } from "../utils/localStorage";
 // import { getStoreLogoUrl } from '../utils/storeLogos.js'; // Will be removed
-import { useTranslation } from "react-i18next";
 import Notification from "./Notification";
 import "./AddCardForm.css";
 
@@ -85,7 +84,6 @@ function getAsciiStoreName(name) {
 }
 
 const AddCardForm = () => {
-  const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState("");
   const [storeName, setStoreName] = useState("");
   const [debouncedStoreName, setDebouncedStoreName] = useState("");
@@ -279,7 +277,7 @@ const AddCardForm = () => {
     event.preventDefault();
     if (!cardNumber || !storeName) {
       setNotification({
-        message: t("addCardForm.fillFieldsAlert"),
+        message: "Пожалуйста, заполните поля \"Номер карты\" и \"Название магазина\".",
         type: "error",
       });
       return;
@@ -296,7 +294,7 @@ const AddCardForm = () => {
       // For robustness, we could call fetchAndSetLogoDataUrl here for default and then proceed,
       // but it makes handleSubmit async or more complex.
       // Let's assume selectedLogoDataUrl will be populated by the useEffect hooks.
-      setNotification({ message: t("addCardForm.logoError"), type: "error" }); // Assuming you add this translation
+      setNotification({ message: "Ошибка загрузки логотипа", type: "error" }); // Assuming you add this translation
       return;
     }
 
@@ -317,7 +315,7 @@ const AddCardForm = () => {
       coverImage: finalCoverImage, // This is the base64 data URL
     });
     setNotification({
-      message: t("addCardForm.cardAddedSuccess"),
+      message: "Карта успешно добавлена!",
       type: "success",
     });
     setCardNumber("");
@@ -346,16 +344,13 @@ const AddCardForm = () => {
       />
       <form onSubmit={handleSubmit} className="add-card-form">
         <div className="form-group">
-          <label htmlFor="storeName">{t("addCardForm.storeNameLabel")}</label>
+          <label htmlFor="storeName">Название магазина:</label>
           <input
             type="text"
             id="storeName"
             value={storeName}
             onChange={(e) => setStoreName(e.target.value)}
-            placeholder={t(
-              "addCardForm.storeNamePlaceholder",
-              "e.g. Coffee Shop",
-            )}
+            placeholder="Название"
             required
             list="store-suggestions" // Added list attribute
           />
@@ -368,7 +363,7 @@ const AddCardForm = () => {
           {/* Logo preview is now part of the coverImage section */}
         </div>
         <div className="form-group">
-          <label htmlFor="cardNumber">{t("addCardForm.cardNumberLabel")}</label>
+          <label htmlFor="cardNumber">Номер карты:</label>
           <input
             type="text" // Changed type to "text"
             id="cardNumber"
@@ -376,16 +371,13 @@ const AddCardForm = () => {
             onChange={(e) => {
               setCardNumber(e.target.value);
             }}
-            placeholder={t(
-              "addCardForm.cardNumberPlaceholder",
-              "e.g. 123456789",
-            )}
+            placeholder="123456789"
             required
           />
         </div>
         <div className="form-group">
           <label htmlFor="coverImage">
-            {t("addCardForm.coverImageLabel", "Обложка карты (изображение)")}
+            Обложка карты (изображение)
           </label>
           <input
             type="file"
@@ -396,7 +388,7 @@ const AddCardForm = () => {
           <div className="image-preview">
             <img
               src={determinedPreviewSrc} // Now uses selectedLogoDataUrl or fallback static path
-              alt={t("addCardForm.coverPreviewAlt", "Предпросмотр обложки")}
+              alt="Предпросмотр обложки"
               className="preview-image"
               onError={(e) => {
                 // This onError is less critical if selectedLogoDataUrl is always a valid base64.
@@ -429,7 +421,7 @@ const AddCardForm = () => {
         </div>
         <div className="form-actions">
           <button type="submit" className="submit-btn">
-            {t("addCardForm.addCardButton")}
+            Добавить карту
           </button>
           {/* "Add by Photo" button removed */}
         </div>
