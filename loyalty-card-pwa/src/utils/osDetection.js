@@ -1,13 +1,3 @@
-/**
- * Утилита для определения операционной системы пользователя.
- */
-
-/**
- * Проверяет, является ли текущая операционная система iOS.
- * Учитывает различные устройства Apple и симуляторы.
- *
- * @returns {boolean} true, если ОС - iOS, иначе false.
- */
 export const isIOS = () => {
   if (typeof navigator === 'undefined') {
     return false;
@@ -32,7 +22,5 @@ export const isIOS = () => {
     userAgentCheck = /iPad|iPhone|iPod/.test(navigator.userAgent);
   }
 
-  // PWA на iPadOS 13+ может иметь userAgent от macOS Safari, но platform будет 'iPad'.
-  // Поэтому platformCheck более приоритетен в таких случаях.
   return platformCheck || userAgentCheck;
 };

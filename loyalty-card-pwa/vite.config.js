@@ -10,27 +10,28 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: "autoUpdate",
       workbox: {
-        cleanupOutdatedCaches: true,
+        globPatterns: ["**/*.{html,css,js,ico,png,jpg,gif,svg}"]
       },
       manifest: {
-        name: 'DiskonCard',
-        short_name: 'PWA',
-        start_url: '/',
+        name: "DiskonCard",
+        short_name: "PWA",
+        start_url: "/",
         display: 'standalone',
-        background_color: '#000000',
-        theme_color: '#000000',
+        background_color: "#000000",
+        theme_color: "#000000",
+        lang: "ru-RU",
         icons: [
           {
-            src: 'icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
+            src: "icons/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
           },
           {
-            src: 'icon.png',
-            sizes: '512x512',
-            type: 'image/png'
+            src: "icon.png",
+            sizes: "512x512",
+            type: "image/png"
           }
         ]
       }
