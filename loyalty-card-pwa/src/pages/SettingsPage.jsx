@@ -117,6 +117,8 @@ const SettingsPage = () => {
           </div>
         </section>
 
+        <IOSInstallInstruction />
+
         <section className="app-info-section">
           <h4>О приложении</h4>
           <div className="data-management-buttons">
@@ -131,7 +133,6 @@ const SettingsPage = () => {
           <p className="app-version">Версия приложения: {import.meta.env.VERSION || "N/A"}</p>
         </section>
 
-        <IOSInstallInstruction />
         {isPopupOpen && <WhatsNewPopup onClose={() => setIsPopupOpen(false)} />}
       </div>
   );
