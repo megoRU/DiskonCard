@@ -2,11 +2,9 @@ import React, { useEffect, useRef } from "react";
 import JsBarcode from "jsbarcode";
 import { QRCodeSVG } from "qrcode.react"; // Import QRCodeSVG
 import { FiX } from "react-icons/fi";
-import { useTranslation } from "react-i18next";
 import "./BarcodeModal.css";
 
 const BarcodeModal = ({ cardData, onClose }) => {
-  const { t } = useTranslation();
   const barcodeRef = useRef(null);
   const isQrCode =
     cardData && cardData.cardNumber && cardData.cardNumber.startsWith("E"); // Simple check for QR
@@ -46,7 +44,7 @@ const BarcodeModal = ({ cardData, onClose }) => {
         <button
           className="barcode-modal-close-btn"
           onClick={onClose}
-          aria-label={t("barcodeModal.closeLabel", "Close barcode view")}
+          aria-label="Закрыть просмотр штрих-кода"
         >
           <FiX />
         </button>

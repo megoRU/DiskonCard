@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import { useTranslation } from "react-i18next";
 import { getCardsFromStorage, saveCardsToStorage } from "../utils/localStorage"; // Import for export and import
 // Removed: import { version } from '../../../package.json'; // No longer needed, use import.meta.env.APP_VERSION
 import "./SettingsPage.css";
@@ -11,7 +10,6 @@ import { isIOS } from "../utils/osDetection"; // Импорт утилиты
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { t } = useTranslation();
   const showIOSInstruction = isIOS(); // Определение, нужно ли показывать инструкцию
 
   const openPopup = () => setIsPopupOpen(true);
@@ -26,7 +24,7 @@ const SettingsPage = () => {
     try {
       const cards = getCardsFromStorage();
       if (!cards || cards.length === 0) {
-        alert(t("settingsPage.noCardsToExport")); // Or use a more sophisticated notification
+        alert("Нет карт для экспорта."); // Or use a more sophisticated notification
         return;
       }
       const jsonString = JSON.stringify(cards, null, 2);
@@ -41,7 +39,7 @@ const SettingsPage = () => {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error exporting cards:", error);
-      alert(t("settingsPage.exportError")); // Or use a more sophisticated notification
+      alert("Ошибка экспорта карт."); // Or use a more sophisticated notification
     }
   };
 
@@ -63,7 +61,7 @@ const SettingsPage = () => {
           let importedCardsData = JSON.parse(text);
 
           if (!Array.isArray(importedCardsData)) {
-            alert(t("settingsPage.importErrorInvalidFormat"));
+            alert("Ошибка импорта: Неверный формат данных в файле.");
             return;
           }
 
@@ -125,21 +123,18 @@ const SettingsPage = () => {
 
           saveCardsToStorage(newCardsToSave);
           alert(
-            t("settingsPage.importSuccess", {
-              count: addedCount,
-              skipped: skippedCount,
-            }),
+            `Импорт успешно завершен. Добавлено: ${addedCount} карта(ы). Пропущено (дубликаты): ${skippedCount} карта(ы).`
           );
           window.location.reload(); // Reload to reflect changes
         } catch (error) {
           console.error("Error parsing or processing imported file:", error);
-          alert(t("settingsPage.importErrorInvalidFile"));
+          alert("Ошибка импорта: Неверный тип файла. Пожалуйста, выберите .json файл.");
         }
       };
 
       reader.onerror = () => {
         console.error("Error reading file:", reader.error);
-        alert(t("settingsPage.importErrorReadFile"));
+        alert("Ошибка импорта: Не удалось прочитать файл.");
       };
 
       reader.readAsText(file);
@@ -150,51 +145,51 @@ const SettingsPage = () => {
 
   return (
     <div className="settings-page">
-      <h1>{t("settingsPage.title")}</h1>
+      <h1>Настройки</h1>
 
       {/* New Theme Selector Buttons */}
       <div className="theme-selector">
-        <h2>{t("settingsPage.themeTitle")}</h2>
+        <h2>Тема оформления</h2>
         <div className="theme-buttons-container">
           <button
             className={`theme-button ${theme === "light" ? "active" : ""}`}
             onClick={() => handleThemeChange("light")}
             aria-pressed={theme === "light"}
-            title={t("settingsPage.themeLight")}
+            title="Светлая"
           >
             <span className="theme-icon">☀️</span>
-            <span className="theme-label">{t("settingsPage.themeLight")}</span>
+            <span className="theme-label">Светлая</span>
           </button>
           <button
             className={`theme-button ${theme === "dark" ? "active" : ""}`}
             onClick={() => handleThemeChange("dark")}
             aria-pressed={theme === "dark"}
-            title={t("settingsPage.themeDark")}
+            title="Темная"
           >
             <span className="theme-icon">🌙</span>
-            <span className="theme-label">{t("settingsPage.themeDark")}</span>
+            <span className="theme-label">Темная</span>
           </button>
           <button
             className={`theme-button ${theme === "system" ? "active" : ""}`}
             onClick={() => handleThemeChange("system")}
             aria-pressed={theme === "system"}
-            title={t("settingsPage.themeSystem")}
+            title="Как в системе"
           >
             <span className="theme-icon">🌓</span>
-            <span className="theme-label">{t("settingsPage.themeSystem")}</span>
+            <span className="theme-label">Как в системе</span>
           </button>
         </div>
       </div>
 
       {/* Data Management Section */}
       <div className="data-management-section">
-        <h2>{t("settingsPage.dataManagementTitle")}</h2>
+        <h2>Управление данными</h2>
         <div className="data-management-buttons">
           <button className="data-button" onClick={handleExportCards}>
-            {t("settingsPage.exportCards")}
+            Экспорт карт
           </button>
           <button className="data-button" onClick={handleImportCards}>
-            {t("settingsPage.importCards")}
+            Импорт карт
           </button>
         </div>
       </div>
@@ -202,15 +197,13 @@ const SettingsPage = () => {
       {/* Restored App Info Section */}
       <div className="app-info-section">
         <p className="app-version">
-          {t("settingsPage.appVersion", {
-            version: import.meta.env.VERSION || "N/A",
-          })}
+          {`Версия приложения: ${import.meta.env.VERSION || "N/A"}`}
         </p>
         <button onClick={openPopup} className="whats-new-link">
-          {t("settingsPage.whatsNew")}
+          Что нового
         </button>
         <p className="contact-developer-container">
-          {t("settingsPage.contactDeveloper")}:{" "}
+          Связь с разработчиком:{" "}
           <a
             href="https://t.me/mego_RU"
             target="_blank"
@@ -226,7 +219,7 @@ const SettingsPage = () => {
       {showIOSInstruction && (
         <div className="ios-instruction-section app-info-section"> {/* Используем схожий стиль секции */}
           {/* Можно добавить заголовок секции, если он нужен, например:
-          <h2>{t("settingsPage.iosInstallationTitle", "Установка на iOS")}</h2>
+          <h2>Установка на iOS</h2>
           */}
           <IOSInstallInstruction />
         </div>

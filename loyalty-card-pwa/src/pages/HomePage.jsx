@@ -4,7 +4,6 @@ import {
   deleteCardFromStorage,
   saveCardsToStorage,
 } from "../utils/localStorage";
-import { useTranslation } from "react-i18next";
 import BarcodeModal from "../components/BarcodeModal.jsx";
 import { useLongPress } from "use-long-press";
 import { FiTrash2 } from "react-icons/fi";
@@ -12,7 +11,6 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "./HomePage.css";
 
 const HomePage = ({ isEditMode, setIsEditMode }) => {
-  const { t } = useTranslation();
   const [cards, setCards] = useState([]);
   const [selectedCardForBarcode, setSelectedCardForBarcode] = useState(null);
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
@@ -50,7 +48,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
 
   const handleDeleteCard = (cardId, event) => {
     event.stopPropagation();
-    if (window.confirm(t("homePage.confirmDeleteMessage"))) {
+    if (window.confirm("Вы уверены, что хотите удалить эту карту?")) {
       deleteCardFromStorage(cardId);
       const updatedCards = cards.filter((card) => card.id !== cardId);
       setCards(updatedCards);
@@ -99,7 +97,7 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
           <button
             className="delete-card-btn"
             onClick={(e) => handleDeleteCard(card.id, e)}
-            aria-label={t("homePage.deleteCardAriaLabel", "Delete card")}
+            aria-label="Удалить карту"
           >
             <FiTrash2 />
           </button>
@@ -133,10 +131,10 @@ const HomePage = ({ isEditMode, setIsEditMode }) => {
 
   return (
     <div className="home-page">
-      <h1>{t("homePage.title")}</h1>
+      <h1>Ваши карты</h1>
       {cards.length === 0 && !isEditMode ? (
         <div className="no-cards-message">
-          <p>{t("homePage.noCardsMessage")}</p>
+          <p>Карт пока нет. Добавьте свою первую карту!</p>
         </div>
       ) : (
         <DragDropContext onDragEnd={handleOnDragEnd}>

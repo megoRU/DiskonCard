@@ -7,12 +7,10 @@ import {
   FiTrash2,
   FiX,
 } from "react-icons/fi"; // Added FiTrash2, FiX
-import { useTranslation } from "react-i18next";
 import "./Layout.css";
 
 // Accept isEditMode and setIsEditMode as props
 const Layout = ({ isEditMode, setIsEditMode }) => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleCentralButtonClick = () => {
@@ -42,7 +40,7 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
           end
         >
           <FiHome />
-          <span>{t("nav.home")}</span>
+          <span>Главная</span>
         </NavLink>
 
         <button // Changed from Link to button for more control
@@ -50,8 +48,8 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
           className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
           aria-label={
             isEditMode
-              ? t("nav.cancelEditModeLabel", "Cancel Edit Mode")
-              : t("nav.addCardLabel", "Add Card")
+              ? "Отменить режим редактирования"
+              : "Добавить карту"
           }
         >
           {isEditMode ? <FiX /> : <FiPlusSquare />}
@@ -64,7 +62,7 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
           }
         >
           <FiSettings />
-          <span>{t("nav.settings")}</span>
+          <span>Настройки</span>
         </NavLink>
       </nav>
     </div>
