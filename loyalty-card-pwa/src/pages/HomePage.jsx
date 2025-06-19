@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useLayoutEffect, useState} from "react";
 import {deleteCardFromStorage, getCardsFromStorage, saveCardsToStorage,} from "../utils/localStorage";
 import BarcodeModal from "../components/BarcodeModal.jsx";
 import {useLongPress} from "use-long-press";
@@ -8,92 +8,63 @@ import "./HomePage.css";
 
 const HomePage = ({isEditMode, setIsEditMode}) => {
   const [cards, setCards] = useState([]);
-  const [selectedCardForBarcode, setSelectedCardForBarcode] = useState(null);
-  const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const fetchCards = useCallback(() => {
-    const storedCards = getCardsFromStorage();
-    setCards(storedCards);
+    setCards(getCardsFromStorage());
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchCards();
   }, [fetchCards]);
 
-  const handleLongPress = useCallback(
-      (event, {context: cardId}) => {
-        if (!isEditMode) {
-          setIsEditMode(true);
-        }
-      },
-      [isEditMode, setIsEditMode],
-  );
+  const handleLongPress = useCallback(() => {
+    if (!isEditMode) setIsEditMode(true);
+  }, [isEditMode, setIsEditMode]);
 
-  const longPressOptions = {threshold: 500};
-  const bind = useLongPress(
-      isEditMode ? null : handleLongPress,
-      longPressOptions,
-  );
+  const bind = useLongPress(isEditMode ? null : handleLongPress, {threshold: 500});
 
   const handleCardClick = (card) => {
-    if (!isEditMode) {
-      setSelectedCardForBarcode(card);
-      setIsBarcodeModalOpen(true);
+    if (!isEditMode) setSelectedCard(card);
+  };
+
+  const handleDelete = (id, e) => {
+    e.stopPropagation();
+    const card = cards.find(c => c.id === id);
+    if (window.confirm(`Удалить ${card?.storeName || ""} карту?`)) {
+      const updated = cards.filter(c => c.id !== id);
+      setCards(updated);
+      deleteCardFromStorage(id);
+      if (!updated.length) setIsEditMode(false);
     }
   };
 
-  const handleDeleteCard = (cardId, event) => {
-    event.stopPropagation();
-    const cardToDelete = cards.find((card) => card.id === cardId);
-    if (window.confirm("Удалить " + (cardToDelete?.storeName || "") + " карту?")) {
-      deleteCardFromStorage(cardId);
-      const updatedCards = cards.filter((card) => card.id !== cardId);
-      setCards(updatedCards);
-      if (updatedCards.length === 0) setIsEditMode(false);
-    }
+  const handleCloseModal = () => setSelectedCard(null);
+
+  const onDragEnd = ({source, destination}) => {
+    if (!destination || !isEditMode) return;
+    const updated = [...cards];
+    const [moved] = updated.splice(source.index, 1);
+    updated.splice(destination.index, 0, moved);
+    setCards(updated);
+    saveCardsToStorage(updated);
   };
 
-  const handleCloseModal = () => {
-    setIsBarcodeModalOpen(false);
-    setSelectedCardForBarcode(null);
-  };
-
-  const handleOnDragEnd = (result) => {
-    if (!result.destination || !isEditMode) return;
-    const items = Array.from(cards);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setCards([...items]);
-    saveCardsToStorage(items);
-  };
-
-  const renderCardContent = (card, index, isDraggable) => {
-    // card.coverImage is now expected to always be a base64 data URL.
-    // It's populated during card creation (AddCardForm) from either a fetched predefined logo
-    // or a user-uploaded file, with a fallback to a default logo's base64.
-    const bgImage = card.coverImage;
-    // const fallbackImage = "/card-logos/default.png"; // Удалено, так как связанный img удален
-
-    const cardInner = (
+  const renderCard = (card, index) => {
+    const cardElement = (
         <div
             className={`card-item ${isEditMode ? "card-item-edit-mode" : ""}`}
+            style={{backgroundImage: card.coverImage ? `url(${card.coverImage})` : undefined}}
             onClick={() => handleCardClick(card)}
             {...bind(card.id)}
             role="button"
             tabIndex={0}
-            onKeyPress={(e) =>
-                (e.key === "Enter" || e.key === " ") && handleCardClick(card)
-            }
-            style={{
-              backgroundImage: bgImage ? `url(${bgImage})` : undefined,
-            }}
+            onKeyPress={(e) => (e.key === "Enter" || e.key === " ") && handleCardClick(card)}
         >
-          {/* Скрытый тег img для обработки onError удален, так как он был избыточен.
-            Fallback для backgroundImage обеспечивается CSS свойством background-color. */}
           {isEditMode && (
               <button
                   className="delete-card-btn"
-                  onClick={(e) => handleDeleteCard(card.id, e)}
+                  onClick={(e) => handleDelete(card.id, e)}
                   aria-label="Удалить карту"
               >
                 <FiTrash2/>
@@ -102,65 +73,49 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
         </div>
     );
 
-    if (isDraggable) {
-      return (
-          <Draggable key={card.id} draggableId={card.id.toString()} index={index}>
-            {(provided) => (
-                <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={provided.draggableProps.style}
-                >
-                  {cardInner}
-                </div>
-            )}
-          </Draggable>
-      );
-    }
-
-    return <div key={card.id}>{cardInner}</div>;
+    return isEditMode ? (
+        <Draggable key={card.id} draggableId={String(card.id)} index={index}>
+          {(provided) => (
+              <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  style={provided.draggableProps.style}
+              >
+                {cardElement}
+              </div>
+          )}
+        </Draggable>
+    ) : (
+        <div key={card.id}>{cardElement}</div>
+    );
   };
-
-  const cardsContainerClass = isEditMode
-      ? "cards-grid cards-container-edit-mode"
-      : "cards-grid";
 
   return (
       <div className="home-page">
         <h1>Ваши карты</h1>
-        {cards.length === 0 && !isEditMode ? (
+        {!cards.length && !isEditMode ? (
             <div className="no-cards-message">
-              <p>Карт пока нет. Добавьте свою первую карту!</p>
+              <p>Добавьте свою первую карту!</p>
             </div>
         ) : (
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable
-                  droppableId="cardsDroppableArea"
-                  direction="vertical"
-                  isDropDisabled={!isEditMode}
-                  isCombineEnabled={false}
-              >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="cards" direction="vertical" isDropDisabled={!isEditMode}>
                 {(provided) => (
                     <div
-                        className={cardsContainerClass}
-                        {...provided.droppableProps}
+                        className={`cards-grid ${isEditMode ? "cards-container-edit-mode" : ""}`}
                         ref={provided.innerRef}
+                        {...provided.droppableProps}
                     >
-                      {cards.map((card, index) =>
-                          renderCardContent(card, index, isEditMode),
-                      )}
+                      {cards.map(renderCard)}
                       {provided.placeholder}
                     </div>
                 )}
               </Droppable>
             </DragDropContext>
         )}
-        {isBarcodeModalOpen && selectedCardForBarcode && (
-            <BarcodeModal
-                cardData={selectedCardForBarcode}
-                onClose={handleCloseModal}
-            />
+        {selectedCard && (
+            <BarcodeModal cardData={selectedCard} onClose={handleCloseModal}/>
         )}
       </div>
   );

@@ -70,7 +70,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 122, 255, 0.3); /* Shadow for the button */
   border: none;
   z-index: 1; /* Ensure it's above other nav items if overlapping */
   flex-grow: 0; /* Don't let it grow like other items */

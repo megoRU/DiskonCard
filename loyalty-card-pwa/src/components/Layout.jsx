@@ -1,16 +1,15 @@
 import React from "react";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import {
-  FiHome,
-  FiSettings,
-  FiPlusSquare,
-  FiTrash2,
-  FiX,
-} from "react-icons/fi"; // Added FiTrash2, FiX
+    FiHome,
+    FiSettings,
+    FiPlusSquare,
+    FiX, FiPlus,
+} from "react-icons/fi";
 import "./Layout.css";
 
 // Accept isEditMode and setIsEditMode as props
-const Layout = ({ isEditMode, setIsEditMode }) => {
+const Layout = ({isEditMode, setIsEditMode}) => {
   const navigate = useNavigate();
 
   const handleCentralButtonClick = () => {
@@ -27,45 +26,45 @@ const Layout = ({ isEditMode, setIsEditMode }) => {
   };
 
   return (
-    <div className="layout">
-      <main className="content">
-        <Outlet />
-      </main>
-      <nav className="bottom-nav">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-          end
-        >
-          <FiHome />
-          <span>Главная</span>
-        </NavLink>
+      <div className="layout">
+        <main className="content">
+          <Outlet/>
+        </main>
+        <nav className="bottom-nav">
+          <NavLink
+              to="/"
+              className={({isActive}) =>
+                  isActive ? "nav-item active" : "nav-item"
+              }
+              end
+          >
+            <FiHome/>
+            <span>Главная</span>
+          </NavLink>
 
-        <button // Changed from Link to button for more control
-          onClick={handleCentralButtonClick}
-          className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
-          aria-label={
-            isEditMode
-              ? "Отменить режим редактирования"
-              : "Добавить карту"
-          }
-        >
-          {isEditMode ? <FiX /> : <FiPlusSquare />}
-        </button>
+          <button
+              onClick={handleCentralButtonClick}
+              className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
+              aria-label={
+                isEditMode
+                    ? "Отменить режим редактирования"
+                    : "Добавить карту"
+              }
+          >
+            {isEditMode ? <FiX/> : <FiPlus/>}
+          </button>
 
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-        >
-          <FiSettings />
-          <span>Настройки</span>
-        </NavLink>
-      </nav>
-    </div>
+          <NavLink
+              to="/settings"
+              className={({isActive}) =>
+                  isActive ? "nav-item active" : "nav-item"
+              }
+          >
+            <FiSettings/>
+            <span>Настройки</span>
+          </NavLink>
+        </nav>
+      </div>
   );
 };
 

@@ -1,5 +1,5 @@
 .settings-page {
-  padding: 16px; /* Consistent padding */
+  padding: 16px;
 }
 
 .settings-page h1 {
@@ -8,6 +8,10 @@
   margin-bottom: 24px;
   color: var(--text-primary);
   text-align: center; /* Center title on settings page */
+}
+
+.theme-selector p {
+  padding-bottom: 15px;
 }
 
 .card-section {

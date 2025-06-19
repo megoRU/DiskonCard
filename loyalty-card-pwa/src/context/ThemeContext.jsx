@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
+import React, {createContext, useState, useEffect, useCallback, useLayoutEffect} from "react";
 
 const THEME_STORAGE_KEY = "themePreference";
 const defaultTheme = "system"; // 'light', 'dark', 'system'
@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const storedTheme = localStorage.getItem(THEME_STORAGE_KEY) || defaultTheme;
     setThemeState(storedTheme);
     applyTheme(storedTheme);
