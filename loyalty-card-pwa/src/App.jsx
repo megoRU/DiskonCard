@@ -5,12 +5,10 @@ import Layout from "./components/Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import AddCardPage from "./pages/AddCardPage.jsx";
-import { useServiceWorkerUpdate } from "./hooks/useServiceWorkerUpdate";
 import "./App.css";
 
 function App() {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { waitingWorker, reloadPage } = useServiceWorkerUpdate();
 
   return (
     <ThemeProvider>
@@ -36,15 +34,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-
-      {waitingWorker && (
-        <div className="update-notification">
-          Доступно обновление.
-          <button onClick={reloadPage} className="update-notification-button">
-            Перезагрузить
-          </button>
-        </div>
-      )}
     </ThemeProvider>
   );
 }
