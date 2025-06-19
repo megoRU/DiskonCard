@@ -1,10 +1,8 @@
-import React, {useState, useEffect, useLayoutEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { addCardToStorage } from "../utils/localStorage";
 import Notification from "./Notification";
 import "./AddCardForm.css";
-
-const HARDCODED_DEFAULT_LOGO_BASE64 = "";
 
 const popularStores = [
   "Магнит",
@@ -88,7 +86,7 @@ const AddCardForm = () => {
 
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handler = setTimeout(() => setDebouncedStoreName(storeName), 500);
     return () => clearTimeout(handler);
   }, [storeName]);
@@ -118,7 +116,7 @@ const AddCardForm = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!debouncedStoreName.trim()) {
       fetchAndSetLogoDataUrl("/card-logos/default.png", "/card-logos/default.png");
       return;

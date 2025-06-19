@@ -1,4 +1,4 @@
-import React, {useCallback, useLayoutEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {deleteCardFromStorage, getCardsFromStorage, saveCardsToStorage,} from "../utils/localStorage";
 import BarcodeModal from "../components/BarcodeModal.jsx";
 import {useLongPress} from "use-long-press";
@@ -14,7 +14,7 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
     setCards(getCardsFromStorage());
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchCards();
   }, [fetchCards]);
 

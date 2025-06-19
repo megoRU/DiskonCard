@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.4.9';
+const CACHE_NAME = '1.5.1';
 const urlsToCache = [
     '/index.html',
     '/static/js/bundle.js',
@@ -8,9 +8,7 @@ const urlsToCache = [
     '/favicon.ico',
     '/logo192.png',
     '/logo512.png',
-    '/card-logos/default.png',
-    '/card-logos/ios_black.png',
-    '/card-logos/ios_white.png',
+    '/icon.png'
 ];
 
 // Установка: кэшируем файлы

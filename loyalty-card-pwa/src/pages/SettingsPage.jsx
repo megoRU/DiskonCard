@@ -210,13 +210,7 @@ const SettingsPage = () => {
           </p>
         </div>
 
-        {/* Секция для инструкции по установке на iOS */}
-        {showIOSInstruction && (
-            <div className="ios-instruction-section app-info-section"> {/* Используем схожий стиль секции */}
-              <h4>Установка на iOS</h4>
-              <IOSInstallInstruction/>
-            </div>
-        )}
+        <IOSInstallInstruction/>
 
         {isPopupOpen && <WhatsNewPopup onClose={closePopup}/>}
       </div>

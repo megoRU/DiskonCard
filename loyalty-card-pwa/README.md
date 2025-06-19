@@ -1,6 +1,5 @@
 # Diskoncard: Ваши карты лояльности всегда под рукой!
 
-[![Build and Push Docker Image](https://github.com/MEGORU/diskoncard/actions/workflows/main.yml/badge.svg)](https://github.com/MEGORU/diskoncard/actions/workflows/main.yml) [![Docker Pulls](https://img.shields.io/docker/pulls/megoru/diskoncard.svg)](https://hub.docker.com/r/megoru/diskoncard)
 
 **Diskoncard** — это удобное веб-приложение (Progressive Web App), которое позволяет вам хранить все ваши карты лояльности в одном месте — прямо в вашем телефоне или браузере! Забудьте о толстом кошельке, полном пластиковых карт. С Diskoncard любимые скидки и бонусы всегда с вами.
 

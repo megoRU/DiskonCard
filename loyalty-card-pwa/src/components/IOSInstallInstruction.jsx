@@ -1,29 +1,41 @@
-import React, {useContext, useLayoutEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './IOSInstallInstruction.module.css';
 import walletIconDark from '/card-logos/ios_black.png';
 import walletIconWhite from '/card-logos/ios_white.png';
-import {ThemeContext} from "../context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 const IOSInstallInstruction = () => {
-    const {theme} = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [resolvedTheme, setResolvedTheme] = useState(theme);
+    const [shouldShow, setShouldShow] = useState(false);
 
-    // Обновление resolvedTheme при изменении темы
-    useLayoutEffect(() => {
+    // iOS + не установлен как PWA
+    useEffect(() => {
+        const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+        const isInStandalone = ('standalone' in window.navigator) && window.navigator.standalone;
+        if (isIOS && !isInStandalone) {
+            setShouldShow(true);
+        }
+    }, []);
+
+    // Обработка системной темы
+    useEffect(() => {
         if (theme === "system") {
             const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
             const update = () => setResolvedTheme(darkQuery.matches ? "dark" : "light");
 
             update();
-            darkQuery.addEventListener('change', update);
-            return () => darkQuery.removeEventListener('change', update);
+            darkQuery.addEventListener?.('change', update); // безопасный вызов
+            return () => {
+                darkQuery.removeEventListener?.('change', update);
+            };
         } else {
             setResolvedTheme(theme);
         }
     }, [theme]);
 
-    // Установка theme-color
-    useLayoutEffect(() => {
+    // theme-color meta
+    useEffect(() => {
         const meta = document.querySelector('meta[name="theme-color"]');
         const color = resolvedTheme === 'dark' ? '#000000' : '#f9f9f9';
 
@@ -39,10 +51,15 @@ const IOSInstallInstruction = () => {
 
     const walletIcon = resolvedTheme === "dark" ? walletIconDark : walletIconWhite;
 
+    if (!shouldShow) return null;
+
     return (
-        <section aria-label="Инструкция по добавлению Wallet на экран Домой">
-            <img src={walletIcon} alt="Иконка Wallet" className={styles.walletIcon}/>
-        </section>
+        <div className="ios-instruction-section app-info-section">
+            <h4>Установка на iOS</h4>
+            <section aria-label="Инструкция по добавлению PWA на экран Домой">
+                <img src={walletIcon} alt="Инструкция для iOS" className={styles.walletIcon} />
+            </section>
+        </div>
     );
 };
 
