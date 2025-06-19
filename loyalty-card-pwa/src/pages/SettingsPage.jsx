@@ -5,11 +5,14 @@ import { getCardsFromStorage, saveCardsToStorage } from "../utils/localStorage";
 // Removed: import { version } from '../../../package.json'; // No longer needed, use import.meta.env.APP_VERSION
 import "./SettingsPage.css";
 import WhatsNewPopup from "../components/WhatsNewPopup";
+import IOSInstallInstruction from "../components/IOSInstallInstruction"; // Импорт нового компонента
+import { isIOS } from "../utils/osDetection"; // Импорт утилиты
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { t } = useTranslation();
+  const showIOSInstruction = isIOS(); // Определение, нужно ли показывать инструкцию
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
@@ -218,6 +221,17 @@ const SettingsPage = () => {
           </a>
         </p>
       </div>
+
+      {/* Секция для инструкции по установке на iOS */}
+      {showIOSInstruction && (
+        <div className="ios-instruction-section app-info-section"> {/* Используем схожий стиль секции */}
+          {/* Можно добавить заголовок секции, если он нужен, например:
+          <h2>{t("settingsPage.iosInstallationTitle", "Установка на iOS")}</h2>
+          */}
+          <IOSInstallInstruction />
+        </div>
+      )}
+
       {isPopupOpen && <WhatsNewPopup onClose={closePopup} />}
     </div>
   );

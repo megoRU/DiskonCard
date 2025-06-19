@@ -70,6 +70,14 @@ const resources = {
       barcodeModal: {
         closeLabel: "Close barcode view",
       },
+      // IOSInstallInstruction
+      iosInstallInstruction: {
+        title: "How to Add to Home Screen",
+        step1: "Open this application in Safari browser.",
+        step2: "Tap the 'Share' icon (usually a square with an arrow pointing up) at the bottom of the screen.",
+        step3: "In the menu that appears, scroll down and select 'Add to Home Screen'.",
+        step4: "Tap 'Add' in the top right corner.",
+      },
     },
   },
   ru: {
@@ -140,6 +148,14 @@ const resources = {
       // BarcodeModal
       barcodeModal: {
         closeLabel: "Закрыть просмотр штрих-кода",
+      },
+      // IOSInstallInstruction
+      iosInstallInstruction: {
+        title: "Как добавить на экран \"Домой\"",
+        step1: "Откройте это приложение в браузере Safari.",
+        step2: "Нажмите на иконку \"Поделиться\" (квадрат со стрелкой вверх) в нижней части экрана.",
+        step3: "В появившемся меню пролистайте вниз и выберите \"На экран \"Домой\"\".",
+        step4: "Нажмите \"Добавить\" в правом верхнем углу.",
       },
     },
   },
