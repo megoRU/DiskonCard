@@ -1,21 +1,19 @@
 import React, {useContext, useState} from "react";
 import {ThemeContext} from "../context/ThemeContext";
-import {getCardsFromStorage, saveCardsToStorage} from "../utils/localStorage"; // Import for export and import
-// Removed: import { version } from '../../../package.json'; // No longer needed, use import.meta.env.APP_VERSION
+import {getCardsFromStorage, saveCardsToStorage} from "../utils/localStorage";
 import "./SettingsPage.css";
 import WhatsNewPopup from "../components/WhatsNewPopup";
-import IOSInstallInstruction from "../components/IOSInstallInstruction"; // Импорт нового компонента
-import {isIOS} from "../utils/osDetection"; // Импорт утилиты
+import IOSInstallInstruction from "../components/IOSInstallInstruction";
+import {isIOS} from "../utils/osDetection";
 
 const SettingsPage = () => {
   const {theme, setTheme} = useContext(ThemeContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const showIOSInstruction = isIOS(); // Определение, нужно ли показывать инструкцию
+  const showIOSInstruction = isIOS();
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
-  // Updated handleThemeChange
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
   };
@@ -96,26 +94,16 @@ const SettingsPage = () => {
                 importedCard.dateAdded = new Date().toISOString();
               }
 
-              // Ensure we don't add a card if its (potentially new) ID is now a duplicate
-              // This is a safeguard, primary check is existingCardIds.has(importedCard.id) before this block
-              if (
-                  existingCardIds.has(importedCard.id) &&
-                  !newCardsToSave.find((c) => c.id === importedCard.id)
+              if (existingCardIds.has(importedCard.id) && !newCardsToSave.find((c) => c.id === importedCard.id)
               ) {
-                // This case should ideally not be hit if IDs are handled correctly before this point.
-                // If an ID was generated, and it accidentally matched an existing one (highly unlikely)
-                // or if the card was processed in a way that it's considered new but ID matches.
-                // For safety, we can choose to skip or overwrite. Skipping is safer.
                 skippedCount++;
               } else if (
                   !newCardsToSave.find((c) => c.id === importedCard.id)
               ) {
                 newCardsToSave.push(importedCard);
                 addedCount++;
-                existingCardIds.add(importedCard.id); // Add new ID to set to prevent duplicates from imported file itself
+                existingCardIds.add(importedCard.id);
               } else {
-                // This means a card with this ID (either original or newly generated)
-                // already exists in newCardsToSave, likely due to prior processing in this loop or from existing cards.
                 skippedCount++;
               }
             }
@@ -123,7 +111,7 @@ const SettingsPage = () => {
 
           saveCardsToStorage(newCardsToSave);
           alert(
-              `Импорт успешно завершен. Добавлено: ${addedCount} карта(ы). Пропущено (дубликаты): ${skippedCount} карта(ы).`
+              `Импорт завершен. Добавлено: ${addedCount} карта(ы).`
           );
           window.location.reload(); // Reload to reflect changes
         } catch (error) {
@@ -146,10 +134,13 @@ const SettingsPage = () => {
   return (
       <div className="settings-page">
         <h1>Настройки</h1>
-
-        {/* New Theme Selector Buttons */}
         <div className="theme-selector">
           <h2>Тема оформления</h2>
+
+          {theme === 'light' && (
+              <p>Светлая тема в стадии доработки!</p>
+          )}
+
           <div className="theme-buttons-container">
             <button
                 className={`theme-button ${theme === "light" ? "active" : ""}`}

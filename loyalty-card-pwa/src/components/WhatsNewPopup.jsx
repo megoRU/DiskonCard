@@ -15,10 +15,12 @@ const WhatsNewPopup = ({ onClose }) => {
           </button>
           <h2>Что нового</h2>
           <ul className="whats-new-list">
+            <li><strong>1.4.7</strong> — Улучшение UX/UI</li>
             <li><strong>1.3.7</strong> — Улучшили позиционирование кнопки добавления</li>
             <li><strong>1.3.6</strong> — Добавили инструкцию по добавлению приложения</li>
-            <li><strong>1.3.0</strong> — Исправили подгрузку картинки Fix Price</li>
-            <li><strong>1.2.0</strong> — Исправили подгрузку картинок</li>
+            <li><strong>1.3.0</strong> — Исправили загрузку картинки Fix Price</li>
+            <li><strong>1.2.0</strong> — Исправили загрузку картинок</li>
+            <li><strong>1.0.0</strong> — Релиз</li>
           </ul>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import React, {useContext, useLayoutEffect, useState} from 'react';
 import styles from './IOSInstallInstruction.module.css';
 import walletIconDark from '/card-logos/ios_black.png';
 import walletIconWhite from '/card-logos/ios_white.png';

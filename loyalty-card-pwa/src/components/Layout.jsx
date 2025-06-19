@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import {
-  FiHome,
-  FiSettings,
-  FiPlusSquare,
-  FiX,
+    FiHome,
+    FiSettings,
+    FiPlusSquare,
+    FiX, FiPlus,
 } from "react-icons/fi";
 import "./Layout.css";
 
@@ -42,7 +42,7 @@ const Layout = ({isEditMode, setIsEditMode}) => {
             <span>Главная</span>
           </NavLink>
 
-          <button // Changed from Link to button for more control
+          <button
               onClick={handleCentralButtonClick}
               className={`nav-item add-card-button ${isEditMode ? "edit-mode-active" : ""}`}
               aria-label={
@@ -51,7 +51,7 @@ const Layout = ({isEditMode, setIsEditMode}) => {
                     : "Добавить карту"
               }
           >
-            {isEditMode ? <FiX/> : <FiPlusSquare/>}
+            {isEditMode ? <FiX/> : <FiPlus/>}
           </button>
 
           <NavLink

@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.4.5';
+const CACHE_NAME = '1.4.7';
 const urlsToCache = [
     '/index.html',
     '/static/js/bundle.js',
