@@ -72,8 +72,20 @@
 }
 
 [data-theme="dark"] {
-  --barcode-color: #FFFFFF; /* White bars on dark theme */
-  --barcode-background: var(--background-secondary); /* Use modal background for barcode background */
+  --barcode-color: #000000; /* Black bars on dark theme */
+  --barcode-background: #ffffff; /* White background for barcode on dark theme */
+}
+
+[data-theme="dark"] .barcode-graphic-container {
+  background-color: #ffffff;
+  /* Add some padding if the barcode doesn't have its own margin/padding visually,
+     adjust as needed, e.g., padding: 10px;
+     However, JsBarcode is configured with margin: 10,
+     and QRCodeSVG has includeMargin=false but is sized 180.
+     Let's add a small padding to ensure the white background is visible around the barcode if needed.
+  */
+  padding: 10px; /* Added padding */
+  border-radius: 8px; /* Optional: to round the corners of the white background area */
 }
 
 /* Style for the text displayed by JsBarcode if displayValue: true */
