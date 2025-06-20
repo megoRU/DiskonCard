@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import JsBarcode from "jsbarcode";
 import { QRCodeSVG } from "qrcode.react"; // Import QRCodeSVG
 import { FiX } from "react-icons/fi";
@@ -9,7 +9,7 @@ const BarcodeModal = ({ cardData, onClose }) => {
   const isQrCode =
     cardData && cardData.cardNumber && cardData.cardNumber.startsWith("E"); // Simple check for QR
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) {
       // Only run JsBarcode if not QR
       try {
@@ -17,7 +17,7 @@ const BarcodeModal = ({ cardData, onClose }) => {
           format: "CODE128",
           lineColor: "var(--barcode-color, #000000)",
           background: "var(--barcode-background, #ffffff)",
-          width: 2,
+          width: 3,
           height: 100,
           displayValue: false, // Set to false, we'll display value manually for consistency
           margin: 10,
@@ -59,7 +59,6 @@ const BarcodeModal = ({ cardData, onClose }) => {
               bgColor={"#ffffff"}
               fgColor={"#000000"}
               level={"L"} // Error correction level
-              includeMargin={false}
               className="qr-code-svg" // Added class for potential styling
             />
           ) : (
