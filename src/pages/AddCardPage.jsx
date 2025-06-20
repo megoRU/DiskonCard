@@ -132,10 +132,8 @@ const AddCardPage = () => {
                     type="text"
                     value={cardNumber}
                     onChange={e => setCardNumber(e.target.value)}
-                    placeholder="123456789"
+                    placeholder="Номер карты"
                     required
-                    inputMode="numeric"
-                    pattern="[0-9]+"
                 />
 
                 <label htmlFor="coverImage">Обложка карты (изображение):</label>
