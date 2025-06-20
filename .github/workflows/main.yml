@@ -31,8 +31,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./loyalty-card-pwa # Указываем контекст сборки, где находится Dockerfile
-          file: ./loyalty-card-pwa/Dockerfile # Путь к Dockerfile
           push: true
           tags: |
             megoru/diskoncard:latest
