@@ -9,51 +9,66 @@ import magnit from '/image/magnit.png';
 import metro from '/image/metro.png';
 import okey from '/image/okey.png';
 import lenta from '/image/lenta.png';
+import { imageUrlToBase64 } from '../utils/imageUtils';
 
 const popularStores = ["Магнит", "X5", "Дикси", "Окей", "Лента", "FixPrice", "METRO"];
 
 const AddCardPage = () => {
     const [storeName, setStoreName] = useState("");
     const [cardNumber, setCardNumber] = useState("");
-    const [logoDataUrl, setLogoDataUrl] = useState(null);
+    const [imageBase64, setImageBase64] = useState(null);
     const [coverImage, setCoverImage] = useState(null);
     const navigate = useNavigate();
 
     const onTextInputChange = e => {
         const text = e.target.value;
         setStoreName(text);
+        // setCoverImage(null); // Reset cover image when store name changes - This will be handled by specific cases or default
+        // setImageBase64(null); // Reset logo data URL - This will be handled by specific cases or default
+
+        const updateImageData = async (imageUrl) => {
+            try {
+                const base64Data = await imageUrlToBase64(imageUrl);
+                setImageBase64(base64Data);
+            } catch (error) {
+                console.error("Failed to convert image to base64:", error);
+                // Optionally, set to a fallback or null
+                setImageBase64(null);
+                // setCoverImage(null); // coverImage should retain its original path or be null if not a predefined store
+            }
+        };
 
         switch (text) {
             case "X5":
-                setLogoDataUrl(x5);
-                setCoverImage(x5);
+                setCoverImage(x5); // Set coverImage state to the original path
+                updateImageData(x5); // This will set imageBase64 state via setImageBase64
                 break;
             case "Магнит":
-                setLogoDataUrl(magnit);
                 setCoverImage(magnit);
+                updateImageData(magnit);
                 break;
             case "Дикси":
-                setLogoDataUrl(dixy);
                 setCoverImage(dixy);
+                updateImageData(dixy);
                 break;
             case "Окей":
-                setLogoDataUrl(okey);
                 setCoverImage(okey);
+                updateImageData(okey);
                 break;
             case "Лента":
-                setLogoDataUrl(lenta);
                 setCoverImage(lenta);
+                updateImageData(lenta);
                 break;
             case "FixPrice":
-                setLogoDataUrl(fixprice);
                 setCoverImage(fixprice);
+                updateImageData(fixprice);
                 break;
             case "METRO":
-                setLogoDataUrl(metro);
                 setCoverImage(metro);
+                updateImageData(metro);
                 break;
             default:
-                setLogoDataUrl(null);
+                setImageBase64(null);
                 setCoverImage(null);
         }
     };
@@ -65,8 +80,8 @@ const AddCardPage = () => {
 
         const reader = new FileReader();
         reader.onload = () => {
-            setLogoDataUrl(reader.result);
-            setCoverImage(reader.result);
+            setImageBase64(reader.result); // Set the base64 data
+            setCoverImage(null);          // No predefined path for uploads
         };
         reader.readAsDataURL(file);
     };
@@ -77,23 +92,19 @@ const AddCardPage = () => {
         addCardToStorage({
             cardNumber,
             storeName,
-            logoUrl: coverImage || `/images/${getAsciiStoreName(storeName)}.png`,
-            coverImage: logoDataUrl,
+            logoUrl: coverImage, // This is the original path or null
+            coverImage: imageBase64, // This is the base64 string
         });
 
         setCardNumber("");
         setStoreName("");
         setCoverImage(null);
-        setLogoDataUrl(null);
+        setImageBase64(null); // ensure imageBase64 is also reset
         navigate("/");
     };
 
     const getAsciiStoreName = name =>
         name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase();
-
-    if (coverImage) {
-        console.log(coverImage.startsWith('data:image'));
-    }
 
     return (
         <div className="add-card-page">
@@ -139,10 +150,10 @@ const AddCardPage = () => {
                     onChange={onCoverImageChange}
                 />
 
-                {logoDataUrl && (
+                {imageBase64 && (
                     <div className="image-preview">
                         <img
-                            src={logoDataUrl}
+                            src={imageBase64}
                             alt="Предпросмотр обложки"
                             className="preview-image"
                         />
