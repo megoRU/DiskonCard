@@ -15,6 +15,7 @@ const WhatsNewPopup = ({ onClose }) => {
           </button>
           <h2>Что нового</h2>
           <ul className="whats-new-list">
+            <li><strong>1.7.4</strong> — Улучшения считывания barcode & QR Code</li>
             <li><strong>1.7.2</strong> — Улучшение обновления приложения</li>
             <li><strong>1.6.2</strong> — Добавили страницу Privacy Policy</li>
             <li><strong>1.6.1</strong> — Исправили дублирование service-worker.js</li>
