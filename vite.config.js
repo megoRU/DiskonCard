@@ -16,7 +16,7 @@ export default defineConfig({
       },
       manifest: {
         name: 'DiskonCard',
-        short_name: 'PWA',
+        short_name: 'DiskonCard',
         start_url: '/',
         display: 'standalone',
         background_color: '#000000',
@@ -24,9 +24,14 @@ export default defineConfig({
         lang: 'ru-RU',
         icons: [
           {
-            src: 'icons/icon-192x192.png',
+            src: 'logo192.png',
             sizes: '192x192',
             type: 'image/png',
+          },
+          {
+            src: "favicon.ico",
+            sizes: "64x64 32x32 24x24 16x16",
+            type: "image/x-icon"
           },
           {
             src: 'icon.png',
