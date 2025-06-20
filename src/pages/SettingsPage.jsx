@@ -22,7 +22,7 @@ const SettingsPage = () => {
       const url = URL.createObjectURL(blob);
       const link = Object.assign(document.createElement("a"), {
         href: url,
-        download: "loyalty_cards_backup.json",
+        download: "DiskonCard_backup.json",
       });
 
       document.body.appendChild(link);

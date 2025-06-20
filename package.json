@@ -1,6 +1,6 @@
 {
   "name": "diskoncard",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "private": true,
   "dependencies": {
     "@hello-pangea/dnd": "^16.6.0",
