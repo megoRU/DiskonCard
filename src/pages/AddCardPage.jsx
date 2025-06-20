@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {addCardToStorage} from "../utils/localStorage";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addCardToStorage } from "../utils/localStorage";
 import "./AddCardPage.css";
 import x5 from '/image/x5.png';
 import dixy from '/image/dixy.png';
@@ -15,49 +15,62 @@ const popularStores = ["Магнит", "X5", "Дикси", "Окей", "Лент
 const AddCardPage = () => {
     const [storeName, setStoreName] = useState("");
     const [cardNumber, setCardNumber] = useState("");
-    const [logoDataUrl, setLogoDataUrl] = useState(String);
+    const [logoDataUrl, setLogoDataUrl] = useState(null);
     const [coverImage, setCoverImage] = useState(null);
     const navigate = useNavigate();
 
     const onTextInputChange = e => {
-        let text = e.target.value;
-        setStoreName(text)
+        const text = e.target.value;
+        setStoreName(text);
 
         switch (text) {
-            case "X5": {
+            case "X5":
                 setLogoDataUrl(x5);
+                setCoverImage(x5);
                 break;
-            }
-            case "Магнит": {
+            case "Магнит":
                 setLogoDataUrl(magnit);
+                setCoverImage(magnit);
                 break;
-            }
-            case "Дикси": {
+            case "Дикси":
                 setLogoDataUrl(dixy);
+                setCoverImage(dixy);
                 break;
-            }
-            case "Окей": {
+            case "Окей":
                 setLogoDataUrl(okey);
+                setCoverImage(okey);
                 break;
-            }
-            case "Лента": {
+            case "Лента":
                 setLogoDataUrl(lenta);
+                setCoverImage(lenta);
                 break;
-            }
-            case "FixPrice": {
+            case "FixPrice":
                 setLogoDataUrl(fixprice);
+                setCoverImage(fixprice);
                 break;
-            }
-            case "METRO": {
+            case "METRO":
                 setLogoDataUrl(metro);
+                setCoverImage(metro);
                 break;
-            }
-
-            default: setLogoDataUrl(null);
+            default:
+                setLogoDataUrl(null);
+                setCoverImage(null);
         }
-    }
+    };
 
-    // Отправка формы
+
+    const onCoverImageChange = e => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            setLogoDataUrl(reader.result);
+            setCoverImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
     const onSubmit = e => {
         e.preventDefault();
 
@@ -71,9 +84,16 @@ const AddCardPage = () => {
         setCardNumber("");
         setStoreName("");
         setCoverImage(null);
-        setLogoDataUrl("");
+        setLogoDataUrl(null);
         navigate("/");
     };
+
+    const getAsciiStoreName = name =>
+        name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase();
+
+    if (coverImage) {
+        console.log(coverImage.startsWith('data:image'));
+    }
 
     return (
         <div className="add-card-page">
@@ -85,8 +105,7 @@ const AddCardPage = () => {
                     id="storeName"
                     type="text"
                     value={storeName}
-                    onChange={e => onTextInputChange(e)}
-                    // onChange={e => setStoreName(e.target.value)}
+                    onChange={onTextInputChange}
                     placeholder="Магазин"
                     required
                     list="store-suggestions"
@@ -96,7 +115,7 @@ const AddCardPage = () => {
 
                 <datalist id="store-suggestions">
                     {popularStores.map((store, i) => (
-                        <option key={i} value={store}/>
+                        <option key={i} value={store} />
                     ))}
                 </datalist>
 
