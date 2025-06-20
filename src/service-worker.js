@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.7.6';
+const CACHE_NAME = '1.7.7';
 
 const urlsToCache = [
     '/',
@@ -6,7 +6,6 @@ const urlsToCache = [
     '/static/js/main.chunk.js',
     '/static/css/main.chunk.css',
     '/favicon.ico',
-    '/manifest.json',
     '/logo192.png',
     '/logo512.png',
     '/icon.png',
@@ -15,7 +14,6 @@ const urlsToCache = [
     '/fonts/inter/Inter-Regular.ttf',
     '/fonts/inter/Inter-SemiBold.ttf',
     '/manifest.webmanifest',
-    '/manifest.json',
     '/image/default.png',
     '/image/ios_black.png',
     '/image/ios_white.png',
