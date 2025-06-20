@@ -49,7 +49,7 @@ const IOSInstallInstruction = () => {
         }
     }, [resolvedTheme]);
 
-    const walletIcon = resolvedTheme === "dark" ? "/image/ios_black.png" : "/image/ios_white.png";
+    const walletIcon = resolvedTheme === "dark" ? walletIconDark : walletIconWhite;
 
     if (!shouldShow) return null;
 

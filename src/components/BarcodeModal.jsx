@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import JsBarcode from "jsbarcode";
-import { QRCodeSVG } from "qrcode.react"; // Import QRCodeSVG
+import { QRCodeSVG } from "qrcode.react";
 import { FiX } from "react-icons/fi";
 import "./BarcodeModal.css";
 
