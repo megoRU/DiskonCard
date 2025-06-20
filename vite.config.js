@@ -16,7 +16,7 @@ export default defineConfig({
       },
       manifest: {
         name: 'DiskonCard',
-        short_name: 'PWA',
+        short_name: 'DiskonCard',
         start_url: '/',
         display: 'standalone',
         background_color: '#000000',
