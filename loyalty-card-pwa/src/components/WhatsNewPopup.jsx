@@ -15,6 +15,7 @@ const WhatsNewPopup = ({ onClose }) => {
           </button>
           <h2>Что нового</h2>
           <ul className="whats-new-list">
+            <li><strong>1.6.2</strong> — Добавили страницу Privacy Policy</li>
             <li><strong>1.6.1</strong> — Исправили дублирование service-worker.js</li>
             <li><strong>1.6.0</strong> — Исправили работу темной темы</li>
             <li><strong>1.5.3</strong> — Улучшения на страницы добавления</li>

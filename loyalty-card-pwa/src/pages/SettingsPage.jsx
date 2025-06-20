@@ -4,10 +4,12 @@ import { getCardsFromStorage, saveCardsToStorage } from "../utils/localStorage";
 import WhatsNewPopup from "../components/WhatsNewPopup";
 import IOSInstallInstruction from "../components/IOSInstallInstruction";
 import "./SettingsPage.css";
+import PrivacyPolicy from "../components/PrivacyPolicy";
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpenPrivacy, setIsPopupOpenPrivacy] = useState(false);
 
   const handleThemeChange = useCallback((newTheme) => setTheme(newTheme), [setTheme]);
 
@@ -123,6 +125,7 @@ const SettingsPage = () => {
           <h4>О приложении</h4>
           <div className="data-management-buttons">
             <button onClick={() => setIsPopupOpen(true)} className="data-button">Что нового</button>
+            <button onClick={() => setIsPopupOpenPrivacy(true)} className="data-button">Политика конфиденциальности</button>
           </div>
           <p className="contact-developer-container">
             Связь с разработчиком:{" "}
@@ -131,9 +134,14 @@ const SettingsPage = () => {
             </a>
           </p>
           <p className="app-version">Версия приложения: {import.meta.env.VERSION || "N/A"}</p>
+          <p style={{ fontSize: '12px', color: 'gray' }}>
+            Все логотипы и торговые марки принадлежат их владельцам.
+            Сервис не связан с указанными магазинами и используется только в ознакомительных целях.
+          </p>
         </section>
 
         {isPopupOpen && <WhatsNewPopup onClose={() => setIsPopupOpen(false)} />}
+        {isPopupOpenPrivacy && <PrivacyPolicy onClose={() => setIsPopupOpenPrivacy(false)} />}
       </div>
   );
 };

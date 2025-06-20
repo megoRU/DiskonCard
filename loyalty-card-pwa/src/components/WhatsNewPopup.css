@@ -12,6 +12,10 @@
   z-index: 1000;
 }
 
+.whats-new-popup-overlay p {
+  text-align: left;
+}
+
 .whats-new-popup {
   background: white;
   padding: 24px;
