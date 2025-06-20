@@ -71,6 +71,7 @@ const AddCardPage = () => {
                 setImageBase64(null);
                 setCoverImage(null);
         }
+
     };
 
 
