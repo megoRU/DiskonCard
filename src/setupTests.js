@@ -9,7 +9,7 @@ global.fetch = vi.fn((url) => {
   // If it's a path to an image, return a mock response that can be blobbed
   if (
     typeof url === "string" &&
-    (url.startsWith("/card-logos/") || url.startsWith("data:image"))
+    (url.startsWith("/image/") || url.startsWith("data:image"))
   ) {
     // For data URLs, we can try to simulate a successful fetch of that data
     if (url.startsWith("data:image")) {
@@ -25,7 +25,7 @@ global.fetch = vi.fn((url) => {
         json: () => Promise.reject(new Error("Not JSON")), // Should not be called for images
       });
     }
-    // For path-based URLs like /card-logos/default.png
+    // For path-based URLs like /image/default.png
     return Promise.resolve({
       ok: true,
       status: 200,

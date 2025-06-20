@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './IOSInstallInstruction.module.css';
-import walletIconDark from '/card-logos/ios_black.png';
-import walletIconWhite from '/card-logos/ios_white.png';
+import walletIconDark from '/image/ios_black.png';
+import walletIconWhite from '/image/ios_white.png';
 import { ThemeContext } from "../context/ThemeContext";
 
 const IOSInstallInstruction = () => {
@@ -49,7 +49,7 @@ const IOSInstallInstruction = () => {
         }
     }, [resolvedTheme]);
 
-    const walletIcon = resolvedTheme === "dark" ? walletIconDark : walletIconWhite;
+    const walletIcon = resolvedTheme === "dark" ? "/image/ios_black.png" : "/image/ios_white.png";
 
     if (!shouldShow) return null;
 

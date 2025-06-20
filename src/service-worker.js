@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.6.9';
+const CACHE_NAME = '1.7.1';
 
 const urlsToCache = [
     '/',
@@ -16,16 +16,16 @@ const urlsToCache = [
     '/fonts/inter/Inter-SemiBold.ttf',
     '/manifest.webmanifest',
     '/manifest.json',
-    '/card-logos/default.png',
-    '/card-logos/ios_black.png',
-    '/card-logos/ios_white.png',
-    '/card-logos/dixy.png',
-    '/card-logos/fixprice.png',
-    '/card-logos/lenta.png',
-    '/card-logos/magnit.png',
-    '/card-logos/metro.png',
-    '/card-logos/x5.png',
-    '/card-logos/okey.png',
+    '/image/default.png',
+    '/image/ios_black.png',
+    '/image/ios_white.png',
+    '/image/dixy.png',
+    '/image/fixprice.png',
+    '/image/lenta.png',
+    '/image/magnit.png',
+    '/image/metro.png',
+    '/image/x5.png',
+    '/image/okey.png',
 ];
 
 self.addEventListener('install', (event) => {
