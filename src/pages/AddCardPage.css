@@ -1,0 +1,150 @@
+.add-card-page {
+  padding: 20px; /* Больше воздуха по краям */
+  background-color: var(--background-primary); /* Use theme variable */
+  color: var(--text-primary); /* Use theme variable for default text color */
+  /* text-align: center; */ /* Removed to allow child elements to align left by default */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
+  overflow: hidden; /* Запрещаем прокрутку для этого элемента */
+  height: 100vh;   /* Растягиваем на всю высоту видимой области экрана */
+  box-sizing: border-box; /* Чтобы padding учитывался внутри height */
+}
+
+.add-card-page h1 {
+  font-size: 28px; /* iOS like large title */
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  text-align: center; /* Часто используется в Apple UI для заголовков экранов */
+}
+
+.add-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased gap for better spacing */
+  max-width: 500px; /* Slightly wider for comfortable input */
+  margin: 20px auto;
+  padding: 24px; /* More padding */
+  background-color: var(--background-secondary); /* This might be overridden by #f9f9f9 from parent or can be kept */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: var(--card-shadow);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between label and input */
+  margin-bottom: 20px; /* Увеличить отступ между группами */
+}
+
+.form-group label {
+  display: block; /* Метка над полем */
+  margin-bottom: 8px; /* Отступ под меткой */
+  font-weight: 500; /* Немного жирнее для читаемости (already 500) */
+  color: var(--text-primary); /* Use theme variable */
+  font-size: 0.95em; /* ~15px */
+  padding-left: 2px; /* Slight indent for label */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
+}
+
+.add-card-form input[type="text"],
+.add-card-form input[type="tel"], /* Added */
+.add-card-form input[type="file"] {
+  width: 100%;
+  padding: 12px 15px; /* Увеличенный внутренний отступ */
+  border: 1px solid #ddd; /* Более мягкая граница */
+  border-radius: 8px; /* Закругленные углы */
+  box-sizing: border-box; /* Важно для padding + width: 100% */
+  font-size: 16px;
+  background-color: #fff; /* Явный фон для поля */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.add-card-form input[type="text"]:focus,
+.add-card-form input[type="tel"]:focus, /* Added */
+.add-card-form input[type="file"]:focus {
+  outline: none;
+  border-color: var(--primary-color, #007aff); /* Цвет акцента Apple */
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2); /* Тень при фокусе в стиле Apple */
+}
+
+/* Dark theme adjustments for input focus */
+[data-theme="dark"] .add-card-form input[type="text"]:focus,
+[data-theme="dark"] .add-card-form input[type="tel"]:focus, /* Added */
+[data-theme="dark"] .add-card-form input[type="file"]:focus {
+  border-color: var(--primary-color, #589eff); /* Более светлый синий для темной темы */
+  box-shadow: 0 0 0 2px rgba(88, 158, 255, 0.3); /* Тень под этот цвет */
+}
+
+/* Dark theme base styles for inputs */
+[data-theme="dark"] .add-card-form input[type="text"],
+[data-theme="dark"] .add-card-form input[type="tel"],
+[data-theme="dark"] .add-card-form input[type="file"] {
+  background-color: var(--input-background); /* Uses variable from index.css */
+  color: var(--text-primary); /* Uses variable from index.css for text */
+  border-color: var(--input-border); /* Uses variable from index.css */
+}
+
+/* Specific styles for input[type="file"] can be added if default is not good enough */
+/* .add-card-form input[type="file"] { } */
+
+.add-card-form .image-preview {
+  margin-top: 10px;
+  text-align: center; /* Центрировать маленькое превью */
+}
+.add-card-form .image-preview img {
+  max-width: 212px;
+  max-height: 120px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+/* Удалены стили для .store-logo-preview и .store-logo-preview img */
+
+.form-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically on mobile */
+  gap: 12px;
+  margin-top: 16px; /* This might need adjustment if button is full width */
+}
+
+.add-card-form .submit-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background-color: var(--primary-color, #007aff); /* Цвет акцента Apple */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-card-form .submit-btn:hover {
+  background-color: var(--primary-color, #005bb5); /* Затемненный цвет при наведении */
+}
+
+/* Удалены стили для .camera-container и его дочерних элементов, #container-circles, .close-camera-btn, так как функционал камеры удален */
+
+/* Media query for wider screens to place buttons side-by-side */
+@media (min-width: 480px) {
+  .form-actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .submit-btn { /* .photo-btn удален из этого правила */
+    flex-grow: 1; /* Allow them to take available space */
+  }
+}

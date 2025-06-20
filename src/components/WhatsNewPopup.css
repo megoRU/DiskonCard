@@ -1,0 +1,103 @@
+.whats-new-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.whats-new-popup-overlay p {
+  text-align: left;
+}
+
+.whats-new-popup {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  font-family: sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.whats-new-popup.dark {
+  background: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.whats-new-popup h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.5em;
+}
+
+.whats-new-list {
+  text-align: left;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.whats-new-list li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.whats-new-popup-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
+  color: inherit;
+}
+
+
+.whats-new-popup {
+  background-color: var(--background-secondary); /* Use theme variable */
+  color: var(--text-primary, black); /* Use CSS var with fallback */
+  padding: 20px;
+  border-radius: 12px; /* Slightly more rounded */
+  box-shadow: var(--card-shadow, 0 4px 12px rgba(0, 0, 0, 0.15)); /* Enhanced shadow */
+  text-align: center;
+  position: relative;
+  width: 90%;
+  max-width: 400px; /* Max width for larger screens */
+  border: 1px solid var(--border-color, #e0e0e0); /* Subtle border */
+}
+
+.whats-new-popup-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent; /* Ensure no background */
+  border: none;
+  font-size: 1.8rem; /* Slightly larger */
+  color: var(--text-secondary, #555); /* Use CSS var */
+  cursor: pointer;
+  padding: 5px; /* Easier to click */
+  line-height: 1; /* Ensure consistent alignment */
+}
+
+.whats-new-popup-close-button:hover {
+  color: var(--text-primary, black); /* Darken on hover */
+}
+
+.whats-new-popup h2 {
+  margin-top: 0;
+  margin-bottom: 16px; /* Add some space below title */
+  color: var(--text-primary, black);
+}
+
+.whats-new-popup p {
+  margin-bottom: 10px; /* Space out paragraphs */
+  color: var(--text-secondary, #333);
+  font-size: 0.95em;
+}
+
+/* Удалены специфичные для .dark классов стили, так как темизация управляется через [data-theme="dark"] и CSS переменные */
