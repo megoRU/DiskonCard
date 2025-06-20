@@ -16,7 +16,6 @@ export const addCardToStorage = (newCard) => {
     storeName: newCard.storeName,
     cardNumber: newCard.cardNumber,
     coverImage: newCard.coverImage || null,
-    storeLogoUrl: newCard.storeLogoUrl || null, // Added new field
     id: Date.now().toString(), // Simple unique ID
     dateAdded: new Date().toISOString(),
   };

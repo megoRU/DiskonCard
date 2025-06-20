@@ -73,15 +73,14 @@ const AddCardPage = () => {
         }
     };
 
-
     const onCoverImageChange = e => {
         const file = e.target.files?.[0];
         if (!file) return;
 
         const reader = new FileReader();
         reader.onload = () => {
-            setImageBase64(reader.result); // Set the base64 data
-            setCoverImage(null);          // No predefined path for uploads
+            setImageBase64(reader.result);
+            setCoverImage(null);
         };
         reader.readAsDataURL(file);
     };
@@ -92,19 +91,16 @@ const AddCardPage = () => {
         addCardToStorage({
             cardNumber,
             storeName,
-            logoUrl: coverImage, // This is the original path or null
-            coverImage: imageBase64, // This is the base64 string
+            logoUrl: coverImage,
+            coverImage: imageBase64,
         });
 
         setCardNumber("");
         setStoreName("");
         setCoverImage(null);
-        setImageBase64(null); // ensure imageBase64 is also reset
+        setImageBase64(null);
         navigate("/");
     };
-
-    const getAsciiStoreName = name =>
-        name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase();
 
     return (
         <div className="add-card-page">
