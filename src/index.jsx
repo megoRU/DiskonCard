@@ -15,9 +15,11 @@ function PWAUpdate() {
             onNeedRefresh() {
                 setNeedRefresh(true);
             },
-            onRegisteredSW(swUrl, r) {
-                setUpdateServiceWorker(() => r?.update);
-            }
+            onRegisteredSW(_url, registration) {
+                if (registration && registration.update) {
+                    setUpdateServiceWorker(() => registration.update);
+                }
+            },
         });
     }, []);
 
