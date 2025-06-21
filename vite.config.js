@@ -11,9 +11,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      injectManifest: {
-        swSrc: 'src/service-worker.js',
-      },
+      includeAssets: ['favicon.ico', 'icon.png', 'fonts/**', 'image/**'],
       manifest: {
         name: 'DiskonCard',
         short_name: 'DiskonCard',
@@ -35,6 +33,10 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        cleanupOutdatedCaches: true,
+        navigateFallback: '/index.html'
+      }
     }),
   ],
 });

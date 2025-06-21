@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+import React, {useCallback, useLayoutEffect, useState} from "react";
 import {
   deleteCardFromStorage,
   getCardsFromStorage,
@@ -63,7 +63,6 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
             {...bind(card.id)}
             role="button"
             tabIndex={0}
-            onKeyPress={(e) => (e.key === "Enter" || e.key === " ") && handleCardClick(card)}
         >
           {isEditMode && (
               <button

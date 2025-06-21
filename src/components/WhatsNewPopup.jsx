@@ -15,6 +15,7 @@ const WhatsNewPopup = ({ onClose }) => {
           </button>
           <h2>Что нового</h2>
           <ul className="whats-new-list">
+            <li><strong>1.8.1</strong> — Доработали кэш и service-worker.js (sw.js)</li>
             <li><strong>1.7.5</strong> — Полностью переписана логика добавления карт</li>
             <li><strong>1.7.4</strong> — Улучшения считывания barcode & QR Code</li>
             <li><strong>1.7.2</strong> — Улучшение обновления приложения</li>
