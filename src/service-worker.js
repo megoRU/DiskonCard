@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.7.8';
+const CACHE_NAME = '1.7.9';
 
 const urlsToCache = [
     '/',
@@ -13,6 +13,7 @@ const urlsToCache = [
     '/fonts/inter/Inter-Medium.ttf',
     '/fonts/inter/Inter-Regular.ttf',
     '/fonts/inter/Inter-SemiBold.ttf',
+    '/manifest.json',
     '/manifest.webmanifest',
     '/image/default.png',
     '/image/ios_black.png',
