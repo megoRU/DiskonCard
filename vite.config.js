@@ -11,7 +11,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'icon.png', 'fonts/**', 'image/**', "manifest.json"],
+      injectManifest: {
+        swSrc: 'src/service-worker.js',
+      },
       manifest: {
         name: 'DiskonCard',
         short_name: 'DiskonCard',
@@ -36,33 +38,7 @@ export default defineConfig({
       workbox: {
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,ttf,woff,woff2}'],
-        sourcemap: true,
-        runtimeCaching: [
-          {
-            urlPattern: ({ request }) => request.destination === 'document',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'html-cache',
-            },
-          },
-          {
-            urlPattern: ({ request }) =>
-                ['style', 'script', 'worker'].includes(request.destination),
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'asset-cache',
-            },
-          },
-          {
-            urlPattern: ({ request }) =>
-                ['image', 'font'].includes(request.destination),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'static-cache',
-            },
-          },
-        ],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,ttf,woff,woff2}']
       }
     }),
   ],
