@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.7.9';
+const CACHE_NAME = '1.8.0';
 
 const urlsToCache = [
     '/',
@@ -16,8 +16,8 @@ const urlsToCache = [
     '/manifest.json',
     '/manifest.webmanifest',
     '/image/default.png',
-    '/image/ios_black.png',
-    '/image/ios_white.png',
+    '/image/iosblack.png',
+    '/image/ioswhite.png',
     '/image/dixy.png',
     '/image/fixprice.png',
     '/image/lenta.png',

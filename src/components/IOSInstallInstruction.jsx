@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './IOSInstallInstruction.module.css';
-import walletIconDark from '/image/ios_black.png';
-import walletIconWhite from '/image/ios_white.png';
+import walletIconDark from '/image/iosblack.png';
+import walletIconWhite from '/image/ioswhite.png';
 import { ThemeContext } from "../context/ThemeContext";
 
 const IOSInstallInstruction = () => {
