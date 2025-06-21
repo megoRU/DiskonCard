@@ -11,7 +11,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'icon.png', 'fonts/**', 'image/**'],
+      includeAssets: ['favicon.ico', 'icon.png', 'fonts/**', 'image/**', "manifest.json"],
       manifest: {
         name: 'DiskonCard',
         short_name: 'DiskonCard',
