@@ -56,9 +56,15 @@
   cursor: pointer;
   color: inherit;
 }
-
+.whats-new-popup-content {
+  max-height: 50vh;
+  overflow-y: auto;
+  text-align: left; /* чтобы список был выровнен нормально */
+  padding-right: 8px; /* чтобы не прятался скролл под контент */
+}
 
 .whats-new-popup {
+  overflow-y: auto;
   background-color: var(--background-secondary); /* Use theme variable */
   color: var(--text-primary, black); /* Use CSS var with fallback */
   padding: 20px;
