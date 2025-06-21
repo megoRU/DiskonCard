@@ -1,5 +1,9 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {deleteCardFromStorage, getCardsFromStorage, saveCardsToStorage,} from "../utils/localStorage";
+import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+import {
+  deleteCardFromStorage,
+  getCardsFromStorage,
+  saveCardsToStorage,
+} from "../utils/localStorage";
 import BarcodeModal from "../components/BarcodeModal.jsx";
 import {useLongPress} from "use-long-press";
 import {FiTrash2} from "react-icons/fi";
@@ -14,7 +18,7 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
     setCards(getCardsFromStorage());
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchCards();
   }, [fetchCards]);
 
@@ -22,7 +26,7 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
     if (!isEditMode) setIsEditMode(true);
   }, [isEditMode, setIsEditMode]);
 
-  const bind = useLongPress(isEditMode ? null : handleLongPress, {threshold: 500});
+  const bind = useLongPress(handleLongPress, {threshold: 500});
 
   const handleCardClick = (card) => {
     if (!isEditMode) setSelectedCard(card);
@@ -67,27 +71,30 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
                   onClick={(e) => handleDelete(card.id, e)}
                   aria-label="Удалить карту"
               >
-                <FiTrash2/>
+                <FiTrash2 />
               </button>
           )}
         </div>
     );
 
-    return isEditMode ? (
-        <Draggable key={card.id} draggableId={String(card.id)} index={index}>
+    return (
+        <Draggable
+            key={card.id}
+            draggableId={String(card.id)}
+            index={index}
+            isDragDisabled={!isEditMode}
+        >
           {(provided) => (
               <div
                   ref={provided.innerRef}
                   {...provided.draggableProps}
-                  {...provided.dragHandleProps}
+                  {...(isEditMode ? provided.dragHandleProps : {})}
                   style={provided.draggableProps.style}
               >
                 {cardElement}
               </div>
           )}
         </Draggable>
-    ) : (
-        <div key={card.id}>{cardElement}</div>
     );
   };
 
@@ -100,7 +107,7 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
             </div>
         ) : (
             <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="cards" direction="vertical" isDropDisabled={!isEditMode}>
+              <Droppable droppableId="cards" direction="vertical">
                 {(provided) => (
                     <div
                         className={`cards-grid ${isEditMode ? "cards-container-edit-mode" : ""}`}
@@ -115,7 +122,7 @@ const HomePage = ({isEditMode, setIsEditMode}) => {
             </DragDropContext>
         )}
         {selectedCard && (
-            <BarcodeModal cardData={selectedCard} onClose={handleCloseModal}/>
+            <BarcodeModal cardData={selectedCard} onClose={handleCloseModal} />
         )}
       </div>
   );
