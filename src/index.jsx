@@ -10,12 +10,14 @@ function PWAUpdate() {
     const [updateServiceWorker, setUpdateServiceWorker] = useState(null);
 
     useEffect(() => {
-        const updateSW = registerSW({
+        registerSW({
             immediate: true,
             onNeedRefresh() {
                 setNeedRefresh(true);
-                setUpdateServiceWorker(() => updateSW);
             },
+            onRegisteredSW(swUrl, r) {
+                setUpdateServiceWorker(() => r?.update);
+            }
         });
     }, []);
 
