@@ -1,16 +1,20 @@
-const CACHE_NAME = '1.9.3';
+const CACHE_NAME = '1.9.4';
 
-const baseFiles = ['/', '/index.html', '/static/js/main.chunk.js', '/static/css/main.chunk.css'];
-
-// Пример "разворачивания" шаблонов вручную (обычно нужен fs, но тут хардкод для наглядности)
-const assetsExpanded = [
+const urlsToCache = [
+    '/',
+    '/index.html',
+    '/static/js/main.chunk.js',
+    '/static/css/main.chunk.css',
     '/favicon.ico',
+    '/logo192.png',
+    '/logo512.png',
     '/icon.png',
     '/fonts/inter/Inter-Bold.ttf',
     '/fonts/inter/Inter-Medium.ttf',
     '/fonts/inter/Inter-Regular.ttf',
     '/fonts/inter/Inter-SemiBold.ttf',
     '/manifest.json',
+    '/manifest.webmanifest',
     '/image/default.png',
     '/image/iosblack.png',
     '/image/ioswhite.png',
@@ -22,8 +26,6 @@ const assetsExpanded = [
     '/image/x5.png',
     '/image/okey.png'
 ];
-
-const urlsToCache = [...baseFiles, ...assetsExpanded, ...assetsExpanded];
 
 self.addEventListener('install', (event) => {
     self.skipWaiting();
