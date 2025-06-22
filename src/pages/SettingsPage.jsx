@@ -132,8 +132,13 @@ const SettingsPage = () => {
             <a href="https://t.me/mego_RU" target="_blank" rel="noopener noreferrer" className="contact-link">
               t.me/mego_RU
             </a>
+            <br></br>
+            Почта:{" "}
+            <a href="mailto:contact@megoru.ru" target="_blank" className="contact-link">
+              contact@megoru.ru
+            </a>
           </p>
-          <p className="app-version">Версия приложения: {import.meta.env.VERSION || "N/A"}</p>
+          <p className="app-version">Версия: {import.meta.env.VERSION || "N/A"}</p>
           <p style={{ fontSize: '12px', color: 'gray' }}>
             Все логотипы и торговые марки принадлежат их владельцам.
             Сервис не связан с указанными магазинами и используется только в ознакомительных целях.
