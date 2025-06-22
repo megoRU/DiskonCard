@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addCardToStorage } from "../utils/localStorage";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {addCardToStorage} from "../utils/localStorage";
+import {imageUrlToBase64} from '../utils/imageUtils';
 import "./AddCardPage.css";
 import x5 from '/image/x5.png';
 import dixy from '/image/dixy.png';
@@ -9,9 +10,14 @@ import magnit from '/image/magnit.png';
 import metro from '/image/metro.png';
 import okey from '/image/okey.png';
 import lenta from '/image/lenta.png';
-import { imageUrlToBase64 } from '../utils/imageUtils';
+import kb from '/image/kb.png';
+import ashan from '/image/ashan.png';
+import vkysvill from '/image/vkysvill.png';
 
-const popularStores = ["Магнит", "X5", "Дикси", "Окей", "Лента", "FixPrice", "METRO"];
+const popularStores = [
+    "Магнит", "X5", "Дикси", "Окей", "Лента", "FixPrice",
+    "METRO", "Красное&Белое", "Ашан", "ВкусВилл"
+];
 
 const AddCardPage = () => {
     const [storeName, setStoreName] = useState("");
@@ -28,6 +34,7 @@ const AddCardPage = () => {
 
         const updateImageData = async (imageUrl) => {
             try {
+                console.log(imageUrl);
                 const base64Data = await imageUrlToBase64(imageUrl);
                 setImageBase64(base64Data);
             } catch (error) {
@@ -66,6 +73,18 @@ const AddCardPage = () => {
             case "METRO":
                 setCoverImage(metro);
                 updateImageData(metro);
+                break;
+            case "Ашан":
+                setCoverImage(ashan);
+                updateImageData(ashan);
+                break;
+            case "Красное&Белое":
+                setCoverImage(kb);
+                updateImageData(kb);
+                break;
+            case "ВкусВилл":
+                setCoverImage(vkysvill);
+                updateImageData(vkysvill);
                 break;
             default:
                 setImageBase64(null);
@@ -122,7 +141,7 @@ const AddCardPage = () => {
 
                 <datalist id="store-suggestions">
                     {popularStores.map((store, i) => (
-                        <option key={i} value={store} />
+                        <option key={i} value={store}/>
                     ))}
                 </datalist>
 

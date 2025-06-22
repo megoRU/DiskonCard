@@ -1,13 +1,15 @@
 import React, {useEffect, useRef} from "react";
 import JsBarcode from "jsbarcode";
-import { QRCodeSVG } from "qrcode.react";
-import { FiX } from "react-icons/fi";
+import {QRCodeSVG} from "qrcode.react";
+import {FiX} from "react-icons/fi";
 import "./BarcodeModal.css";
 
-const BarcodeModal = ({ cardData, onClose }) => {
+const BarcodeModal = ({cardData, onClose}) => {
   const barcodeRef = useRef(null);
-  const isQrCode =
-    cardData && cardData.cardNumber && cardData.cardNumber.startsWith("E"); // Simple check for QR
+  console.log(cardData)
+
+  const isQrCode = cardData && cardData.storeName
+      && (cardData.storeName === ("Магнит") || cardData.storeName === ("Ашан")); // Simple check for QR
 
   useEffect(() => {
     if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) {
@@ -36,41 +38,41 @@ const BarcodeModal = ({ cardData, onClose }) => {
   }
 
   return (
-    <div className="barcode-modal-backdrop" onClick={onClose}>
-      <div
-        className="barcode-modal-content"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          className="barcode-modal-close-btn"
-          onClick={onClose}
-          aria-label="Закрыть просмотр штрих-кода"
+      <div className="barcode-modal-backdrop" onClick={onClose}>
+        <div
+            className="barcode-modal-content"
+            onClick={(e) => e.stopPropagation()}
         >
-          <FiX />
-        </button>
-        <h2 className="barcode-modal-store-name">{cardData.storeName}</h2>
-        <div className="barcode-graphic-container">
-          {" "}
-          {/* Added a container for centering */}
-          {isQrCode ? (
-            <QRCodeSVG
-              value={cardData.cardNumber}
-              size={180} // Adjusted size
-              bgColor={"#ffffff"}
-              fgColor={"#000000"}
-              level={"L"} // Error correction level
-              className="qr-code-svg" // Added class for potential styling
-            />
-          ) : (
-            <svg ref={barcodeRef} className="barcode-svg"></svg>
-          )}
+          <button
+              className="barcode-modal-close-btn"
+              onClick={onClose}
+              aria-label="Закрыть просмотр штрих-кода"
+          >
+            <FiX/>
+          </button>
+          <h2 className="barcode-modal-store-name">{cardData.storeName}</h2>
+          <div className="barcode-graphic-container">
+            {" "}
+            {/* Added a container for centering */}
+            {isQrCode ? (
+                <QRCodeSVG
+                    value={cardData.cardNumber}
+                    size={180} // Adjusted size
+                    bgColor={"#ffffff"}
+                    fgColor={"#000000"}
+                    level={"L"} // Error correction level
+                    className="qr-code-svg" // Added class for potential styling
+                />
+            ) : (
+                <svg ref={barcodeRef} className="barcode-svg"></svg>
+            )}
+          </div>
+          {/* Manually display card number for both QR and Barcode for consistency */}
+          <p className="barcode-modal-card-number-display">
+            {cardData.cardNumber}
+          </p>
         </div>
-        {/* Manually display card number for both QR and Barcode for consistency */}
-        <p className="barcode-modal-card-number-display">
-          {cardData.cardNumber}
-        </p>
       </div>
-    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.9.4';
+const CACHE_NAME = '1.9.5';
 
 const urlsToCache = [
     '/',
@@ -24,7 +24,10 @@ const urlsToCache = [
     '/image/magnit.png',
     '/image/metro.png',
     '/image/x5.png',
-    '/image/okey.png'
+    '/image/okey.png',
+    '/image/kb.png',
+    '/image/ashan.png',
+    '/image/vkysvill.png'
 ];
 
 self.addEventListener('install', (event) => {
