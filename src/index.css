@@ -117,7 +117,7 @@ a:hover {
 
 @media (max-width: 1920px) {
 
-  body {
+  .content {
     background-color: var(--background-secondary);
   }
 
