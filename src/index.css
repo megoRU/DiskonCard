@@ -61,7 +61,7 @@
 /* Define dark theme variables */
 [data-theme="dark"] {
   --background-primary: #000000;
-  --background-secondary: #1c1c1e; /* iOS dark mode card/modal background */
+  --background-secondary: #1f1d1d; /* iOS dark mode card/modal background */
   --text-primary: #ffffff;
   --text-secondary: #8d8d93; /* Softer secondary text for dark mode */
   --primary-color: #0a84ff; /* iOS Blue for dark mode */
@@ -97,16 +97,6 @@ body {
   -webkit-touch-callout: none;
 }
 
-/*html.dark header {*/
-/*  background-color: black;*/
-/*  color: white;*/
-/*}*/
-
-/*html.light header {*/
-/*  background-color: white;*/
-/*  color: black;*/
-/*}*/
-
 code {
   font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -123,4 +113,12 @@ a:hover {
 *:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+}
+
+@media (max-width: 1920px) {
+
+  body {
+    background-color: var(--background-secondary);
+  }
+
 }

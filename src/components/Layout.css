@@ -1,94 +1,107 @@
 .layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure layout takes full viewport height */
-  padding-top: env(safe-area-inset-top); /* For iOS notches */
-  padding-bottom: env(safe-area-inset-bottom); /* For iOS bottom bar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure layout takes full viewport height */
+    padding-top: env(safe-area-inset-top); /* For iOS notches */
+    padding-bottom: env(safe-area-inset-bottom); /* For iOS bottom bar */
 }
 
 .content {
-  flex-grow: 1;
-  /* Adjusted padding-bottom to account for new nav height + safe area */
-  padding-bottom: calc(65px + env(safe-area-inset-bottom, 0px) + 10px);
-  background-color: var(--background-primary);
-  color: var(--text-primary);
-  overflow-y: auto; /* Allow content to scroll */
+    flex-grow: 1;
+    /* Adjusted padding-bottom to account for new nav height + safe area */
+    padding-bottom: calc(65px + env(safe-area-inset-bottom, 0px) + 10px);
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    overflow-y: auto; /* Allow content to scroll */
 }
 
 .bottom-nav {
-  position: fixed;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-  height: calc(65px + env(safe-area-inset-bottom, 0px)); /* Adjust height + safe area */
-  background-color: var(--nav-background);
-  backdrop-filter: blur(10px); /* iOS-like blur effect */
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-around;
-  align-items: center; /* Changed from flex-start to center */
-  border-top: 0.5px solid var(--border-color); /* Thinner border like iOS */
-  padding: 5px 10px calc(0.4rem + env(safe-area-inset-bottom, 0px)) 10px; /* Ensure 0.4rem base padding + safe area */
-  box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+    position: fixed;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: calc(65px + env(safe-area-inset-bottom, 0px)); /* Adjust height + safe area */
+    background-color: var(--nav-background);
+    backdrop-filter: blur(10px); /* iOS-like blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center; /* Changed from flex-start to center */
+    border-top: 0.5px solid var(--border-color); /* Thinner border like iOS */
+    padding: 5px 10px calc(0.4rem + env(safe-area-inset-bottom, 0px)) 10px; /* Ensure 0.4rem base padding + safe area */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Center icon and text */
-  text-decoration: none;
-  color: var(--nav-text);
-  font-size: 10px; /* Smaller font size like iOS tab bar */
-  font-weight: 500;
-  flex-grow: 1; /* Allow items to take equal space */
-  height: 100%; /* Fill the height of the nav bar */
-  /* padding-top: 8px; Removed as align-items:center on parent and justify-content:center here should handle it */
-  transition: color 0.2s ease-in-out;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* Internet Explorer/Edge */
-  user-select: none;         /* Standard */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center icon and text */
+    text-decoration: none;
+    color: var(--nav-text);
+    font-size: 10px; /* Smaller font size like iOS tab bar */
+    font-weight: 500;
+    flex-grow: 1; /* Allow items to take equal space */
+    height: 100%; /* Fill the height of the nav bar */
+    /* padding-top: 8px; Removed as align-items:center on parent and justify-content:center here should handle it */
+    transition: color 0.2s ease-in-out;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Standard */
 }
 
 .nav-item.active { /* Add active class handling in Layout.js if not already there */
-  color: var(--nav-active-text);
+    color: var(--nav-active-text);
 }
 
 .nav-item svg {
-  font-size: 22px; /* Adjusted icon size */
-  margin-bottom: 3px; /* Space between icon and text */
+    font-size: 22px; /* Adjusted icon size */
+    margin-bottom: 3px; /* Space between icon and text */
 }
 
 .add-card-button {
-  margin-top: -5px; /* Elevate the button slightly */
-  background-color: var(--primary-color);
-  color: var(--button-primary-text);
-  border-radius: 50%; /* Circular button */
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  z-index: 1; /* Ensure it's above other nav items if overlapping */
-  flex-grow: 0; /* Don't let it grow like other items */
-  flex-shrink: 0;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+    margin-top: -5px; /* Elevate the button slightly */
+    background-color: var(--primary-color);
+    color: var(--button-primary-text);
+    border-radius: 50%; /* Circular button */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    z-index: 1; /* Ensure it's above other nav items if overlapping */
+    flex-grow: 0; /* Don't let it grow like other items */
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
 }
 
 .add-card-button.edit-mode-active {
-  background-color: var(--error-color, #ff3b30); /* iOS red for destructive/cancel actions */
-  color: #ffffff; /* White icon for red background */
-  box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
+    background-color: var(--error-color, #ff3b30); /* iOS red for destructive/cancel actions */
+    color: #ffffff; /* White icon for red background */
+    box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
 }
 
 .add-card-button svg {
-  font-size: 28px;
-  margin-bottom: 0; /* No margin needed as it's centered */
+    font-size: 28px;
+    margin-bottom: 0; /* No margin needed as it's centered */
 }
 
 /* Adjust other nav items to make space if add-card-button is significantly larger */
 .nav-item:not(.add-card-button) {
-  min-width: 0; /* Allow shrinking */
+    min-width: 0; /* Allow shrinking */
+}
+
+@media (max-width: 1920px) {
+    .layout {
+
+        margin: 0 auto;
+        max-width: 54.9vh;
+    }
+
+    .bottom-nav {
+        max-width: 55vh;
+        margin: 0 auto;
+    }
 }
