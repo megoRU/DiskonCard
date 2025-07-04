@@ -2,7 +2,6 @@ import React, { useContext, useState, useCallback } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { getCardsFromStorage, saveCardsToStorage } from "../utils/localStorage";
 import WhatsNewPopup from "../components/WhatsNewPopup";
-import IOSInstallInstruction from "../components/IOSInstallInstruction";
 import "./SettingsPage.css";
 import PrivacyPolicy from "../components/PrivacyPolicy";
 
@@ -118,8 +117,6 @@ const SettingsPage = () => {
             <button className="data-button" onClick={handleImportCards}>Импорт карт</button>
           </div>
         </section>
-
-        <IOSInstallInstruction />
 
         <section className="app-info-section">
           <h4>О приложении</h4>

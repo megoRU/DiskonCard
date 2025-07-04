@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import AddCardPage from "./pages/AddCardPage.jsx";
 import "./App.css";
+import '@khmyznikov/pwa-install';
 
 function App() {
     const [isEditMode, setIsEditMode] = useState(false);
@@ -13,7 +14,13 @@ function App() {
     return (
         <ThemeProvider>
             <Router>
+                <pwa-install
+                    description="Сервис для удобного хранения бонусных карт"
+                    manifest-url="/manifest.json"
+                    icon="/icon.png">
+                </pwa-install>
                 <Routes>
+
                     <Route
                         path="/"
                         element={
