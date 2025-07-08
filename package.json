@@ -1,6 +1,6 @@
 {
   "name": "diskoncard",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "dependencies": {
     "@hello-pangea/dnd": "^16.6.0",
@@ -20,7 +20,8 @@
     "react-router-dom": "^7.6.2",
     "use-long-press": "^3.3.0",
     "vite-plugin-pwa": "^1.0.0",
-    "web-vitals": "^3.3.1"
+    "web-vitals": "^3.3.1",
+    "workbox-precaching": "^7.3.0"
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",

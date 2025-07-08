@@ -1,10 +1,11 @@
-const CACHE_NAME = '2.0.1';
+import { precacheAndRoute } from 'workbox-precaching';
+
+// Автоматически подставляемый список файлов сборки
+precacheAndRoute(self.__WB_MANIFEST);
+
+const CACHE_NAME = '2.0.2';
 
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/static/js/main.chunk.js',
-    '/static/css/main.chunk.css',
     '/favicon.ico',
     '/logo192.png',
     '/logo512.png',
@@ -27,9 +28,10 @@ const urlsToCache = [
     '/image/okey.png',
     '/image/kb.png',
     '/image/ashan.png',
-    '/image/vkysvill.png'
+    '/image/vkysvill.png',
 ];
 
+// Установка: кэшируем дополнительные ресурсы (не входящие в __WB_MANIFEST)
 self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
@@ -37,6 +39,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
+// Активация: очищаем старые кэши
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) =>
@@ -49,16 +52,18 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+// Перехват запросов
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
 
     event.respondWith(
         caches.match(event.request).then((response) => {
-            return response || fetch(event.request).catch(() => {
-                if (event.request.destination === 'document') {
-                    return caches.match('/index.html');
-                }
-            });
+            return (response || fetch(event.request).catch(() => {
+                    if (event.request.destination === 'document') {
+                        return caches.match('/index.html');
+                    }
+                })
+            );
         })
     );
 });
