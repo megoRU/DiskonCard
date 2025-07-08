@@ -1,19 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
-import { version } from './package.json';
 
 export default defineConfig({
-  define: {
-    'import.meta.env.VERSION': JSON.stringify(version),
-  },
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      injectManifest: {
-        swSrc: 'src/service-worker.js',
-      },
+      includeAssets: [
+        'favicon.ico',
+        'icon.png',
+        'logo192.png',
+        'fonts/inter/*.ttf',
+        'image/*.png'
+      ],
       manifest: {
         name: 'DiskonCard',
         short_name: 'DiskonCard',
@@ -24,7 +24,7 @@ export default defineConfig({
         lang: 'ru-RU',
         icons: [
           {
-            src: 'icons/icon-192x192.png',
+            src: 'logo192.png',
             sizes: '192x192',
             type: 'image/png',
           },
@@ -32,6 +32,23 @@ export default defineConfig({
             src: 'icon.png',
             sizes: '512x512',
             type: 'image/png',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,ttf,woff2,webmanifest,json,txt}'],
+        navigateFallback: '/index.html',
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/diskoncard\.megoru\.ru\/.*$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'http-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
           },
         ],
       },
