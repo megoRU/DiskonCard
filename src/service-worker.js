@@ -1,9 +1,12 @@
 import { precacheAndRoute } from 'workbox-precaching';
 
 // Автоматически подставляемый список файлов сборки
-precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST.concat([
+    { url: '/', revision: null },
+    { url: '/index.html', revision: null },
+]));
 
-const CACHE_NAME = '2.0.2';
+const CACHE_NAME = '2.0.3';
 
 const urlsToCache = [
     '/favicon.ico',
