@@ -16,6 +16,7 @@ const WhatsNewPopup = ({onClose}) => {
           <h2>Что нового</h2>
           <div className="whats-new-popup-content">
             <ul className="whats-new-list">
+              <li><strong>2.0.0</strong> — Добавили новую иконку приложения</li>
               <li><strong>1.9.6</strong> — Добавили больше карт магазинов</li>
               <li><strong>1.8.4</strong> — Добавили прокрутку для изменений</li>
               <li><strong>1.8.3</strong> — Доработали обновление для iOS</li>
