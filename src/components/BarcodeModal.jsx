@@ -4,6 +4,11 @@ import {QRCodeSVG} from "qrcode.react";
 import {FiX} from "react-icons/fi";
 import "./BarcodeModal.css";
 
+const getBarcodeFormat = (storeName) => {
+  if (storeName === "Лента") return "CODE128";
+  return "EAN13"; // По умолчанию для остальных
+};
+
 const BarcodeModal = ({cardData, onClose}) => {
   const barcodeRef = useRef(null);
   console.log(cardData)
@@ -16,7 +21,7 @@ const BarcodeModal = ({cardData, onClose}) => {
       // Only run JsBarcode if not QR
       try {
         JsBarcode(barcodeRef.current, cardData.cardNumber, {
-          format: "CODE128",
+          format: getBarcodeFormat(cardData.storeName),
           lineColor: "var(--barcode-color, #000000)",
           background: "var(--barcode-background, #ffffff)",
           width: 3,
