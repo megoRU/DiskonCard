@@ -135,7 +135,7 @@ const SettingsPage = () => {
               contact@megoru.ru
             </a>
           </p>
-          <p className="app-version">Версия: 2.0.4</p>
+          <p className="app-version">Версия: 2.0.5</p>
           <p style={{ fontSize: '12px', color: 'gray' }}>
             Все логотипы и торговые марки принадлежат их владельцам.
             Сервис не связан с указанными магазинами и используется только в ознакомительных целях.

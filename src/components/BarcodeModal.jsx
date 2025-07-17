@@ -1,78 +1,83 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import JsBarcode from "jsbarcode";
-import {QRCodeSVG} from "qrcode.react";
-import {FiX} from "react-icons/fi";
+import { QRCodeSVG } from "qrcode.react";
+import { FiX } from "react-icons/fi";
 import "./BarcodeModal.css";
 
-const getBarcodeFormat = (storeName) => {
-  if (storeName === "Лента") return "CODE128";
-  return "EAN13"; // По умолчанию для остальных
+// Проверка контрольной суммы EAN-13
+const isValidEAN13 = (code) => {
+  if (!/^\d{13}$/.test(code)) return false;
+  const digits = code.split("").map(Number);
+  const checkSum =
+      digits
+          .slice(0, 12)
+          .reduce((sum, digit, i) => sum + digit * (i % 2 === 0 ? 1 : 3), 0);
+  const checkDigit = (10 - (checkSum % 10)) % 10;
+  return checkDigit === digits[12];
 };
 
-const BarcodeModal = ({cardData, onClose}) => {
-  const barcodeRef = useRef(null);
-  console.log(cardData)
+const getBarcodeFormat = (storeName, cardNumber) => {
+  if (storeName === "Лента") return "CODE128";
+  if (/^\d{13}$/.test(cardNumber) && isValidEAN13(cardNumber)) {
+    return "EAN13";
+  }
+  return "CODE128";
+};
 
-  const isQrCode = cardData && cardData.storeName
-      && (cardData.storeName === ("Магнит") || cardData.storeName === ("Ашан")); // Simple check for QR
+const BarcodeModal = ({ cardData, onClose }) => {
+  const barcodeRef = useRef(null);
+
+  const isQrCode =
+      cardData?.storeName === "Магнит" || cardData?.storeName === "Ашан";
 
   useEffect(() => {
-    if (cardData && cardData.cardNumber && barcodeRef.current && !isQrCode) {
-      // Only run JsBarcode if not QR
+    if (cardData?.cardNumber && barcodeRef.current && !isQrCode) {
       try {
         JsBarcode(barcodeRef.current, cardData.cardNumber, {
-          format: getBarcodeFormat(cardData.storeName),
+          format: getBarcodeFormat(cardData.storeName, cardData.cardNumber),
           lineColor: "var(--barcode-color, #000000)",
           background: "var(--barcode-background, #ffffff)",
           width: 3,
           height: 100,
-          displayValue: false, // Set to false, we'll display value manually for consistency
-          margin: 10,
+          displayValue: false,
+          margin: 2,
           fontOptions: "bold",
           font: "Inter, sans-serif",
           fontSize: 16,
+          flat: true
         });
       } catch (e) {
         console.error("JsBarcode error:", e);
       }
     }
-  }, [cardData, isQrCode]); // Add isQrCode to dependency array
-
-  if (!cardData) {
-    return null;
-  }
+  }, [cardData, isQrCode]);
+  if (!cardData) return null;
 
   return (
       <div className="barcode-modal-backdrop" onClick={onClose}>
-        <div
-            className="barcode-modal-content"
-            onClick={(e) => e.stopPropagation()}
-        >
+        <div className="barcode-modal-content" onClick={(e) => e.stopPropagation()}>
           <button
               className="barcode-modal-close-btn"
               onClick={onClose}
               aria-label="Закрыть просмотр штрих-кода"
           >
-            <FiX/>
+            <FiX />
           </button>
           <h2 className="barcode-modal-store-name">{cardData.storeName}</h2>
           <div className="barcode-graphic-container">
-            {" "}
-            {/* Added a container for centering */}
             {isQrCode ? (
                 <QRCodeSVG
                     value={cardData.cardNumber}
-                    size={180} // Adjusted size
-                    bgColor={"#ffffff"}
-                    fgColor={"#000000"}
-                    level={"L"} // Error correction level
-                    className="qr-code-svg" // Added class for potential styling
+                    size={180}
+                    bgColor="#ffffff"
+                    fgColor="#000000"
+                    level="L"
+                    className="qr-code-svg"
                 />
             ) : (
                 <svg ref={barcodeRef} className="barcode-svg"></svg>
             )}
           </div>
-          {/* Manually display card number for both QR and Barcode for consistency */}
           <p className="barcode-modal-card-number-display">
             {cardData.cardNumber}
           </p>
