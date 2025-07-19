@@ -16,6 +16,7 @@ const WhatsNewPopup = ({onClose}) => {
           <h2>Что нового</h2>
           <div className="whats-new-popup-content">
             <ul className="whats-new-list">
+              <li><strong>2.0.6</strong> — Правки офлайн режима.</li>
               <li><strong>2.0.5</strong> — Добавили поддержку EAN-13 где это можно.</li>
               <li><strong>2.0.0</strong> — Добавили новую иконку приложения</li>
               <li><strong>1.9.6</strong> — Добавили больше карт магазинов</li>

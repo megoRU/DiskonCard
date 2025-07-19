@@ -5,13 +5,16 @@ import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals";
 import { registerSW } from 'virtual:pwa-register';
 
-registerSW({
-    immediate: true,
+// add this to prompt for a refresh
+const updateSW = registerSW({
     onNeedRefresh() {
-        // можно уведомить пользователя
+        if (confirm("Новое обновление доступно. Обновить?")) {
+            let promise = updateSW(true);
+            console.log(promise);
+        }
     },
     onOfflineReady() {
-        console.log('App ready to work offline');
+        console.log("offline ready");
     },
 });
 
