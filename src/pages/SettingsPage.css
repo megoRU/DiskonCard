@@ -89,8 +89,9 @@
   text-align: center;
 }
 
-/* Data Management Section Styles */
-.data-management-section {
+/* Data Management & App Update Section Styles */
+.data-management-section,
+.app-update-section {
   background-color: var(--background-secondary);
   padding: 16px;
   border-radius: 12px;
@@ -98,6 +99,38 @@
   max-width: 500px;
   margin: 24px auto; /* Adjusted margin for spacing */
   text-align: center;
+}
+
+.app-update-section h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.update-button {
+  width: 100%;
+  font-weight: 600;
+  background-color: var(--primary-color);
+  color: var(--button-primary-text-color, #ffffff);
+  border: none;
+}
+
+.update-button:hover:not(:disabled) {
+  background-color: var(--primary-color-dark);
+}
+
+.update-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ios-update-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 .data-management-section h2 {
