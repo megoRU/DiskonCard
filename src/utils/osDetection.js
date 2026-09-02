@@ -3,24 +3,22 @@ export const isIOS = () => {
     return false;
   }
 
-  let platformCheck = false;
-  // navigator.platform может отсутствовать в некоторых окружениях или быть пустым.
-  if (typeof navigator.platform === 'string' && navigator.platform.length > 0) {
-    platformCheck = [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod',
-    ].includes(navigator.platform);
-  }
+  const userAgent = navigator.userAgent || '';
+  const platform = navigator.platform || '';
+  const maxTouchPoints = navigator.maxTouchPoints || 0;
 
-  let userAgentCheck = false;
-  // navigator.userAgent может отсутствовать или быть пустым.
-  if (typeof navigator.userAgent === 'string' && navigator.userAgent.length > 0) {
-    userAgentCheck = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  }
+  const isIosUserAgent = /iPad|iPhone|iPod/.test(userAgent);
+  const isIosPlatform = [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod',
+  ].includes(platform);
 
-  return platformCheck || userAgentCheck;
+  // iPad on iOS 13+ reports platform as 'MacIntel' but maxTouchPoints > 1
+  const isIPadOS = platform === 'MacIntel' && maxTouchPoints > 1;
+
+  return isIosUserAgent || isIosPlatform || isIPadOS;
 };

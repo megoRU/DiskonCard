@@ -82,6 +82,12 @@
   border: 1px dashed var(--primary-color); /* Softened the border */
   position: relative;
   animation: jiggle 0.3s ease-in-out infinite alternate; /* Added jiggle animation */
+  touch-action: none; /* Prevents scroll interference while dragging on touch devices */
+  cursor: grab;
+}
+
+.card-item-edit-mode:active {
+  cursor: grabbing;
 }
 
 @keyframes jiggle {
@@ -94,9 +100,26 @@
 }
 
 .card-item-dragging {
-  opacity: 0.8;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; /* More pronounced shadow */
-  transform: scale(1.03); /* Slightly larger when dragging */
+  opacity: 0.95;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important; /* More pronounced shadow */
+  transform: scale(1.05); /* Slightly larger when dragging */
+  cursor: grabbing;
+  z-index: 1000;
+}
+
+.card-preview-title {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .delete-card-btn {
